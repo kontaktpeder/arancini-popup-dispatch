@@ -21,7 +21,7 @@ function Index() {
   return (
     <main className="min-h-screen bg-background">
       {/* POSTER */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-between px-4 pt-4 pb-10 md:pt-6 md:pb-14">
+      <section className="relative flex flex-col items-center px-4 pt-2 pb-16 md:pt-3 md:pb-20">
         <img
           src={wordmark}
           alt="Arancini"
@@ -31,7 +31,7 @@ function Index() {
         <img
           src={arancini}
           alt="Arancini på krøllet papir"
-          className="my-8 w-[88vw] max-w-[720px] object-contain"
+          className="-mt-4 mb-6 w-[88vw] max-w-[720px] object-contain"
           width={1500}
           height={1000}
         />
