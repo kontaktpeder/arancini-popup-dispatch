@@ -7,10 +7,10 @@ export const Route = createFileRoute("/")({
       { title: "Arancini — Siciliansk streetfood" },
       {
         name: "description",
-        content: "Sprø utenpå. Varm inni. Neste popup fredag.",
+        content: "Sprø utenpå. Myk inni. Neste popup tirsdag 26. mai.",
       },
       { property: "og:title", content: "Arancini" },
-      { property: "og:description", content: "Sprø utenpå. Varm inni." },
+      { property: "og:description", content: "Sprø utenpå. Myk inni." },
     ],
   }),
   component: Index,
@@ -18,11 +18,18 @@ export const Route = createFileRoute("/")({
 
 function ArchedLogo({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 500 130" className={className} aria-label="Arancini" role="img">
+    <svg
+      viewBox="0 0 520 150"
+      className={className}
+      aria-label="Arancini"
+      role="img"
+      preserveAspectRatio="xMidYMid meet"
+      overflow="visible"
+    >
       <defs>
-        <path id="arc" d="M 30,110 A 240,200 0 0 1 470,110" fill="none" />
+        <path id="arc" d="M 30,130 A 240,200 0 0 1 490,130" fill="none" />
       </defs>
-      <text className="arched fill-foreground" fontSize="56">
+      <text className="arched fill-foreground" fontSize="54">
         <textPath href="#arc" startOffset="50%" textAnchor="middle">
           ARANCINI
         </textPath>
@@ -35,13 +42,13 @@ function Index() {
   return (
     <main className="min-h-screen bg-background">
       {/* POSTER */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-between px-6 py-10 md:py-14">
-        <ArchedLogo className="w-[78vw] max-w-[640px]" />
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-between px-6 pt-14 pb-10 md:pt-20 md:pb-14">
+        <ArchedLogo className="w-[72vw] max-w-[560px]" />
 
         <img
           src={arancini}
           alt="Arancini på krøllet papir"
-          className="my-6 w-[88vw] max-w-[720px] object-contain"
+          className="my-8 w-[88vw] max-w-[720px] object-contain"
           width={1500}
           height={1000}
         />
@@ -50,11 +57,11 @@ function Index() {
           <p className="font-display text-[clamp(2rem,6vw,3.5rem)] leading-[1] tracking-tight">
             Sprø utenpå.
           </p>
-          <p className="mt-1 font-display text-[clamp(2rem,6vw,3.5rem)] italic leading-[1] tracking-tight">
-            Varm inni.
+          <p className="mt-2 font-display text-[clamp(2rem,6vw,3.5rem)] italic leading-[1] tracking-tight">
+            Myk inni.
           </p>
           <p className="mt-6 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground">
-            Siciliansk streetfood · Oslo
+            Italienske risballer med fyll
           </p>
         </div>
       </section>
@@ -63,10 +70,10 @@ function Index() {
       <section className="border-t border-foreground/15 bg-background px-6 py-24 text-center md:py-32">
         <p className="eyebrow">Neste popup</p>
         <p className="mt-8 font-display text-[clamp(2.5rem,8vw,5rem)] leading-[1]">
-          Fredag 30. mai
+          Tirsdag 26. mai
         </p>
         <p className="mt-6 font-display text-lg italic text-muted-foreground md:text-xl">
-          Grünerløkka · 18:00
+          18–20 · Sigurds gate 7
         </p>
         <p className="mt-10 text-sm text-muted-foreground">
           Når batchen er tom, er den tom.
