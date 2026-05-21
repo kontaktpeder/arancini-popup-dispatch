@@ -32,7 +32,16 @@ function Index() {
           address: "18–20 · Sigurds gate 7",
           scarcity: "Når batchen er tom, er den tom.",
           follow: "Følg på Instagram",
+          countdownTarget: "2026-05-26T16:00:00Z",
+          countdownLabels: {
+            days: "Dager",
+            hours: "Timer",
+            minutes: "Min",
+            seconds: "Sek",
+            live: "Vi er i gang — kom innom!",
+          },
         }}
+
       />
     </main>
   );

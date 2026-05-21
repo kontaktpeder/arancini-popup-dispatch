@@ -1,5 +1,6 @@
 import arancini from "@/assets/arancini-watercolor.png";
 import wordmark from "@/assets/arancini-wordmark.png";
+import { Countdown } from "@/components/countdown";
 
 type Copy = {
   altArancini: string;
@@ -11,7 +12,16 @@ type Copy = {
   address: string;
   scarcity: string;
   follow: string;
+  countdownTarget: string;
+  countdownLabels: {
+    days: string;
+    hours: string;
+    minutes: string;
+    seconds: string;
+    live: string;
+  };
 };
+
 
 export function Poster({ copy }: { copy: Copy }) {
   return (
@@ -49,6 +59,8 @@ export function Poster({ copy }: { copy: Copy }) {
         <p className="mt-8 font-display text-[clamp(2.5rem,8vw,5rem)] leading-[1]">
           {copy.date}
         </p>
+        <Countdown target={copy.countdownTarget} labels={copy.countdownLabels} />
+
         <a
           href="https://www.google.com/maps/search/?api=1&query=Sigurds+gate+7%2C+Oslo"
           onClick={(e) => {
