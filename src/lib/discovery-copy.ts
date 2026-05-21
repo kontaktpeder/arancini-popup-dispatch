@@ -33,9 +33,8 @@ export type DiscoveryCopy = {
 
 export const DISCOVERY_NO: DiscoveryCopy = {
   heroIntro: {
-    eyebrow: "Popup streetfood",
-    body:
-      "Sicilianske risballer — sprø skorpe, varm ris, fyll fra Palermo. Små batcher, én kveld av gangen.",
+    eyebrow: "",
+    body: "Fra gatene i Palermo til Oslo.",
   },
   editorial: {
     eyebrow: "Fra gatene i Palermo",
