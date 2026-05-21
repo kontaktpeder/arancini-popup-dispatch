@@ -1,51 +1,45 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ContentPage } from "@/components/content-page";
-import { buildPageHead, PAGE_SEO } from "@/lib/seo";
+import { buildPageHead } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+import { getCmsPage } from "@/lib/cms/cms.functions";
+import type { AboutContent } from "@/lib/cms/types";
 
 export const Route = createFileRoute("/about")({
-  head: () => buildPageHead(PAGE_SEO["/about"]),
+  loader: () => getCmsPage({ data: "about" }),
+  head: ({ loaderData }) => {
+    const c = loaderData as AboutContent | undefined;
+    return buildPageHead({
+      title: c?.seo_title,
+      description: c?.seo_description,
+      path: "/about",
+    });
+  },
   component: AboutPage,
 });
 
 function AboutPage() {
+  const c = Route.useLoaderData() as AboutContent;
   return (
-    <ContentPage eyebrow="Om oss" title="Sicilia, i små batcher">
-      <p>
-        Gold of Sicily startet med et enkelt spørsmål: hvorfor finnes ikke ekte,
-        sicilianske arancini som gatekjøkken i Oslo — sprø, myke, med fyll som smaker
-        av noe — uten å bli en «italiensk restaurant»-opplevelse?
-      </p>
-
-      <p>
-        Vi er popup og streetfood: Dennis og teamet baker batcher når det er en dato og
-        et sted, ikke hver dag året rundt. Det betyr at du får det som er ferskt den
-        kvelden — og når batchen er tom, er den tom.
-      </p>
+    <ContentPage eyebrow={c.eyebrow} title={c.title}>
+      <p>{c.intro_1}</p>
+      <p>{c.intro_2}</p>
 
       <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-        Sicilia, ikke corporate
+        {c.section_1_heading}
       </h2>
-      <p>
-        Inspirasjonen kommer fra Palermo — lyden av friture, papir, folk som spiser
-        stående. Vi vil ikke skrive «we are passionate about food». Vi vil servere
-        arancini som føles ekte, fysisk og litt rå på kantene — som mote møter
-        gatekjøkken.
-      </p>
+      <p>{c.section_1_body}</p>
 
       <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-        Små batcher
+        {c.section_2_heading}
       </h2>
-      <p>
-        Mindre batch betyr bedre kontroll på ris, fyll og sprøhet. Det er også hvorfor
-        dette manglet: det skalerer ikke som en kjede, men det smaker bedre.
-      </p>
+      <p>{c.section_2_body}</p>
 
       <p>
-        <Link to="/next-popup">Neste popup →</Link>
+        <Link to="/next-popup">{c.cta_popup_label}</Link>
         {" · "}
         <a href={SITE.instagram} target="_blank" rel="noreferrer">
-          Instagram
+          {c.cta_instagram_label}
         </a>
       </p>
     </ContentPage>

@@ -1,47 +1,46 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ContentPage } from "@/components/content-page";
-import { buildPageHead, PAGE_SEO } from "@/lib/seo";
+import { buildPageHead } from "@/lib/seo";
+import { getCmsPage } from "@/lib/cms/cms.functions";
+import type { WhatIsAranciniContent } from "@/lib/cms/types";
 
 export const Route = createFileRoute("/what-is-arancini")({
-  head: () => buildPageHead(PAGE_SEO["/what-is-arancini"]),
+  loader: () => getCmsPage({ data: "what-is-arancini" }),
+  head: ({ loaderData }) => {
+    const c = loaderData as WhatIsAranciniContent | undefined;
+    return buildPageHead({
+      title: c?.seo_title,
+      description: c?.seo_description,
+      path: "/what-is-arancini",
+    });
+  },
   component: WhatIsAranciniPage,
 });
 
 function WhatIsAranciniPage() {
+  const c = Route.useLoaderData() as WhatIsAranciniContent;
   return (
-    <ContentPage eyebrow="Guide" title="Hva er arancini?">
-      <p>
-        Arancini er sicilianske risballer: ris som formes rundt et fyll, paneres og
-        stekes til en sprø skorpe. Inni skal det være mykt, smakrikt og litt «vått» på
-        den gode måten — som i gatene i Palermo, ikke som frossen snacks.
-      </p>
+    <ContentPage eyebrow={c.eyebrow} title={c.title}>
+      <p>{c.intro_1}</p>
 
       <p>
-        Navnet kommer av <em>arancina</em> — liten appelsin — fordi de klassiske,
-        runde variantene kan ligne en appelsin. I øst-Sicilia er de ofte spisse; i Oslo
-        møter du begge tradisjoner gjennom håndverk, ikke fabrikk.
+        {c.intro_2_before}
+        {c.intro_2_emphasis ? <em>{c.intro_2_emphasis}</em> : null}
+        {c.intro_2_after}
       </p>
 
       <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-        Arancini i Oslo
+        {c.section_1_heading}
       </h2>
-      <p>
-        Folk søker «arancini oslo», «sicilianske risballer» og «hva er arancini» fordi
-        de har smakt det et sted — eller nesten. Gold of Sicily er et popup-konsept:
-        små batcher, tydelig meny per kveld, og kvalitet før volum.
-      </p>
+      <p>{c.section_1_body}</p>
 
       <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-        Slik lager vi dem
+        {c.section_2_heading}
       </h2>
-      <p>
-        Ris som får tid, fyll med ragu, ost eller sesong, panering som tåler varme uten
-        å bli fett — og servering mens de fortsatt har tyngde og saft inni. Det er
-        gatekjøkken, ikke corporate restaurant-SEO.
-      </p>
+      <p>{c.section_2_body}</p>
 
       <p>
-        <Link to="/next-popup">Se neste popup →</Link>
+        <Link to="/next-popup">{c.cta_label}</Link>
       </p>
     </ContentPage>
   );

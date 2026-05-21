@@ -1,71 +1,77 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ContentPage } from "@/components/content-page";
-import { buildPageHead, buildPopupEventJsonLd, PAGE_SEO } from "@/lib/seo";
-import { CURRENT_POPUP, SITE } from "@/lib/site";
+import { buildPageHead, buildPopupEventJsonLd } from "@/lib/seo";
+import { SITE } from "@/lib/site";
+import { getCmsPage } from "@/lib/cms/cms.functions";
+import type { NextPopupContent } from "@/lib/cms/types";
 
 export const Route = createFileRoute("/next-popup")({
-  head: () => ({
-    ...buildPageHead(PAGE_SEO["/next-popup"]),
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(buildPopupEventJsonLd()),
-      },
-    ],
-  }),
+  loader: () => getCmsPage({ data: "next-popup" }),
+  head: ({ loaderData }) => {
+    const c = loaderData as NextPopupContent | undefined;
+    return {
+      ...buildPageHead({
+        title: c?.seo_title,
+        description: c?.seo_description,
+        path: "/next-popup",
+      }),
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(buildPopupEventJsonLd()),
+        },
+      ],
+    };
+  },
   component: NextPopupPage,
 });
 
 function NextPopupPage() {
+  const c = Route.useLoaderData() as NextPopupContent;
   return (
-    <ContentPage eyebrow="Neste popup" title="Sicilianske arancini i Oslo — én kveld, én batch">
+    <ContentPage eyebrow={c.eyebrow} title={c.title}>
       <p>
-        <strong>{CURRENT_POPUP.dateLabel} · {CURRENT_POPUP.timeLabel}</strong>
+        <strong>
+          {c.date_label} · {c.time_label}
+        </strong>
         <br />
-        {CURRENT_POPUP.addressFull}
+        {c.address_full}
       </p>
 
-      <p>
-        Vi popper opp med en liten batch håndlagde arancini — ikke en restaurant med fast
-        meny, men gatekjøkken fra Sicilia: sprø utenpå, myk inni, fyll som smaker av
-        Palermo.
-      </p>
+      <p>{c.intro_body}</p>
 
-      <p className="italic text-muted-foreground">{CURRENT_POPUP.scarcity}</p>
+      <p className="italic text-muted-foreground">{c.scarcity}</p>
 
-      <section className="mt-4">
-        <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-          Meny denne kvelden
-        </h2>
-        <ul className="mt-6 flex flex-col gap-5">
-          {CURRENT_POPUP.menu.map((item) => (
-            <li key={item.name}>
-              <strong className="font-display text-lg">{item.name}</strong>
-              <p className="text-foreground/75">{item.description}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {c.menu.length > 0 ? (
+        <section className="mt-4">
+          <h2 className="font-display text-2xl tracking-tight md:text-3xl">
+            {c.menu_heading}
+          </h2>
+          <ul className="mt-6 flex flex-col gap-5">
+            {c.menu.map((item, i) => (
+              <li key={`${item.name}-${i}`}>
+                <strong className="font-display text-lg">{item.name}</strong>
+                <p className="text-foreground/75">{item.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <p>
-        <a
-          href={CURRENT_POPUP.mapsUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Finn oss på kart →
+        <a href={c.maps_url} target="_blank" rel="noreferrer">
+          {c.cta_maps_label}
         </a>
       </p>
 
       <p>
         <a href={SITE.instagram} target="_blank" rel="noreferrer">
-          Følg {SITE.name} på Instagram
-        </a>{" "}
-        for neste drop og live-oppdateringer.
+          {c.cta_instagram_label}
+        </a>
       </p>
 
       <p>
-        <Link to="/what-is-arancini">Ny her? Les hva arancini er →</Link>
+        <Link to="/what-is-arancini">{c.cta_what_is_label}</Link>
       </p>
     </ContentPage>
   );

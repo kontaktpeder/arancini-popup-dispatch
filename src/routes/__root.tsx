@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { buildPageHead, LOCAL_BUSINESS_JSON_LD } from "@/lib/seo";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -120,6 +121,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster />
     </QueryClientProvider>
   );
 }
