@@ -21,33 +21,34 @@ function Index() {
   return (
     <main className="min-h-screen bg-background">
       {/* POSTER */}
-      <section className="relative flex flex-col items-center px-4 pt-2 pb-16 md:pt-3 md:pb-20">
+      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 pt-2 pb-16 md:pt-8 md:pb-24 lg:pt-12">
         <img
           src={wordmark}
           alt="Arancini"
-          className="w-[110vw] max-w-[1100px] object-contain"
+          className="w-[110vw] max-w-[1100px] object-contain md:w-full md:max-w-[820px] lg:max-w-[920px]"
         />
 
         <img
           src={arancini}
           alt="Arancini på krøllet papir"
-          className="-mt-4 mb-6 w-[88vw] max-w-[720px] object-contain"
+          className="-mt-4 mb-6 w-[88vw] max-w-[720px] object-contain md:-mt-8 md:mb-10 md:w-[60vw] md:max-w-[520px] lg:max-w-[560px]"
           width={1500}
           height={1000}
         />
 
         <div className="flex flex-col items-center text-center">
-          <p className="font-display text-[clamp(2rem,6vw,3.5rem)] leading-[1] tracking-tight">
+          <p className="font-display text-[clamp(2rem,6vw,4.5rem)] leading-[1] tracking-tight">
             Sprø utenpå.
           </p>
-          <p className="mt-2 font-display text-[clamp(2rem,6vw,3.5rem)] italic leading-[1] tracking-tight">
+          <p className="mt-2 font-display text-[clamp(2rem,6vw,4.5rem)] italic leading-[1] tracking-tight">
             Myk inni.
           </p>
-          <p className="mt-6 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground">
+          <p className="mt-6 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground md:mt-8 md:text-xs">
             Italienske risballer med fyll
           </p>
         </div>
       </section>
+
 
       {/* NESTE POPUP */}
       <section className="border-t border-foreground/15 bg-background px-6 py-24 text-center md:py-32">
