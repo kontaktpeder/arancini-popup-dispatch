@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import arancini from "@/assets/arancini-watercolor.png";
+import wordmark from "@/assets/arancini-wordmark.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,27 +17,16 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function ArchedLogo({ className = "" }: { className?: string }) {
+function Index() {
   return (
-    <svg
-      viewBox="0 0 520 150"
-      className={className}
-      aria-label="Arancini"
-      role="img"
-      preserveAspectRatio="xMidYMid meet"
-      overflow="visible"
-    >
-      <defs>
-        <path id="arc" d="M 30,130 A 240,200 0 0 1 490,130" fill="none" />
-      </defs>
-      <text className="arched fill-foreground" fontSize="54">
-        <textPath href="#arc" startOffset="50%" textAnchor="middle">
-          ARANCINI
-        </textPath>
-      </text>
-    </svg>
-  );
-}
+    <main className="min-h-screen bg-background">
+      {/* POSTER */}
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-between px-6 pt-10 pb-10 md:pt-14 md:pb-14">
+        <img
+          src={wordmark}
+          alt="Arancini"
+          className="w-[92vw] max-w-[820px] object-contain"
+        />
 
 function Index() {
   return (
