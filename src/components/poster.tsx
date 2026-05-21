@@ -26,20 +26,21 @@ type Copy = {
 export function Poster({ copy }: { copy: Copy }) {
   return (
     <>
-      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-6 pb-20 md:h-[100svh] md:max-h-[1100px] md:min-h-[640px] md:justify-center md:gap-2 md:px-4 md:py-6 md:pb-10">
+      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-2 pb-20 md:h-[100svh] md:max-h-[1100px] md:min-h-[640px] md:justify-center md:gap-2 md:px-4 md:py-6 md:pb-10">
         <img
           src={wordmark}
           alt="Gold of Sicily"
-          className="w-[96vw] max-w-[640px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
+          className="mx-auto w-[108vw] max-w-[760px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
         />
 
         <img
           src={arancini}
           alt={copy.altArancini}
-          className="mt-2 mb-8 w-[78vw] max-w-[560px] object-contain md:m-0 md:h-[42vh] md:w-auto md:max-w-[520px]"
+          className="mx-auto mt-2 mb-8 block w-[82vw] max-w-[560px] object-contain md:m-0 md:h-[42vh] md:w-auto md:max-w-[520px]"
           width={1500}
           height={1000}
         />
+
 
         <div className="flex flex-col items-center text-center">
           <p className="font-display text-[clamp(2rem,7vw,3.25rem)] leading-[1] tracking-tight md:text-[clamp(2rem,4.2vw,3.75rem)]">
