@@ -51,21 +51,24 @@ export function Countdown({
   ];
 
   return (
-    <div className="mt-8 flex justify-center gap-4 md:gap-8">
-      {items.map(([value, label]) => (
-        <div key={label} className="flex w-16 flex-col items-center md:w-24">
-          <span
-            suppressHydrationWarning
-            className="font-display text-[clamp(2rem,6vw,3.5rem)] leading-none tabular-nums [font-variant-numeric:tabular-nums]"
-          >
-            {value.toString().padStart(2, "0")}
-          </span>
-          <span className="mt-2 text-[0.6rem] uppercase tracking-[0.28em] text-muted-foreground md:text-[0.7rem]">
-            {label}
-          </span>
-        </div>
-      ))}
+    <div className="relative mt-10 w-screen left-1/2 -translate-x-1/2 bg-foreground text-background py-8 md:py-10">
+      <div className="mx-auto flex max-w-6xl justify-center gap-4 px-6 md:gap-8">
+        {items.map(([value, label]) => (
+          <div key={label} className="flex w-16 flex-col items-center md:w-24">
+            <span
+              suppressHydrationWarning
+              className="font-display text-[clamp(2rem,6vw,3.5rem)] leading-none tabular-nums [font-variant-numeric:tabular-nums]"
+            >
+              {value.toString().padStart(2, "0")}
+            </span>
+            <span className="mt-2 text-[0.6rem] uppercase tracking-[0.28em] text-background/60 md:text-[0.7rem]">
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
+
 
 }
