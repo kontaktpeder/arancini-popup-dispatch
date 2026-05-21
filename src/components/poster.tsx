@@ -1,5 +1,6 @@
 import arancini from "@/assets/arancini-watercolor.png";
 import wordmark from "@/assets/arancini-wordmark.png";
+import { Countdown } from "@/components/countdown";
 
 type Copy = {
   altArancini: string;
@@ -11,7 +12,16 @@ type Copy = {
   address: string;
   scarcity: string;
   follow: string;
+  countdownTarget: string;
+  countdownLabels: {
+    days: string;
+    hours: string;
+    minutes: string;
+    seconds: string;
+    live: string;
+  };
 };
+
 
 export function Poster({ copy }: { copy: Copy }) {
   return (
