@@ -48,7 +48,7 @@ export const saveCmsPage = createServerFn({ method: "POST" })
       .upsert(
         {
           slug: data.slug,
-          content: parsed as unknown as Record<string, unknown>,
+          content: JSON.parse(JSON.stringify(parsed)),
           updated_by: context.userId,
           updated_at: new Date().toISOString(),
         },
