@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CreditsLinks } from "@/components/credits-links";
+
 import { EditorialCards } from "@/components/editorial-cards";
 import { HeroIntro } from "@/components/hero-intro";
 import { LangSwitch } from "@/components/lang-switch";
