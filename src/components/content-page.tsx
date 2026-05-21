@@ -8,12 +8,6 @@ type ContentPageProps = {
   children: React.ReactNode;
 };
 
-const FOOTER_LINKS = [
-  { to: "/next-popup" as const, label: "Neste popup" },
-  { to: "/what-is-arancini" as const, label: "Hva er arancini?" },
-  { to: "/about" as const, label: "Om oss" },
-] as const;
-
 export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPageProps) {
   return (
     <main className="min-h-screen bg-background">
@@ -38,18 +32,6 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
         <div className="prose-gos mt-10 flex flex-col gap-6 text-base leading-relaxed text-foreground/85 md:text-lg">
           {children}
         </div>
-
-        <nav className="mt-16 flex flex-wrap gap-x-6 gap-y-3 border-t border-foreground/15 pt-8 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground">
-          {FOOTER_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="transition hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
       </article>
 
       <footer className="px-6 pb-10 pt-4 text-center text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">
@@ -58,3 +40,4 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
     </main>
   );
 }
+
