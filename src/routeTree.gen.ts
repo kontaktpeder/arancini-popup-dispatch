@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatIsAranciniRouteImport } from './routes/what-is-arancini'
 import { Route as NextPopupRouteImport } from './routes/next-popup'
 import { Route as EnRouteImport } from './routes/en'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
@@ -29,6 +30,11 @@ const EnRoute = EnRouteImport.update({
   path: '/en',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,12 +43,14 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/en': typeof EnRoute
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/en': typeof EnRoute
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/en': typeof EnRoute
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/en' | '/next-popup' | '/what-is-arancini'
+  fullPaths: '/' | '/about' | '/en' | '/next-popup' | '/what-is-arancini'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/en' | '/next-popup' | '/what-is-arancini'
-  id: '__root__' | '/' | '/en' | '/next-popup' | '/what-is-arancini'
+  to: '/' | '/about' | '/en' | '/next-popup' | '/what-is-arancini'
+  id: '__root__' | '/' | '/about' | '/en' | '/next-popup' | '/what-is-arancini'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   EnRoute: typeof EnRoute
   NextPopupRoute: typeof NextPopupRoute
   WhatIsAranciniRoute: typeof WhatIsAranciniRoute
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   EnRoute: EnRoute,
   NextPopupRoute: NextPopupRoute,
   WhatIsAranciniRoute: WhatIsAranciniRoute,
