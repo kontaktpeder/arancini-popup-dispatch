@@ -57,9 +57,21 @@ function Index() {
         <p className="mt-8 font-display text-[clamp(2.5rem,8vw,5rem)] leading-[1]">
           Tirsdag 26. mai
         </p>
-        <p className="mt-6 font-display text-lg italic text-muted-foreground md:text-xl">
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Sigurds+gate+7%2C+Oslo"
+          onClick={(e) => {
+            if (typeof navigator !== "undefined" && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)) {
+              e.preventDefault();
+              window.location.href = "maps://?q=Sigurds+gate+7,+Oslo";
+            }
+          }}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 inline-block font-display text-lg italic text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline md:text-xl"
+        >
           18–20 · Sigurds gate 7
-        </p>
+        </a>
+
         <p className="mt-10 text-sm text-muted-foreground">
           Når batchen er tom, er den tom.
         </p>
