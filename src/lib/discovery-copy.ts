@@ -75,9 +75,8 @@ export const DISCOVERY_NO: DiscoveryCopy = {
 
 export const DISCOVERY_EN: DiscoveryCopy = {
   heroIntro: {
-    eyebrow: "Popup streetfood",
-    body:
-      "Sicilian rice balls — crisp shell, warm rice, filling from Palermo. Small batches, one night at a time.",
+    eyebrow: "",
+    body: "From the streets of Palermo to Oslo.",
   },
   editorial: {
     eyebrow: "From the streets of Palermo",
