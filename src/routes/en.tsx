@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CreditsLinks } from "@/components/credits-links";
+
 import { EditorialCards } from "@/components/editorial-cards";
 import { HeroIntro } from "@/components/hero-intro";
 import { LangSwitch } from "@/components/lang-switch";
@@ -40,7 +40,7 @@ function IndexEn() {
           },
         }}
       />
-      <CreditsLinks copy={DISCOVERY_EN.credits} />
+      
       <EditorialCards copy={DISCOVERY_EN.editorial} />
       <SiteFooter copy={DISCOVERY_EN.footer} />
     </main>
