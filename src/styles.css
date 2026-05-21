@@ -171,4 +171,23 @@
   .prose-gos a:hover {
     opacity: 0.8;
   }
+
+  .credits-link {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: color-mix(in oklch, var(--color-foreground) 40%, transparent);
+    padding: 0.35rem 0.1rem;
+    transition: color 0.2s ease;
+  }
+  .credits-link:hover {
+    color: var(--color-foreground);
+  }
+  .credits-link span[aria-hidden] {
+    opacity: 0.6;
+    margin-left: 0.15em;
+  }
+
 }

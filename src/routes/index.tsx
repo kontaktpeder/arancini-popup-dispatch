@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { CreditsLinks } from "@/components/credits-links";
+import { EditorialCards } from "@/components/editorial-cards";
+import { HeroIntro } from "@/components/hero-intro";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
+import { SiteFooter } from "@/components/site-footer";
+import { DISCOVERY_NO } from "@/lib/discovery-copy";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
@@ -13,6 +18,7 @@ function Index() {
     <main className="min-h-screen bg-background">
       <h1 className="sr-only">Gold of Sicily — sicilianske arancini i Oslo</h1>
       <LangSwitch lang="no" />
+      <HeroIntro copy={DISCOVERY_NO.heroIntro} />
       <Poster
         copy={{
           altArancini: "Arancini på krøllet papir",
@@ -34,6 +40,9 @@ function Index() {
           },
         }}
       />
+      <CreditsLinks copy={DISCOVERY_NO.credits} />
+      <EditorialCards copy={DISCOVERY_NO.editorial} />
+      <SiteFooter copy={DISCOVERY_NO.footer} />
     </main>
   );
 }
