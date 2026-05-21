@@ -59,6 +59,8 @@ export function Poster({ copy }: { copy: Copy }) {
         <p className="mt-8 font-display text-[clamp(2.5rem,8vw,5rem)] leading-[1]">
           {copy.date}
         </p>
+        <Countdown target={copy.countdownTarget} labels={copy.countdownLabels} />
+
         <a
           href="https://www.google.com/maps/search/?api=1&query=Sigurds+gate+7%2C+Oslo"
           onClick={(e) => {
