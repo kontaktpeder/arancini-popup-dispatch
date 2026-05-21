@@ -161,4 +161,14 @@
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
   }
+  .prose-gos p {
+    margin: 0;
+  }
+  .prose-gos a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .prose-gos a:hover {
+    opacity: 0.8;
+  }
 }
