@@ -53,8 +53,11 @@ export function Countdown({
   return (
     <div className="mt-8 flex justify-center gap-4 md:gap-8">
       {items.map(([value, label]) => (
-        <div key={label} className="flex flex-col items-center">
-          <span className="font-display text-[clamp(2rem,6vw,3.5rem)] leading-none tabular-nums">
+        <div key={label} className="flex w-16 flex-col items-center md:w-24">
+          <span
+            suppressHydrationWarning
+            className="font-display text-[clamp(2rem,6vw,3.5rem)] leading-none tabular-nums [font-variant-numeric:tabular-nums]"
+          >
             {value.toString().padStart(2, "0")}
           </span>
           <span className="mt-2 text-[0.6rem] uppercase tracking-[0.28em] text-muted-foreground md:text-[0.7rem]">
@@ -64,4 +67,5 @@ export function Countdown({
       ))}
     </div>
   );
+
 }
