@@ -26,37 +26,38 @@ type Copy = {
 export function Poster({ copy }: { copy: Copy }) {
   return (
     <>
-      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-2 pb-20 md:h-[100svh] md:max-h-[1100px] md:min-h-[640px] md:justify-center md:gap-2 md:px-4 md:py-6 md:pb-10">
+      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-6 pb-12 md:h-[100svh] md:max-h-[1100px] md:min-h-[640px] md:justify-center md:gap-2 md:px-4 md:py-6 md:pb-10">
         <img
           src={wordmark}
           alt="Gold of Sicily"
-          className="mx-auto block w-full max-w-[560px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
+          className="mx-auto block w-full max-w-[420px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
         />
 
         <img
           src={arancini}
           alt={copy.altArancini}
-          className="mx-auto mt-2 mb-8 block w-[82vw] max-w-[560px] object-contain md:m-0 md:h-[42vh] md:w-auto md:max-w-[520px]"
+          className="mx-auto mt-4 mb-6 block w-[70vw] max-w-[420px] object-contain md:m-0 md:h-[42vh] md:w-auto md:max-w-[520px]"
           width={1500}
           height={1000}
         />
 
 
         <div className="flex flex-col items-center text-center">
-          <p className="font-display text-[clamp(2rem,7vw,3.25rem)] leading-[1] tracking-tight md:text-[clamp(2rem,4.2vw,3.75rem)]">
+          <p className="font-display text-[clamp(1.75rem,6.5vw,3rem)] leading-[1] tracking-tight md:text-[clamp(2rem,4.2vw,3.75rem)]">
             {copy.tagTop}
           </p>
-          <p className="mt-2 font-display text-[clamp(2rem,7vw,3.25rem)] italic leading-[1] tracking-tight md:text-[clamp(2rem,4.2vw,3.75rem)]">
+          <p className="mt-2 font-display text-[clamp(1.75rem,6.5vw,3rem)] italic leading-[1] tracking-tight md:text-[clamp(2rem,4.2vw,3.75rem)]">
             {copy.tagBottom}
           </p>
-          <p className="mt-8 text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground md:mt-4">
+          <p className="mt-6 text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground md:mt-4 md:text-[0.7rem]">
             {copy.subtitle}
           </p>
         </div>
       </section>
 
 
-      <section className="border-t border-foreground/15 bg-background px-6 py-24 text-center md:py-32">
+      <section className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-32">
+
         <p className="eyebrow">{copy.nextLabel}</p>
         <p className="mt-8 font-display text-[clamp(2.5rem,8vw,5rem)] leading-[1]">
           {copy.date}
