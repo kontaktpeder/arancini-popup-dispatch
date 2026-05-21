@@ -40,7 +40,7 @@ function Index() {
           },
         }}
       />
-      <CreditsLinks copy={DISCOVERY_NO.credits} />
+      
       <EditorialCards copy={DISCOVERY_NO.editorial} />
       <SiteFooter copy={DISCOVERY_NO.footer} />
     </main>
