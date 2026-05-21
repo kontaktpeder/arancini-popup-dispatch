@@ -30,7 +30,7 @@ export function Poster({ copy }: { copy: Copy }) {
         <img
           src={wordmark}
           alt="Gold of Sicily"
-          className="mx-auto w-[108vw] max-w-[760px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
+          className="mx-auto block w-full max-w-[560px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
         />
 
         <img
