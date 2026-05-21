@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "ARANCINI" },
+      { name: "description", content: "Italienske risballer med fyll. Sprø utenpå - myk inni. Neste popup 26. mai - Sigurds Gate 7, Oslo" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "ARANCINI" },
+      { property: "og:description", content: "Italienske risballer med fyll. Sprø utenpå - myk inni. Neste popup 26. mai - Sigurds Gate 7, Oslo" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "ARANCINI" },
+      { name: "twitter:description", content: "Italienske risballer med fyll. Sprø utenpå - myk inni. Neste popup 26. mai - Sigurds Gate 7, Oslo" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/1oMkNfH4TGgDnW84S4j49Lw3LHJ3/social-images/social-1779365733850-ChatGPT_Image_21._mai_2026,_14_15_25.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/1oMkNfH4TGgDnW84S4j49Lw3LHJ3/social-images/social-1779365733850-ChatGPT_Image_21._mai_2026,_14_15_25.webp" },
     ],
     links: [
       {
