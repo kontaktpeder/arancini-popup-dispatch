@@ -28,13 +28,6 @@ function Index() {
           className="w-[92vw] max-w-[820px] object-contain"
         />
 
-function Index() {
-  return (
-    <main className="min-h-screen bg-background">
-      {/* POSTER */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-between px-6 pt-14 pb-10 md:pt-20 md:pb-14">
-        <ArchedLogo className="w-[72vw] max-w-[560px]" />
-
         <img
           src={arancini}
           alt="Arancini på krøllet papir"
