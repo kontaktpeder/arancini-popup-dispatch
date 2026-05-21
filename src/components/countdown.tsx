@@ -51,7 +51,7 @@ export function Countdown({
   ];
 
   return (
-    <div className="relative mt-10 w-screen left-1/2 -translate-x-1/2 bg-foreground text-background py-8 md:py-10">
+    <div className="mt-10 -mx-6 bg-foreground py-8 text-background md:py-10">
       <div className="mx-auto flex max-w-6xl justify-center gap-4 px-6 md:gap-8">
         {items.map(([value, label]) => (
           <div key={label} className="flex w-16 flex-col items-center md:w-24">
