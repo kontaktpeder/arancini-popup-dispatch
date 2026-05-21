@@ -29,7 +29,7 @@ export function Poster({ copy }: { copy: Copy }) {
       <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-4 pt-2 pb-16 md:h-[100svh] md:max-h-[1100px] md:min-h-[640px] md:justify-center md:gap-2 md:py-6 md:pb-10">
         <img
           src={wordmark}
-          alt="Arancini"
+          alt="Gold of Sicily"
           className="w-[110vw] max-w-[1100px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
         />
 

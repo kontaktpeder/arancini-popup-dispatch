@@ -1,27 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
+import { buildPageHead, PAGE_SEO } from "@/lib/seo";
 
 export const Route = createFileRoute("/en")({
-  head: () => ({
-    meta: [
-      { title: "Arancini — Sicilian Street Food" },
-      {
-        name: "description",
-        content: "Crispy outside. Soft inside. Next popup Tuesday May 26.",
-      },
-      { property: "og:title", content: "Arancini" },
-      { property: "og:description", content: "Crispy outside. Soft inside." },
-      { property: "og:url", content: "https://goldofsicily.no/en" },
-    ],
-    links: [{ rel: "canonical", href: "https://goldofsicily.no/en" }],
-  }),
+  head: () => buildPageHead(PAGE_SEO["/en"]),
   component: IndexEn,
 });
 
 function IndexEn() {
   return (
     <main className="min-h-screen bg-background">
+      <h1 className="sr-only">Gold of Sicily — Sicilian arancini in Oslo</h1>
       <LangSwitch lang="en" />
       <Poster
         copy={{
@@ -43,7 +33,6 @@ function IndexEn() {
             live: "We're live — come by!",
           },
         }}
-
       />
     </main>
   );

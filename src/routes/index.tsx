@@ -1,25 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
+import { buildPageHead, PAGE_SEO } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Arancini — Siciliansk streetfood" },
-      {
-        name: "description",
-        content: "Sprø utenpå. Myk inni. Neste popup tirsdag 26. mai.",
-      },
-      { property: "og:title", content: "Arancini" },
-      { property: "og:description", content: "Sprø utenpå. Myk inni." },
-    ],
-  }),
+  head: () => buildPageHead(PAGE_SEO["/"]),
   component: Index,
 });
 
 function Index() {
   return (
     <main className="min-h-screen bg-background">
+      <h1 className="sr-only">Gold of Sicily — sicilianske arancini i Oslo</h1>
       <LangSwitch lang="no" />
       <Poster
         copy={{
@@ -41,7 +33,6 @@ function Index() {
             live: "Vi er i gang — kom innom!",
           },
         }}
-
       />
     </main>
   );
