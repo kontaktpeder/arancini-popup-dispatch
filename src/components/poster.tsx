@@ -95,9 +95,6 @@ export function Poster({ copy }: { copy: Copy }) {
         </a>
       </section>
 
-      <footer className="px-6 pb-10 pt-4 text-center text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">
-        Oslo · Palermo
-      </footer>
     </>
   );
 }
