@@ -1,5 +1,5 @@
 import arancini from "@/assets/arancini-watercolor.png";
-import wordmark from "@/assets/arancini-wordmark.png";
+
 import { Countdown } from "@/components/countdown";
 
 type Copy = {
