@@ -26,49 +26,62 @@ type Copy = {
 export function Poster({ copy }: { copy: Copy }) {
   return (
     <>
-      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-6 pb-12 md:grid md:h-[calc(100svh-6rem)] md:max-h-[1000px] md:min-h-[560px] md:grid-cols-2 md:items-center md:gap-10 md:px-8 md:py-4">
-        {/* Left column on desktop: wordmark + taglines + subtitle */}
-        <div className="contents md:flex md:flex-col md:items-start md:text-left">
-          <img
-            src={wordmark}
-            alt="Gold of Sicily"
-            className="mx-auto block w-full max-w-[420px] object-contain md:mx-0 md:h-auto md:w-full md:max-w-[520px]"
-          />
+      <section className="relative mx-auto w-full max-w-6xl px-5 pt-6 pb-12 md:px-8 md:pt-8 md:pb-6">
+        {/* Logo top-left (acts as header brand) */}
+        <img
+          src={wordmark}
+          alt="Gold of Sicily"
+          className="mx-auto block w-full max-w-[260px] object-contain md:mx-0 md:max-w-[200px]"
+        />
 
-          {/* Arancini image — shows between wordmark and tags on mobile only */}
+        <div className="md:grid md:min-h-[calc(100svh-12rem)] md:grid-cols-2 md:items-center md:gap-10">
+          {/* Left column: taglines + subtitle + scroll hint */}
+          <div className="flex flex-col items-center text-center md:items-start md:text-left">
+            {/* Arancini image — mobile only, between logo and tags */}
+            <img
+              src={arancini}
+              alt={copy.altArancini}
+              className="mx-auto mt-6 mb-6 block w-[70vw] max-w-[420px] object-contain md:hidden"
+              width={1500}
+              height={1000}
+            />
+
+            <p className="font-display text-[clamp(2rem,7vw,4rem)] leading-[1.05] tracking-tight md:text-[clamp(2.5rem,4.5vw,4.5rem)]">
+              {copy.tagTop}
+            </p>
+            <p className="mt-1 font-display text-[clamp(2rem,7vw,4rem)] italic leading-[1.05] tracking-tight md:text-[clamp(2.5rem,4.5vw,4.5rem)]">
+              {copy.tagBottom}
+            </p>
+
+            <div className="mt-8 h-px w-24 bg-foreground/30 md:mt-10" />
+
+            <p className="mt-6 text-[0.7rem] uppercase leading-[1.8] tracking-[0.28em] text-muted-foreground">
+              {copy.subtitle}
+            </p>
+
+            {/* Scroll hint replaces CTA */}
+            <a
+              href="#next-popup"
+              className="group mt-10 inline-flex flex-col items-center gap-2 text-[0.65rem] uppercase tracking-[0.32em] text-muted-foreground transition hover:text-foreground md:flex-row md:gap-3"
+            >
+              <span>{copy.nextLabel}</span>
+              <span aria-hidden className="animate-bounce text-base md:rotate-0">↓</span>
+            </a>
+          </div>
+
+          {/* Right column: arancini image */}
           <img
             src={arancini}
             alt={copy.altArancini}
-            className="mx-auto mt-4 mb-6 block w-[70vw] max-w-[420px] object-contain md:hidden"
+            className="hidden md:block md:h-auto md:w-full md:max-h-[68vh] md:object-contain"
             width={1500}
             height={1000}
           />
-
-          <div className="flex flex-col items-center text-center md:mt-6 md:items-start md:text-left">
-            <p className="font-display text-[clamp(1.75rem,6.5vw,3rem)] leading-[1] tracking-tight md:text-[clamp(2rem,3.6vw,3.25rem)]">
-              {copy.tagTop}
-            </p>
-            <p className="mt-2 font-display text-[clamp(1.75rem,6.5vw,3rem)] italic leading-[1] tracking-tight md:text-[clamp(2rem,3.6vw,3.25rem)]">
-              {copy.tagBottom}
-            </p>
-            <p className="mt-6 text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground md:mt-6 md:text-[0.7rem]">
-              {copy.subtitle}
-            </p>
-          </div>
         </div>
-
-        {/* Right column on desktop: arancini image */}
-        <img
-          src={arancini}
-          alt={copy.altArancini}
-          className="hidden md:block md:h-auto md:w-full md:max-h-[70vh] md:object-contain"
-          width={1500}
-          height={1000}
-        />
       </section>
 
+      <section id="next-popup" className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-32">
 
-      <section className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-32">
 
         <p className="eyebrow">{copy.nextLabel}</p>
         <p className="mt-8 font-display text-[clamp(2.5rem,8vw,5rem)] leading-[1]">
