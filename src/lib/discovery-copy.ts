@@ -90,7 +90,7 @@ export const DISCOVERY_EN: DiscoveryCopy = {
       {
         title: "What is arancini?",
         description: "Crisp shell, warm rice, filling from Sicily.",
-        cta: "Read the guide",
+        cta: "Learn more",
         to: "/en/what-is-arancini",
       },
       {
