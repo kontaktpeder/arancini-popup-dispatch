@@ -15,7 +15,7 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
 
       <article className="mx-auto max-w-2xl px-6 pb-16 pt-20 md:pt-28">
         <Link
-          to="/"
+          to={lang === "en" ? "/en" : "/"}
           className="text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground transition hover:text-foreground"
         >
           ← Gold of Sicily
