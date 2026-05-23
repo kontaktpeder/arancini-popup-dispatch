@@ -26,13 +26,8 @@ type Copy = {
 export function Poster({ copy }: { copy: Copy }) {
   return (
     <>
-      <section className="relative mx-auto w-full max-w-6xl px-5 pt-6 pb-12 md:px-8 md:pt-8 md:pb-6">
-        {/* Logo top-left (acts as header brand) */}
-        <img
-          src={wordmark}
-          alt="Gold of Sicily"
-          className="mx-auto block w-full max-w-[260px] object-contain md:mx-0 md:max-w-[200px]"
-        />
+      <section className="relative mx-auto w-full max-w-6xl px-5 pt-2 pb-12 md:px-8 md:pt-2 md:pb-6">
+
 
         <div className="md:grid md:min-h-[calc(100svh-12rem)] md:grid-cols-2 md:items-center md:gap-10">
           {/* Left column: taglines + subtitle + scroll hint */}
