@@ -16,6 +16,9 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
+import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
+import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
 
 const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
@@ -53,6 +56,21 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const EnWhatIsAranciniRoute = EnWhatIsAranciniRouteImport.update({
+  id: '/what-is-arancini',
+  path: '/what-is-arancini',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnNextPopupRoute = EnNextPopupRouteImport.update({
+  id: '/next-popup',
+  path: '/next-popup',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => EnRoute,
+} as any)
 const AdminSlugRoute = AdminSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -63,19 +81,25 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
-  '/en': typeof EnRoute
+  '/en': typeof EnRouteWithChildren
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/next-popup': typeof EnNextPopupRoute
+  '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/en': typeof EnRoute
+  '/en': typeof EnRouteWithChildren
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/next-popup': typeof EnNextPopupRoute
+  '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -83,10 +107,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
-  '/en': typeof EnRoute
+  '/en': typeof EnRouteWithChildren
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/next-popup': typeof EnNextPopupRoute
+  '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -99,6 +126,9 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/en/about'
+    | '/en/next-popup'
+    | '/en/what-is-arancini'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,6 +138,9 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/en/about'
+    | '/en/next-popup'
+    | '/en/what-is-arancini'
     | '/admin'
   id:
     | '__root__'
@@ -118,6 +151,9 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/en/about'
+    | '/en/next-popup'
+    | '/en/what-is-arancini'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -125,7 +161,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
-  EnRoute: typeof EnRoute
+  EnRoute: typeof EnRouteWithChildren
   NextPopupRoute: typeof NextPopupRoute
   WhatIsAranciniRoute: typeof WhatIsAranciniRoute
 }
@@ -181,6 +217,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/en/what-is-arancini': {
+      id: '/en/what-is-arancini'
+      path: '/what-is-arancini'
+      fullPath: '/en/what-is-arancini'
+      preLoaderRoute: typeof EnWhatIsAranciniRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/next-popup': {
+      id: '/en/next-popup'
+      path: '/next-popup'
+      fullPath: '/en/next-popup'
+      preLoaderRoute: typeof EnNextPopupRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/admin/$slug': {
       id: '/admin/$slug'
       path: '/$slug'
@@ -203,11 +260,25 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface EnRouteChildren {
+  EnAboutRoute: typeof EnAboutRoute
+  EnNextPopupRoute: typeof EnNextPopupRoute
+  EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
+}
+
+const EnRouteChildren: EnRouteChildren = {
+  EnAboutRoute: EnAboutRoute,
+  EnNextPopupRoute: EnNextPopupRoute,
+  EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
+}
+
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
-  EnRoute: EnRoute,
+  EnRoute: EnRouteWithChildren,
   NextPopupRoute: NextPopupRoute,
   WhatIsAranciniRoute: WhatIsAranciniRoute,
 }

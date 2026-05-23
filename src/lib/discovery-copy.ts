@@ -1,4 +1,10 @@
-export type DiscoveryRoute = "/what-is-arancini" | "/next-popup" | "/about";
+export type DiscoveryRoute =
+  | "/what-is-arancini"
+  | "/next-popup"
+  | "/about"
+  | "/en/what-is-arancini"
+  | "/en/next-popup"
+  | "/en/about";
 
 export type EditorialCard = {
   title: string;
@@ -85,28 +91,28 @@ export const DISCOVERY_EN: DiscoveryCopy = {
         title: "What is arancini?",
         description: "Crisp shell, warm rice, filling from Sicily.",
         cta: "Read the guide",
-        to: "/what-is-arancini",
+        to: "/en/what-is-arancini",
       },
       {
         title: "Next popup",
         description: "One night. Limited batch.",
         cta: "See date",
-        to: "/next-popup",
+        to: "/en/next-popup",
       },
       {
         title: "About Gold of Sicily",
         description: "Popup streetfood inspired by Palermo.",
         cta: "Our story",
-        to: "/about",
+        to: "/en/about",
       },
     ],
   },
   credits: {
     label: "Discover",
     links: [
-      { label: "What is arancini", to: "/what-is-arancini" },
-      { label: "Next popup", to: "/next-popup" },
-      { label: "About", to: "/about" },
+      { label: "What is arancini", to: "/en/what-is-arancini" },
+      { label: "Next popup", to: "/en/next-popup" },
+      { label: "About", to: "/en/about" },
     ],
   },
   footer: {
