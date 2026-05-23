@@ -3,10 +3,8 @@ import type { DiscoveryCopy } from "@/lib/discovery-copy";
 
 export function EditorialCards({ copy }: { copy: DiscoveryCopy["editorial"] }) {
   return (
-    <section className="mx-auto max-w-5xl px-6 py-16 md:py-28">
-      <p className="eyebrow text-center">{copy.eyebrow}</p>
-
-      <ul className="mt-8 flex flex-col gap-10 md:mt-12 md:grid md:grid-cols-3 md:gap-8">
+    <section className="mx-auto max-w-5xl px-6 pt-4 pb-16 md:pt-8 md:pb-28">
+      <ul className="flex flex-col gap-10 md:grid md:grid-cols-3 md:gap-8">
         {copy.cards.map((card) => (
           <li key={card.to} className="group flex flex-col text-center md:text-left">
             <Link to={card.to} className="block">
