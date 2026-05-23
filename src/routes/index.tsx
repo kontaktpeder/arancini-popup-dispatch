@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { CreditsLinks } from "@/components/credits-links";
 import { EditorialCards } from "@/components/editorial-cards";
-import { HeroIntro } from "@/components/hero-intro";
+import { SiteHeader } from "@/components/site-header";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
 import { SiteFooter } from "@/components/site-footer";
@@ -20,7 +20,8 @@ function Index() {
     <main className="min-h-screen bg-background">
       <h1 className="sr-only">Gold of Sicily — sicilianske arancini i Oslo</h1>
       <LangSwitch lang="no" />
-      <HeroIntro copy={DISCOVERY_NO.heroIntro} />
+      <SiteHeader tagline={DISCOVERY_NO.heroIntro.body} />
+
       <Poster
         copy={{
           altArancini: "Arancini på krøllet papir",
