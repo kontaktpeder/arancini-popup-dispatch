@@ -26,17 +26,17 @@ type Copy = {
 export function Poster({ copy }: { copy: Copy }) {
   return (
     <>
-      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-6 pb-12 md:h-[100svh] md:max-h-[1100px] md:min-h-[640px] md:justify-center md:gap-2 md:px-4 md:py-6 md:pb-10">
+      <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-5 pt-6 pb-12 md:h-[calc(100svh-6rem)] md:max-h-[1000px] md:min-h-[560px] md:justify-center md:gap-1 md:px-4 md:py-4">
         <img
           src={wordmark}
           alt="Gold of Sicily"
-          className="mx-auto block w-full max-w-[420px] object-contain md:h-[22vh] md:w-auto md:max-w-[760px]"
+          className="mx-auto block w-full max-w-[420px] object-contain md:h-[18vh] md:w-auto md:max-w-[680px]"
         />
 
         <img
           src={arancini}
           alt={copy.altArancini}
-          className="mx-auto mt-4 mb-6 block w-[70vw] max-w-[420px] object-contain md:m-0 md:h-[42vh] md:w-auto md:max-w-[520px]"
+          className="mx-auto mt-4 mb-6 block w-[70vw] max-w-[420px] object-contain md:m-0 md:h-[36vh] md:w-auto md:max-w-[460px]"
           width={1500}
           height={1000}
         />
