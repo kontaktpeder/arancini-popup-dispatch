@@ -27,7 +27,7 @@ function Index() {
           altArancini: "Arancini på krøllet papir",
           tagTop: "Sprø utenpå.",
           tagBottom: "Myk inni.",
-          subtitle: "Italienske risballer med fyll",
+          subtitle: "Siciliansk streetfood",
           nextLabel: "Neste popup",
           date: CURRENT_POPUP.dateShort,
           address: `${CURRENT_POPUP.timeLabel} · ${CURRENT_POPUP.addressShort}`,
