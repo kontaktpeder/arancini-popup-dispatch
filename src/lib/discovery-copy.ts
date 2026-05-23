@@ -48,7 +48,7 @@ export const DISCOVERY_NO: DiscoveryCopy = {
       {
         title: "Hva er arancini?",
         description: "Sprø skorpe, varm ris og fyll fra Sicilia.",
-        cta: "Les guide",
+        cta: "Lær mer",
         to: "/what-is-arancini",
       },
       {
