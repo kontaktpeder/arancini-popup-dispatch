@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { CreditsLinks } from "@/components/credits-links";
 import { EditorialCards } from "@/components/editorial-cards";
 import { HeroIntro } from "@/components/hero-intro";
 import { LangSwitch } from "@/components/lang-switch";
@@ -7,6 +8,7 @@ import { Poster } from "@/components/poster";
 import { SiteFooter } from "@/components/site-footer";
 import { DISCOVERY_NO } from "@/lib/discovery-copy";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
+import { CURRENT_POPUP } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => buildPageHead(PAGE_SEO["/"]),
@@ -26,11 +28,11 @@ function Index() {
           tagBottom: "Myk inni.",
           subtitle: "Italienske risballer med fyll",
           nextLabel: "Neste popup",
-          date: "Tirsdag 26. mai",
-          address: "18–20 · Sigurds gate 7",
-          scarcity: "Når batchen er tom, er den tom.",
+          date: CURRENT_POPUP.dateShort,
+          address: `${CURRENT_POPUP.timeLabel} · ${CURRENT_POPUP.addressShort}`,
+          scarcity: CURRENT_POPUP.scarcity,
           follow: "Følg på Instagram",
-          countdownTarget: "2026-05-26T16:00:00Z",
+          countdownTarget: CURRENT_POPUP.countdownTarget,
           countdownLabels: {
             days: "Dager",
             hours: "Timer",
@@ -40,9 +42,11 @@ function Index() {
           },
         }}
       />
-      
+
       <EditorialCards copy={DISCOVERY_NO.editorial} />
+      <CreditsLinks copy={DISCOVERY_NO.credits} />
       <SiteFooter copy={DISCOVERY_NO.footer} />
     </main>
   );
 }
+

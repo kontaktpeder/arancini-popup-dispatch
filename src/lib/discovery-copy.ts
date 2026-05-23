@@ -101,7 +101,7 @@ export const DISCOVERY_EN: DiscoveryCopy = {
       },
       {
         title: "About Gold of Sicily",
-        description: "Popup streetfood inspired by Palermo.",
+        description: "Popup street food inspired by Palermo.",
         cta: "Our story",
         to: "/en/about",
       },
@@ -110,7 +110,7 @@ export const DISCOVERY_EN: DiscoveryCopy = {
   credits: {
     label: "Discover",
     links: [
-      { label: "What is arancini", to: "/en/what-is-arancini" },
+      { label: "What is arancini?", to: "/en/what-is-arancini" },
       { label: "Next popup", to: "/en/next-popup" },
       { label: "About", to: "/en/about" },
     ],
