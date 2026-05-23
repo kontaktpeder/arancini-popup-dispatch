@@ -1,4 +1,4 @@
-import { CURRENT_POPUP, SITE } from "./site";
+import { CURRENT_POPUP, CURRENT_POPUP_EN, SITE } from "./site";
 
 export const SITE_URL = SITE.domain;
 
@@ -10,12 +10,15 @@ export const DEFAULT_DESCRIPTION =
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 export const THEME_COLOR = "#f2ebe8";
 
+export type PageLocale = "nb_NO" | "en_GB";
+
 export type PageSeo = {
   title?: string;
   description?: string;
   path?: string;
   ogType?: "website" | "article";
   noindex?: boolean;
+  locale?: PageLocale;
 };
 
 export function canonicalUrl(path = "/") {
@@ -28,6 +31,7 @@ export function buildPageHead(seo: PageSeo = {}) {
   const description = seo.description ?? DEFAULT_DESCRIPTION;
   const url = canonicalUrl(seo.path ?? "/");
   const ogType = seo.ogType ?? "website";
+  const locale = seo.locale ?? "nb_NO";
 
   const meta: Array<Record<string, string>> = [
     { title },
@@ -38,7 +42,7 @@ export function buildPageHead(seo: PageSeo = {}) {
     { property: "og:type", content: ogType },
     { property: "og:url", content: url },
     { property: "og:image", content: OG_IMAGE },
-    { property: "og:locale", content: "nb_NO" },
+    { property: "og:locale", content: locale },
     { property: "og:site_name", content: SITE.name },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
@@ -68,18 +72,23 @@ export const LOCAL_BUSINESS_JSON_LD = {
   sameAs: [SITE.instagram],
 };
 
-export function buildPopupEventJsonLd() {
+export function buildPopupEventJsonLd(lang: "no" | "en" = "no") {
+  const popup = lang === "en" ? CURRENT_POPUP_EN : CURRENT_POPUP;
+  const description =
+    lang === "en"
+      ? `Sicilian arancini popup in Oslo — ${popup.dateLabel}, ${popup.timeLabel} at ${popup.addressShort}.`
+      : DEFAULT_DESCRIPTION;
   return {
     "@context": "https://schema.org",
     "@type": "FoodEvent",
-    name: `${SITE.name} popup — ${CURRENT_POPUP.addressShort}`,
+    name: `${SITE.name} popup — ${popup.addressShort}`,
     startDate: CURRENT_POPUP.startDate,
     endDate: CURRENT_POPUP.endDate,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     location: {
       "@type": "Place",
-      name: CURRENT_POPUP.addressFull,
+      name: popup.addressFull,
       address: {
         "@type": "PostalAddress",
         streetAddress: "Sigurds gate 7",
@@ -89,7 +98,7 @@ export function buildPopupEventJsonLd() {
     },
     organizer: { "@type": "Organization", name: SITE.name, url: SITE_URL },
     image: OG_IMAGE,
-    description: DEFAULT_DESCRIPTION,
+    description,
   };
 }
 
@@ -115,8 +124,32 @@ export const PAGE_SEO = {
   "/en": {
     title: "Gold of Sicily — Sicilian arancini in Oslo",
     description:
-      "Handmade Sicilian arancini in Oslo. Crispy outside, soft inside. Popup streetfood and limited batches.",
+      "Handmade Sicilian arancini in Oslo. Crispy outside, soft inside. Popup street food and limited batches.",
     path: "/en",
     noindex: true,
+    locale: "en_GB",
+  },
+  "/en/what-is-arancini": {
+    title: "What is arancini? — Gold of Sicily",
+    description:
+      "Sicilian rice balls with a crisp shell and filling from Palermo. How Gold of Sicily makes handmade arancini in Oslo — popup street food in small batches.",
+    path: "/en/what-is-arancini",
+    noindex: true,
+    locale: "en_GB",
+  },
+  "/en/next-popup": {
+    title: "Next popup — Gold of Sicily",
+    description: `Next arancini batch in Oslo: ${CURRENT_POPUP_EN.dateLabel}, ${CURRENT_POPUP_EN.timeLabel} at ${CURRENT_POPUP_EN.addressShort}. Limited menu — ${CURRENT_POPUP_EN.scarcity}`,
+    path: "/en/next-popup",
+    noindex: true,
+    locale: "en_GB",
+  },
+  "/en/about": {
+    title: "About Gold of Sicily",
+    description:
+      "Popup street food from Sicily to Oslo. Why Gold of Sicily started, small batches, and arancini culture — without corporate fluff.",
+    path: "/en/about",
+    noindex: true,
+    locale: "en_GB",
   },
 } as const satisfies Record<string, PageSeo>;
