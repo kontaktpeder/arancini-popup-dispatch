@@ -20,7 +20,8 @@ function Index() {
     <main className="min-h-screen bg-background">
       <h1 className="sr-only">Gold of Sicily — sicilianske arancini i Oslo</h1>
       <LangSwitch lang="no" />
-      <HeroIntro copy={DISCOVERY_NO.heroIntro} />
+      <SiteHeader tagline={DISCOVERY_NO.heroIntro.body} />
+
       <Poster
         copy={{
           altArancini: "Arancini på krøllet papir",
