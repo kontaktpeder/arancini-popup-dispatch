@@ -45,7 +45,7 @@ function IndexEn() {
       />
 
       <EditorialCards copy={DISCOVERY_EN.editorial} />
-      <CreditsLinks copy={DISCOVERY_EN.credits} />
+      
       <SiteFooter copy={DISCOVERY_EN.footer} />
     </main>
   );
