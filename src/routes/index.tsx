@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { CreditsLinks } from "@/components/credits-links";
 import { EditorialCards } from "@/components/editorial-cards";
-import { HeroIntro } from "@/components/hero-intro";
+import { SiteHeader } from "@/components/site-header";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
 import { SiteFooter } from "@/components/site-footer";
