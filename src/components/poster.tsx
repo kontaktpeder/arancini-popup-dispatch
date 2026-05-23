@@ -77,14 +77,15 @@ export function Poster({ copy }: { copy: Copy }) {
             </a>
           </div>
 
-          {/* Right column: arancini image — closer to text, slightly lower & larger */}
+          {/* Right column: arancini image — closer to text, lower & larger */}
           <img
             src={arancini}
             alt={copy.altArancini}
-            className="hidden drop-shadow-[0_30px_40px_rgba(60,30,10,0.18)] md:-ml-6 md:mt-10 md:block md:h-auto md:w-[115%] md:max-w-none md:max-h-[80vh] md:object-contain lg:-ml-10 lg:w-[120%]"
+            className="hidden drop-shadow-[0_30px_40px_rgba(60,30,10,0.18)] md:-ml-6 md:mt-20 md:block md:h-auto md:w-[123%] md:max-w-none md:max-h-[82vh] md:object-contain lg:-ml-10 lg:mt-24 lg:w-[128%]"
             width={1500}
             height={1000}
           />
+
         </div>
       </section>
 
