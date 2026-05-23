@@ -17,6 +17,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
+import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
 import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
 
 const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
@@ -59,6 +60,11 @@ const EnWhatIsAranciniRoute = EnWhatIsAranciniRouteImport.update({
   path: '/what-is-arancini',
   getParentRoute: () => EnRoute,
 } as any)
+const EnNextPopupRoute = EnNextPopupRouteImport.update({
+  id: '/next-popup',
+  path: '/next-popup',
+  getParentRoute: () => EnRoute,
+} as any)
 const AdminSlugRoute = AdminSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin'
   id:
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -200,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnWhatIsAranciniRouteImport
       parentRoute: typeof EnRoute
     }
+    '/en/next-popup': {
+      id: '/en/next-popup'
+      path: '/next-popup'
+      fullPath: '/en/next-popup'
+      preLoaderRoute: typeof EnNextPopupRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/admin/$slug': {
       id: '/admin/$slug'
       path: '/$slug'
@@ -223,10 +242,12 @@ const AdminRouteChildren: AdminRouteChildren = {
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EnRouteChildren {
+  EnNextPopupRoute: typeof EnNextPopupRoute
   EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
 }
 
 const EnRouteChildren: EnRouteChildren = {
+  EnNextPopupRoute: EnNextPopupRoute,
   EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
 }
 
