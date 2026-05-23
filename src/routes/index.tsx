@@ -45,7 +45,7 @@ function Index() {
       />
 
       <EditorialCards copy={DISCOVERY_NO.editorial} />
-      <CreditsLinks copy={DISCOVERY_NO.credits} />
+      
       <SiteFooter copy={DISCOVERY_NO.footer} />
     </main>
   );
