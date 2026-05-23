@@ -9,9 +9,10 @@ export function SiteHeader({ tagline }: { tagline?: string }) {
         className="block h-auto w-[180px] object-contain md:w-[260px] lg:w-[300px]"
       />
       {tagline ? (
-        <p className="mb-2 hidden flex-1 pr-16 text-right font-sans text-[0.78rem] uppercase tracking-[0.22em] text-foreground/65 md:block md:text-[0.82rem]">
+        <p className="mb-2 hidden flex-1 pr-16 text-right font-sans text-[0.78rem] uppercase tracking-[0.16em] text-foreground/80 md:block md:text-[0.82rem]">
           {tagline}
         </p>
+
       ) : null}
     </header>
 
