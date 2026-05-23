@@ -27,7 +27,7 @@ function IndexEn() {
           altArancini: "Arancini on crinkled paper",
           tagTop: "Crispy outside.",
           tagBottom: "Soft inside.",
-          subtitle: "Italian rice balls with filling",
+          subtitle: "Sicilian street food",
           nextLabel: "Next popup",
           date: CURRENT_POPUP_EN.dateShort,
           address: `${CURRENT_POPUP_EN.timeLabel} · ${CURRENT_POPUP_EN.addressShort}`,
