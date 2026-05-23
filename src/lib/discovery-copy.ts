@@ -1,4 +1,10 @@
-export type DiscoveryRoute = "/what-is-arancini" | "/next-popup" | "/about";
+export type DiscoveryRoute =
+  | "/what-is-arancini"
+  | "/next-popup"
+  | "/about"
+  | "/en/what-is-arancini"
+  | "/en/next-popup"
+  | "/en/about";
 
 export type EditorialCard = {
   title: string;
