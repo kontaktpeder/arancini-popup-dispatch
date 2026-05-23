@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { CreditsLinks } from "@/components/credits-links";
+
 import { EditorialCards } from "@/components/editorial-cards";
 import { SiteHeader } from "@/components/site-header";
 import { LangSwitch } from "@/components/lang-switch";
@@ -45,7 +45,7 @@ function Index() {
       />
 
       <EditorialCards copy={DISCOVERY_NO.editorial} />
-      <CreditsLinks copy={DISCOVERY_NO.credits} />
+      
       <SiteFooter copy={DISCOVERY_NO.footer} />
     </main>
   );
