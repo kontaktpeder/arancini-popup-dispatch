@@ -45,7 +45,25 @@ function IndexEn() {
         }}
       />
 
+      <FeedbackSection
+        copy={{
+          eyebrow: "Batch #001",
+          title: "Help us shape Gold of Sicily",
+          body: "We're making small batches of Sicilian arancini in Oslo and testing the concept live. Tasted one? Tell us what you think — flavour, price, what we should make more of.",
+          microNote: "Under 30 seconds",
+          cta: "Give feedback",
+          qrLabel: "Scan to answer",
+          formTitle: "Live · Batch 001",
+          stats: [
+            { value: "100", label: "pcs only" },
+            { value: "3", label: "fillings" },
+            { value: "01", label: "first popup" },
+          ],
+        }}
+      />
+
       <EditorialCards copy={DISCOVERY_EN.editorial} />
+      
       
       <SiteFooter copy={DISCOVERY_EN.footer} />
     </main>
