@@ -23,6 +23,23 @@ function Index() {
       <LangSwitch lang="no" />
       <SiteHeader tagline={DISCOVERY_NO.heroIntro.body} />
 
+      <FeedbackSection
+        copy={{
+          eyebrow: "Batch #001",
+          title: "Hjelp oss forme Gold of Sicily",
+          body: "Vi lager små batcher sicilianske arancini i Oslo og tester konseptet live. Smakte du en? Fortell oss hva du synes — om smak, pris og hva vi bør lage mer av.",
+          microNote: "Tar under 30 sekunder",
+          cta: "Gi feedback",
+          qrLabel: "Scan og svar",
+          formTitle: "Live · Batch 001",
+          stats: [
+            { value: "100", label: "pcs only" },
+            { value: "3", label: "fillings" },
+            { value: "01", label: "first popup" },
+          ],
+        }}
+      />
+
       <Poster
         copy={{
           altArancini: "Arancini på krøllet papir",
@@ -42,23 +59,6 @@ function Index() {
             seconds: "Sek",
             live: "Vi er i gang — kom innom!",
           },
-        }}
-      />
-
-      <FeedbackSection
-        copy={{
-          eyebrow: "Batch #001",
-          title: "Hjelp oss forme Gold of Sicily",
-          body: "Vi lager små batcher sicilianske arancini i Oslo og tester konseptet live. Smakte du en? Fortell oss hva du synes — om smak, pris og hva vi bør lage mer av.",
-          microNote: "Tar under 30 sekunder",
-          cta: "Gi feedback",
-          qrLabel: "Scan og svar",
-          formTitle: "Live · Batch 001",
-          stats: [
-            { value: "100", label: "pcs only" },
-            { value: "3", label: "fillings" },
-            { value: "01", label: "first popup" },
-          ],
         }}
       />
 
