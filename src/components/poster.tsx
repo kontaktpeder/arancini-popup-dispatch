@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import arancini from "@/assets/arancini-watercolor.png";
 
 import { Countdown } from "@/components/countdown";
@@ -23,7 +25,8 @@ type Copy = {
 };
 
 
-export function Poster({ copy }: { copy: Copy }) {
+export function Poster({ copy, newsletter }: { copy: Copy; newsletter?: ReactNode }) {
+
   return (
     <>
       <section className="relative mx-auto w-full max-w-6xl px-5 pt-2 pb-12 md:px-8 md:pt-2 md:pb-6">
