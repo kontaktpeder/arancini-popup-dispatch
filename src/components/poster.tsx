@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import arancini from "@/assets/arancini-watercolor.png";
 
 import { Countdown } from "@/components/countdown";
@@ -23,7 +25,8 @@ type Copy = {
 };
 
 
-export function Poster({ copy }: { copy: Copy }) {
+export function Poster({ copy, newsletter }: { copy: Copy; newsletter?: ReactNode }) {
+
   return (
     <>
       <section className="relative mx-auto w-full max-w-6xl px-5 pt-2 pb-12 md:px-8 md:pt-2 md:pb-6">
@@ -75,7 +78,12 @@ export function Poster({ copy }: { copy: Copy }) {
               <span>{copy.nextLabel}</span>
               <span aria-hidden className="inline-block translate-y-0 animate-bounce text-sm">↓</span>
             </a>
+
+            {newsletter ? (
+              <div className="mt-10 w-full max-w-sm md:mt-12">{newsletter}</div>
+            ) : null}
           </div>
+
 
           {/* Right column: arancini image — closer to text, lower & larger */}
           <img

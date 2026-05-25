@@ -3,6 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { EditorialCards } from "@/components/editorial-cards";
 import { FeedbackSection } from "@/components/feedback-section";
+import { NewsletterSignup } from "@/components/newsletter-signup";
+
 import { SiteHeader } from "@/components/site-header";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
@@ -42,7 +44,22 @@ function IndexEn() {
       />
 
       <Poster
+        newsletter={
+          <NewsletterSignup
+            lang="en"
+            copy={{
+              label: "Hear about the next popup",
+              placeholder: "you@email.com",
+              cta: "Sign up",
+              success: "You'll hear from us before the next popup.",
+              exists: "You're already on the list — we'll be in touch.",
+              error: "Something went wrong. Try again.",
+              invalid: "Check the email address.",
+            }}
+          />
+        }
         copy={{
+
           altArancini: "Arancini on crinkled paper",
           tagTop: "Crispy outside.",
           tagBottom: "Soft inside.",
