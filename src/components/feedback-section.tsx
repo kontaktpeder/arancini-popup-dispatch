@@ -9,9 +9,9 @@ type Copy = {
   formTitle?: string;
 };
 
-const TALLY_URL = "https://tally.so/r/WOjDQN";
+const DEFAULT_TALLY_URL = "https://tally.so/r/WOjDQN";
 
-export function FeedbackSection({ copy }: { copy: Copy }) {
+export function FeedbackSection({ copy, tallyUrl = DEFAULT_TALLY_URL }: { copy: Copy; tallyUrl?: string }) {
   return (
     <section
       id="feedback"
@@ -30,7 +30,7 @@ export function FeedbackSection({ copy }: { copy: Copy }) {
 
         <div className="mt-8 flex flex-col items-center gap-3">
           <a
-            href={TALLY_URL}
+            href={tallyUrl}
             target="_blank"
             rel="noreferrer"
             className="group inline-flex w-full max-w-xs items-center justify-center gap-3 rounded-full bg-[#1a1714] px-8 py-4 text-[0.8rem] font-medium uppercase tracking-[0.28em] text-[#f5efe3] transition hover:bg-[#c9551f]"
