@@ -24,6 +24,7 @@ function IndexEn() {
       <SiteHeader tagline={DISCOVERY_EN.heroIntro.body} />
 
       <FeedbackSection
+        tallyUrl="https://tally.so/r/rjkYqN"
         copy={{
           eyebrow: "Batch #001",
           title: "Help us shape Gold of Sicily",
