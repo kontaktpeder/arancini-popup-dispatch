@@ -3,6 +3,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { EditorialCards } from "@/components/editorial-cards";
 import { FeedbackSection } from "@/components/feedback-section";
+import { NewsletterSignup } from "@/components/newsletter-signup";
+
 import { SiteHeader } from "@/components/site-header";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
