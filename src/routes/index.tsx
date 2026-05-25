@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { EditorialCards } from "@/components/editorial-cards";
 import { FeedbackSection } from "@/components/feedback-section";
+import { NewsletterSignup } from "@/components/newsletter-signup";
 import { SiteHeader } from "@/components/site-header";
 import { LangSwitch } from "@/components/lang-switch";
 import { Poster } from "@/components/poster";
@@ -10,6 +11,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { DISCOVERY_NO } from "@/lib/discovery-copy";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
 import { CURRENT_POPUP } from "@/lib/site";
+
 
 export const Route = createFileRoute("/")({
   head: () => buildPageHead(PAGE_SEO["/"]),
