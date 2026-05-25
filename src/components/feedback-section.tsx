@@ -9,9 +9,9 @@ type Copy = {
   formTitle?: string;
 };
 
-const TALLY_URL = "https://tally.so/r/WOjDQN";
+const DEFAULT_TALLY_URL = "https://tally.so/r/WOjDQN";
 
-export function FeedbackSection({ copy }: { copy: Copy }) {
+export function FeedbackSection({ copy, tallyUrl = DEFAULT_TALLY_URL }: { copy: Copy; tallyUrl?: string }) {
   return (
     <section
       id="feedback"
