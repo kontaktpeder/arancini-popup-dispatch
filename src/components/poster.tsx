@@ -78,7 +78,12 @@ export function Poster({ copy, newsletter }: { copy: Copy; newsletter?: ReactNod
               <span>{copy.nextLabel}</span>
               <span aria-hidden className="inline-block translate-y-0 animate-bounce text-sm">↓</span>
             </a>
+
+            {newsletter ? (
+              <div className="mt-10 w-full max-w-sm md:mt-12">{newsletter}</div>
+            ) : null}
           </div>
+
 
           {/* Right column: arancini image — closer to text, lower & larger */}
           <img
