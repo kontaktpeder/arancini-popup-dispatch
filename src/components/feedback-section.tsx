@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 type Copy = {
   eyebrow: string;
   title: string;
@@ -11,7 +13,15 @@ type Copy = {
 
 const DEFAULT_TALLY_URL = "https://tally.so/r/WOjDQN";
 
-export function FeedbackSection({ copy, tallyUrl = DEFAULT_TALLY_URL }: { copy: Copy; tallyUrl?: string }) {
+export function FeedbackSection({
+  copy,
+  tallyUrl = DEFAULT_TALLY_URL,
+  newsletter,
+}: {
+  copy: Copy;
+  tallyUrl?: string;
+  newsletter?: ReactNode;
+}) {
   return (
     <section
       id="feedback"
@@ -42,6 +52,12 @@ export function FeedbackSection({ copy, tallyUrl = DEFAULT_TALLY_URL }: { copy: 
             {copy.microNote}
           </span>
         </div>
+
+        {newsletter ? (
+          <div className="mt-10 flex justify-center border-t border-[#1a1714]/10 pt-8">
+            <div className="w-full max-w-sm text-left">{newsletter}</div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

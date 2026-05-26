@@ -26,6 +26,20 @@ function Index() {
       <SiteHeader tagline={DISCOVERY_NO.heroIntro.body} />
 
       <FeedbackSection
+        newsletter={
+          <NewsletterSignup
+            lang="no"
+            copy={{
+              label: "Få beskjed om neste popup",
+              placeholder: "din@epost.no",
+              cta: "Meld på",
+              success: "Du får beskjed ved neste popup.",
+              exists: "Du er allerede påmeldt — vi sier ifra.",
+              error: "Noe gikk galt. Prøv igjen.",
+              invalid: "Sjekk e-postadressen.",
+            }}
+          />
+        }
         copy={{
           eyebrow: "Batch #001",
           title: "Hjelp oss forme Gold of Sicily",
@@ -43,20 +57,6 @@ function Index() {
       />
 
       <Poster
-        newsletter={
-          <NewsletterSignup
-            lang="no"
-            copy={{
-              label: "Få beskjed om neste popup",
-              placeholder: "din@epost.no",
-              cta: "Meld på",
-              success: "Du får beskjed ved neste popup.",
-              exists: "Du er allerede påmeldt — vi sier ifra.",
-              error: "Noe gikk galt. Prøv igjen.",
-              invalid: "Sjekk e-postadressen.",
-            }}
-          />
-        }
         copy={{
           altArancini: "Arancini på krøllet papir",
           tagTop: "Sprø utenpå.",
