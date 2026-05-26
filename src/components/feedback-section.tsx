@@ -23,7 +23,9 @@ type Copy = {
   qrLabel?: string;
   stats?: { value: string; label: string }[];
   formTitle?: string;
+  followLabel?: string;
 };
+
 
 const DEFAULT_TALLY_URL = "https://tally.so/r/WOjDQN";
 
