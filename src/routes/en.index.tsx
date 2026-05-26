@@ -27,6 +27,20 @@ function IndexEn() {
 
       <FeedbackSection
         tallyUrl="https://tally.so/r/rjkYqN"
+        newsletter={
+          <NewsletterSignup
+            lang="en"
+            copy={{
+              label: "Hear about the next popup",
+              placeholder: "you@email.com",
+              cta: "Sign up",
+              success: "You'll hear from us before the next popup.",
+              exists: "You're already on the list — we'll be in touch.",
+              error: "Something went wrong. Try again.",
+              invalid: "Check the email address.",
+            }}
+          />
+        }
         copy={{
           eyebrow: "Batch #001",
           title: "Help us shape Gold of Sicily",
@@ -44,20 +58,6 @@ function IndexEn() {
       />
 
       <Poster
-        newsletter={
-          <NewsletterSignup
-            lang="en"
-            copy={{
-              label: "Hear about the next popup",
-              placeholder: "you@email.com",
-              cta: "Sign up",
-              success: "You'll hear from us before the next popup.",
-              exists: "You're already on the list — we'll be in touch.",
-              error: "Something went wrong. Try again.",
-              invalid: "Check the email address.",
-            }}
-          />
-        }
         copy={{
 
           altArancini: "Arancini on crinkled paper",
