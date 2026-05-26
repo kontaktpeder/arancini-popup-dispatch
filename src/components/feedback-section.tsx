@@ -74,6 +74,33 @@ export function FeedbackSection({
             <div className="w-full max-w-sm text-left">{newsletter}</div>
           </div>
         ) : null}
+
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <span className="text-[0.62rem] uppercase tracking-[0.28em] text-[#1a1714]/55">
+            {copy.followLabel ?? "Følg oss"}
+          </span>
+          <div className="flex items-center gap-3">
+            <a
+              href={SITE.instagram}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#1a1714]/20 text-[#1a1714] transition hover:bg-[#1a1714] hover:text-[#f5efe3]"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href={TIKTOK_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="TikTok"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#1a1714]/20 text-[#1a1714] transition hover:bg-[#1a1714] hover:text-[#f5efe3]"
+            >
+              <TikTokIcon className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
   );
