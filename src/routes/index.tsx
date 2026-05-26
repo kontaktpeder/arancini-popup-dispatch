@@ -41,7 +41,7 @@ function Index() {
           />
         }
         copy={{
-          eyebrow: "Batch #001",
+          eyebrow: "Batch",
           title: "Hjelp oss forme Gold of Sicily",
           body: "Vi lager små batcher sicilianske arancini i Oslo og tester konseptet live. Smakte du en? Fortell oss hva du synes — om smak, pris og hva vi bør lage mer av.",
           microNote: "Tar under 30 sekunder",
