@@ -127,15 +127,6 @@ export function Poster({ copy, newsletter }: { copy: Copy; newsletter?: ReactNod
 
         <p className="mt-10 text-sm text-muted-foreground">{copy.scarcity}</p>
 
-        <a
-          href="https://www.instagram.com/goldofsicily/"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-12 inline-flex items-center gap-3 border-b border-foreground pb-1 text-[0.7rem] uppercase tracking-[0.28em] text-foreground transition hover:opacity-70"
-        >
-          {copy.follow}
-          <span aria-hidden>→</span>
-        </a>
       </section>
 
     </>
