@@ -69,7 +69,8 @@ export function NewsletterSignup({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={copy.placeholder}
-          className="flex-1 bg-transparent text-sm placeholder:text-foreground/40 focus:outline-none"
+          className="flex-1 bg-transparent text-base md:text-sm placeholder:text-foreground/40 focus:outline-none"
+          style={{ fontSize: "16px" }}
           disabled={status === "loading"}
         />
         <button
