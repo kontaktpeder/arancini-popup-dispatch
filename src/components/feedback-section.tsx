@@ -44,9 +44,10 @@ export function FeedbackSection({
       className="relative bg-[#f5efe3] text-[#1a1714]"
     >
       <div className="mx-auto w-full max-w-2xl px-5 py-16 text-center md:py-24">
-        <p className="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9551f] md:text-[0.7rem]">
+        <p className="text-[0.65rem] uppercase tracking-[0.4em] text-[#c9551f] md:text-[0.7rem]" hidden>
           {copy.eyebrow}
         </p>
+
         <h2 className="mt-4 font-display text-[clamp(2rem,8vw,3.4rem)] leading-[1.05] tracking-tight">
           {copy.title}
         </h2>
