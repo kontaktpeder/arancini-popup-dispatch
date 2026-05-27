@@ -17,6 +17,8 @@ export const whatIsAranciniSchema = z.object({
   section_1_body: str(2000),
   section_2_heading: str(160),
   section_2_body: str(2000),
+  section_3_heading: optStr(160),
+  section_3_body: optStr(2000),
   cta_label: str(120),
 });
 
@@ -31,6 +33,8 @@ export const aboutSchema = z.object({
   section_1_body: str(2000),
   section_2_heading: str(160),
   section_2_body: str(2000),
+  proof_heading: optStr(160),
+  proof_body: optStr(2000),
   cta_popup_label: str(120),
   cta_instagram_label: str(120),
 });
@@ -40,26 +44,9 @@ export const nextPopupSchema = z.object({
   seo_description: str(300),
   eyebrow: str(80),
   title: str(200),
-  date_label: str(120),
-  time_label: str(60),
-  address_short: str(120),
-  address_full: str(200),
-  maps_url: str(500).url(),
-  scarcity: str(200),
-  intro_body: str(2000),
-  menu_heading: str(160),
-  menu: z
-    .array(
-      z.object({
-        name: str(120),
-        description: str(500),
-      }),
-    )
-    .min(0)
-    .max(20),
-  cta_maps_label: str(120),
-  cta_instagram_label: str(120),
-  cta_what_is_label: str(160),
+  body: str(2000),
+  secondary_body: optStr(2000),
+  cta_label: str(120),
 });
 
 export const CMS_SCHEMAS = {

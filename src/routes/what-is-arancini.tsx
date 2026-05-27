@@ -39,6 +39,15 @@ function WhatIsAranciniPage() {
       </h2>
       <p>{c.section_2_body}</p>
 
+      {c.section_3_heading && c.section_3_body ? (
+        <>
+          <h2 className="font-display text-2xl tracking-tight md:text-3xl">
+            {c.section_3_heading}
+          </h2>
+          <p>{c.section_3_body}</p>
+        </>
+      ) : null}
+
       <p>
         <Link to="/next-popup">{c.cta_label}</Link>
       </p>

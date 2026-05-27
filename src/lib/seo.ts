@@ -1,11 +1,11 @@
-import { CURRENT_POPUP, CURRENT_POPUP_EN, SITE } from "./site";
+import { SITE } from "./site";
 
 export const SITE_URL = SITE.domain;
 
 export const DEFAULT_TITLE = "Gold of Sicily — Sicilianske arancini i Oslo";
 
 export const DEFAULT_DESCRIPTION =
-  "Håndlagde sicilianske arancini i Oslo. Gold of Sicily serverer sprø italienske risballer inspirert av gatene i Palermo. Popup streetfood, events og nye drops.";
+  "Håndlagde sicilianske arancini i Oslo. Gold of Sicily serverer sprø italienske risballer inspirert av gatene i Palermo. Popup streetfood i små batcher.";
 
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 export const THEME_COLOR = "#f2ebe8";
@@ -72,41 +72,12 @@ export const LOCAL_BUSINESS_JSON_LD = {
   sameAs: [SITE.instagram],
 };
 
-export function buildPopupEventJsonLd(lang: "no" | "en" = "no") {
-  const popup = lang === "en" ? CURRENT_POPUP_EN : CURRENT_POPUP;
-  const description =
-    lang === "en"
-      ? `Sicilian arancini popup in Oslo — ${popup.dateLabel}, ${popup.timeLabel} at ${popup.addressShort}.`
-      : DEFAULT_DESCRIPTION;
-  return {
-    "@context": "https://schema.org",
-    "@type": "FoodEvent",
-    name: `${SITE.name} popup — ${popup.addressShort}`,
-    startDate: CURRENT_POPUP.startDate,
-    endDate: CURRENT_POPUP.endDate,
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
-    location: {
-      "@type": "Place",
-      name: popup.addressFull,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Sigurds gate 7",
-        addressLocality: "Oslo",
-        addressCountry: "NO",
-      },
-    },
-    organizer: { "@type": "Organization", name: SITE.name, url: SITE_URL },
-    image: OG_IMAGE,
-    description,
-  };
-}
-
 export const PAGE_SEO = {
   "/": {} satisfies PageSeo,
   "/next-popup": {
-    title: "Neste popup — Gold of Sicily",
-    description: `Neste batch arancini i Oslo: ${CURRENT_POPUP.dateLabel}, ${CURRENT_POPUP.timeLabel} på ${CURRENT_POPUP.addressShort}. Begrenset meny — ${CURRENT_POPUP.scarcity}`,
+    title: "Neste batch kommer snart — Gold of Sicily",
+    description:
+      "Meld deg på listen for neste Gold of Sicily-popup i Oslo. Små batcher med sicilianske arancini, begrenset antall og først beskjed til listen.",
     path: "/next-popup",
   },
   "/what-is-arancini": {
@@ -118,7 +89,7 @@ export const PAGE_SEO = {
   "/about": {
     title: "Om Gold of Sicily",
     description:
-      "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og arancini-kultur — uten corporate fluff.",
+      "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og signalene fra første popup i Sigurds gate 7.",
     path: "/about",
   },
   "/en": {
@@ -138,8 +109,9 @@ export const PAGE_SEO = {
     locale: "en_GB",
   },
   "/en/next-popup": {
-    title: "Next popup — Gold of Sicily",
-    description: `Next arancini batch in Oslo: ${CURRENT_POPUP_EN.dateLabel}, ${CURRENT_POPUP_EN.timeLabel} at ${CURRENT_POPUP_EN.addressShort}. Limited menu — ${CURRENT_POPUP_EN.scarcity}`,
+    title: "Next batch coming soon — Gold of Sicily",
+    description:
+      "Join the list for the next Gold of Sicily popup in Oslo. Small batches of Sicilian arancini, limited quantity and the list hears first.",
     path: "/en/next-popup",
     noindex: true,
     locale: "en_GB",
@@ -147,7 +119,7 @@ export const PAGE_SEO = {
   "/en/about": {
     title: "About Gold of Sicily",
     description:
-      "Popup street food from Sicily to Oslo. Why Gold of Sicily started, small batches, and arancini culture — without corporate fluff.",
+      "Popup street food from Sicily to Oslo. Why Gold of Sicily started, small batches, and signals from our first popup at Sigurds gate 7.",
     path: "/en/about",
     noindex: true,
     locale: "en_GB",

@@ -19,16 +19,19 @@ export const CMS_DEFAULTS: CmsContentMap = {
     section_2_heading: "Slik lager vi dem",
     section_2_body:
       "Ris som får tid, fyll med ragu, ost eller sesong, panering som tåler varme uten å bli fett — og servering mens de fortsatt har tyngde og saft inni. Det er gatekjøkken, ikke corporate restaurant-SEO.",
-    cta_label: "Se neste popup →",
+    section_3_heading: "Kan man lage arancini hjemme?",
+    section_3_body:
+      "Ja, arancini kan lages hjemme med risotto, fyll, panering og fritering. Det vanskelige er balansen: sprø skorpe, saftig ris og fyll som fortsatt er varmt når den serveres. Det er akkurat dette vi tester og forbedrer i små batcher.",
+    cta_label: "Vil du smake vår versjon? Meld deg på neste batch →",
   },
   about: {
     seo_title: "Om Gold of Sicily",
     seo_description:
-      "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og arancini-kultur — uten corporate fluff.",
+      "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og signalene fra første popup i Sigurds gate 7.",
     eyebrow: "Om oss",
     title: "Sicilia, i små batcher",
     intro_1:
-      "Gold of Sicily startet med et enkelt spørsmål: hvorfor finnes ikke ekte, sicilianske arancini som gatekjøkken i Oslo — sprø, myke, med fyll som smaker av noe — uten å bli en «italiensk restaurant»-opplevelse?",
+      "Gold of Sicily startet med et enkelt spørsmål: hvorfor finnes ikke ekte sicilianske arancini som streetfood i Oslo? Etter første popup i Sigurds gate 7 fikk vi et tydelig signal: 4,5/5 i smak, 28 av 34 ville kjøpt igjen, og trøffel og sopp ble første publikumsfavoritt.",
     intro_2:
       "Vi er popup og streetfood: Dennis og teamet baker batcher når det er en dato og et sted, ikke hver dag året rundt. Det betyr at du får det som er ferskt den kvelden — og når batchen er tom, er den tom.",
     section_1_heading: "Sicilia, ikke corporate",
@@ -37,40 +40,21 @@ export const CMS_DEFAULTS: CmsContentMap = {
     section_2_heading: "Små batcher",
     section_2_body:
       "Mindre batch betyr bedre kontroll på ris, fyll og sprøhet. Det er også hvorfor dette manglet: det skalerer ikke som en kjede, men det smaker bedre.",
-    cta_popup_label: "Neste popup →",
+    proof_heading: "Signaler fra batch 001",
+    proof_body:
+      "34 smakere ga oss en snitt på 4,5/5. 28 sa de ville kjøpt igjen. Trøffel og sopp ble klar favoritt, foran ragu og 'nduja. Det er signalet vi bygger neste batch på.",
+    cta_popup_label: "Neste batch →",
     cta_instagram_label: "Instagram",
   },
   "next-popup": {
-    seo_title: "Neste popup — Gold of Sicily",
+    seo_title: "Neste batch kommer snart — Gold of Sicily",
     seo_description:
-      "Neste batch arancini i Oslo: Tirsdag 26. mai 2026, 18–20 på Sigurds gate 7. Begrenset meny — når batchen er tom, er den tom.",
+      "Meld deg på listen for neste Gold of Sicily-popup i Oslo. Små batcher med sicilianske arancini, begrenset antall og først beskjed til listen.",
     eyebrow: "Neste popup",
-    title: "Sicilianske arancini i Oslo — én kveld, én batch",
-    date_label: "Tirsdag 26. mai 2026",
-    time_label: "18–20",
-    address_short: "Sigurds gate 7",
-    address_full: "Sigurds gate 7, Oslo",
-    maps_url: "https://www.google.com/maps/search/?api=1&query=Sigurds+gate+7%2C+Oslo",
-    scarcity: "Når batchen er tom, er den tom.",
-    intro_body:
-      "Vi popper opp med en liten batch håndlagde arancini — ikke en restaurant med fast meny, men gatekjøkken fra Sicilia: sprø utenpå, myk inni, fyll som smaker av Palermo.",
-    menu_heading: "Meny denne kvelden",
-    menu: [
-      {
-        name: "Classico",
-        description: "Ragu, erter og pecorino — den du kjenner fra Palermo.",
-      },
-      {
-        name: "Bianco",
-        description: "Sitron, mozzarella og urter — lys og frisk inni, sprø utenpå.",
-      },
-      {
-        name: "Nordic twist",
-        description: "Sesongens fyll — spør hva som er i dagens batch.",
-      },
-    ],
-    cta_maps_label: "Finn oss på kart →",
-    cta_instagram_label: "Følg oss på Instagram",
-    cta_what_is_label: "Ny her? Les hva arancini er →",
+    title: "Neste batch kommer snart",
+    body: "Vi jobber med neste Gold of Sicily-popup nå. Meld deg på listen, så får du dato og sted før det legges ut offentlig.",
+    secondary_body:
+      "Små batcher, begrenset antall og først beskjed til listen.",
+    cta_label: "Få beskjed først",
   },
 };

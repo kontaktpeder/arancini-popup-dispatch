@@ -13,6 +13,8 @@ export type WhatIsAranciniContent = {
   section_1_body: string;
   section_2_heading: string;
   section_2_body: string;
+  section_3_heading: string;
+  section_3_body: string;
   cta_label: string;
 };
 
@@ -27,13 +29,10 @@ export type AboutContent = {
   section_1_body: string;
   section_2_heading: string;
   section_2_body: string;
+  proof_heading: string;
+  proof_body: string;
   cta_popup_label: string;
   cta_instagram_label: string;
-};
-
-export type NextPopupMenuItem = {
-  name: string;
-  description: string;
 };
 
 export type NextPopupContent = {
@@ -41,18 +40,9 @@ export type NextPopupContent = {
   seo_description: string;
   eyebrow: string;
   title: string;
-  date_label: string;
-  time_label: string;
-  address_short: string;
-  address_full: string;
-  maps_url: string;
-  scarcity: string;
-  intro_body: string;
-  menu_heading: string;
-  menu: NextPopupMenuItem[];
-  cta_maps_label: string;
-  cta_instagram_label: string;
-  cta_what_is_label: string;
+  body: string;
+  secondary_body: string;
+  cta_label: string;
 };
 
 export type CmsContentMap = {
