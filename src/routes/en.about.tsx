@@ -26,6 +26,15 @@ function AboutEn() {
       </h2>
       <p>{c.section_2_body}</p>
 
+      {c.proof_heading && c.proof_body ? (
+        <>
+          <h2 className="font-display text-2xl tracking-tight md:text-3xl">
+            {c.proof_heading}
+          </h2>
+          <p>{c.proof_body}</p>
+        </>
+      ) : null}
+
       <p>
         <Link to="/en/next-popup">{c.cta_popup_label}</Link>
         {" · "}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -69,6 +69,8 @@ const FIELDS: Record<CmsSlug, { groups: { title: string; fields: FieldDef[] }[] 
           { key: "section_1_body", label: "Seksjon 1 – tekst", type: "textarea" },
           { key: "section_2_heading", label: "Seksjon 2 – H2", type: "input" },
           { key: "section_2_body", label: "Seksjon 2 – tekst", type: "textarea" },
+          { key: "section_3_heading", label: "Seksjon 3 – H2", type: "input" },
+          { key: "section_3_body", label: "Seksjon 3 – tekst", type: "textarea" },
         ],
       },
       {
@@ -102,6 +104,8 @@ const FIELDS: Record<CmsSlug, { groups: { title: string; fields: FieldDef[] }[] 
           { key: "section_1_body", label: "Seksjon 1 – tekst", type: "textarea" },
           { key: "section_2_heading", label: "Seksjon 2 – H2", type: "input" },
           { key: "section_2_body", label: "Seksjon 2 – tekst", type: "textarea" },
+          { key: "proof_heading", label: "Proof – H2", type: "input" },
+          { key: "proof_body", label: "Proof – tekst", type: "textarea" },
         ],
       },
       {
@@ -130,30 +134,15 @@ const FIELDS: Record<CmsSlug, { groups: { title: string; fields: FieldDef[] }[] 
         ],
       },
       {
-        title: "Tid & sted",
-        fields: [
-          { key: "date_label", label: "Dato (tekst)", type: "input" },
-          { key: "time_label", label: "Klokkeslett (tekst)", type: "input" },
-          { key: "address_short", label: "Adresse – kort", type: "input" },
-          { key: "address_full", label: "Adresse – full", type: "input" },
-          { key: "maps_url", label: "Google Maps URL", type: "input" },
-        ],
-      },
-      {
         title: "Innhold",
         fields: [
-          { key: "intro_body", label: "Brødtekst", type: "textarea" },
-          { key: "scarcity", label: "Scarcity-linje (italic)", type: "input" },
-          { key: "menu_heading", label: "Meny – overskrift", type: "input" },
+          { key: "body", label: "Brødtekst", type: "textarea" },
+          { key: "secondary_body", label: "Sekundær tekst (italic)", type: "textarea" },
         ],
       },
       {
         title: "Lenker",
-        fields: [
-          { key: "cta_maps_label", label: "CTA – kart", type: "input" },
-          { key: "cta_instagram_label", label: "CTA – Instagram", type: "input" },
-          { key: "cta_what_is_label", label: "CTA – hva er arancini", type: "input" },
-        ],
+        fields: [{ key: "cta_label", label: "CTA-label", type: "input" }],
       },
     ],
   },
@@ -193,10 +182,6 @@ function AdminEditor() {
     setForm((prev) => ({ ...prev, [key]: value }) as AnyContent);
   };
 
-  const menu = useMemo(() => {
-    if (slugTyped !== "next-popup") return null;
-    return (form as NextPopupContent).menu ?? [];
-  }, [form, slugTyped]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -295,77 +280,6 @@ function AdminEditor() {
         </section>
       ))}
 
-      {menu ? (
-        <section className="space-y-4 rounded-xl border border-border/60 bg-card p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg tracking-tight">Meny</h2>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                set("menu", [...menu, { name: "", description: "" }])
-              }
-            >
-              + Legg til
-            </Button>
-          </div>
-          {menu.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Ingen retter.</p>
-          ) : (
-            <ul className="space-y-4">
-              {menu.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="space-y-2 rounded-lg border border-border/60 p-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground">
-                      #{idx + 1}
-                    </span>
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => {
-                        const next = menu.filter((_, i) => i !== idx);
-                        set("menu", next);
-                      }}
-                    >
-                      Fjern
-                    </Button>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Navn</Label>
-                    <Input
-                      value={item.name}
-                      onChange={(e) => {
-                        const next = menu.map((m, i) =>
-                          i === idx ? { ...m, name: e.target.value } : m,
-                        );
-                        set("menu", next);
-                      }}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Beskrivelse</Label>
-                    <Textarea
-                      rows={2}
-                      value={item.description}
-                      onChange={(e) => {
-                        const next = menu.map((m, i) =>
-                          i === idx ? { ...m, description: e.target.value } : m,
-                        );
-                        set("menu", next);
-                      }}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      ) : null}
 
       <div className="flex justify-end gap-2">
         <Button type="submit" disabled={saving}>

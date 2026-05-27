@@ -1,5 +1,4 @@
 import type { CmsContentMap } from "./types";
-import { CURRENT_POPUP_EN } from "@/lib/site";
 
 export const CMS_DEFAULTS_EN: CmsContentMap = {
   "what-is-arancini": {
@@ -20,16 +19,19 @@ export const CMS_DEFAULTS_EN: CmsContentMap = {
     section_2_heading: "How we make them",
     section_2_body:
       "Rice that gets time, fillings with ragu, cheese or season, breading that handles heat without turning greasy — and serving while there is still weight and juice inside. It's street food, not corporate restaurant SEO.",
-    cta_label: "See the next popup →",
+    section_3_heading: "Can you make arancini at home?",
+    section_3_body:
+      "Yes, arancini can be made at home with risotto, filling, breading and frying. The hard part is the balance: a crisp shell, juicy rice and a filling that's still hot when served. That's exactly what we test and refine in small batches.",
+    cta_label: "Want to taste our version? Join the next batch →",
   },
   about: {
     seo_title: "About Gold of Sicily",
     seo_description:
-      "Popup street food from Sicily to Oslo. Why Gold of Sicily started, small batches, and arancini culture — without corporate fluff.",
+      "Popup street food from Sicily to Oslo. Why Gold of Sicily started, small batches, and signals from our first popup at Sigurds gate 7.",
     eyebrow: "About",
     title: "Sicily, in small batches",
     intro_1:
-      "Gold of Sicily started with a simple question: why aren't there real, Sicilian arancini as street food in Oslo — crisp, soft, with fillings that actually taste of something — without turning into an \"Italian restaurant\" experience?",
+      "Gold of Sicily started with a simple question: why aren't there real Sicilian arancini as street food in Oslo? After our first popup at Sigurds gate 7 we got a clear signal: 4.5/5 on taste, 28 of 34 would buy again, and truffle and mushroom became the first crowd favourite.",
     intro_2:
       "We are popup and street food: Dennis and the team bake batches when there is a date and a place, not every day all year round. That means you get what's fresh that night — and when the batch is gone, it's gone.",
     section_1_heading: "Sicily, not corporate",
@@ -38,26 +40,21 @@ export const CMS_DEFAULTS_EN: CmsContentMap = {
     section_2_heading: "Small batches",
     section_2_body:
       "Smaller batches mean better control of rice, filling and crisp. It is also why this was missing: it doesn't scale like a chain, but it tastes better.",
-    cta_popup_label: "Next popup →",
+    proof_heading: "Signals from batch 001",
+    proof_body:
+      "34 tasters gave us an average of 4.5/5. 28 said they would buy again. Truffle and mushroom became the clear favourite, ahead of ragu and 'nduja. That's the signal we're building the next batch on.",
+    cta_popup_label: "Next batch →",
     cta_instagram_label: "Instagram",
   },
   "next-popup": {
-    seo_title: "Next popup — Gold of Sicily",
-    seo_description: `Next arancini batch in Oslo: ${CURRENT_POPUP_EN.dateLabel}, ${CURRENT_POPUP_EN.timeLabel} at ${CURRENT_POPUP_EN.addressShort}. Limited menu — ${CURRENT_POPUP_EN.scarcity}`,
+    seo_title: "Next batch coming soon — Gold of Sicily",
+    seo_description:
+      "Join the list for the next Gold of Sicily popup in Oslo. Small batches of Sicilian arancini, limited quantity and the list hears first.",
     eyebrow: "Next popup",
-    title: "Sicilian arancini in Oslo — one night, one batch",
-    date_label: CURRENT_POPUP_EN.dateLabel,
-    time_label: CURRENT_POPUP_EN.timeLabel,
-    address_short: CURRENT_POPUP_EN.addressShort,
-    address_full: CURRENT_POPUP_EN.addressFull,
-    maps_url: CURRENT_POPUP_EN.mapsUrl,
-    scarcity: CURRENT_POPUP_EN.scarcity,
-    intro_body:
-      "We pop up with a small batch of handmade arancini — not a restaurant with a fixed menu, but street food from Sicily: crisp outside, soft inside, filling that tastes of Palermo.",
-    menu_heading: "Menu this night",
-    menu: CURRENT_POPUP_EN.menu.map((m) => ({ ...m })),
-    cta_maps_label: "Find us on the map →",
-    cta_instagram_label: "Follow us on Instagram",
-    cta_what_is_label: "New here? Read what arancini is →",
+    title: "Next batch coming soon",
+    body: "We're working on the next Gold of Sicily popup right now. Join the list and you'll get date and place before it goes public.",
+    secondary_body:
+      "Small batches, limited quantity, and the list hears first.",
+    cta_label: "Get notified first",
   },
 };
