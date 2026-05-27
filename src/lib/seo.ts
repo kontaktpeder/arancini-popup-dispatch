@@ -2,10 +2,10 @@ import { SITE } from "./site";
 
 export const SITE_URL = SITE.domain;
 
-export const DEFAULT_TITLE = "Gold of Sicily — Sicilianske arancini i Oslo";
+export const DEFAULT_TITLE = "Arancini Oslo — Gold of Sicily";
 
 export const DEFAULT_DESCRIPTION =
-  "Håndlagde sicilianske arancini i Oslo. Gold of Sicily serverer sprø italienske risballer inspirert av gatene i Palermo. Popup streetfood i små batcher.";
+  "Sicilianske arancini i Oslo: sprø risballer med varmt fyll, laget i små batcher av Gold of Sicily. Meld deg på listen for neste popup.";
 
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 export const THEME_COLOR = "#f2ebe8";
@@ -69,21 +69,26 @@ export const LOCAL_BUSINESS_JSON_LD = {
   description: DEFAULT_DESCRIPTION,
   servesCuisine: ["Sicilian", "Italian street food"],
   areaServed: { "@type": "City", name: "Oslo" },
-  sameAs: [SITE.instagram],
+  sameAs: [SITE.instagram, SITE.tiktok],
 };
 
 export const PAGE_SEO = {
-  "/": {} satisfies PageSeo,
+  "/": {
+    title: "Arancini Oslo — siciliansk streetfood | Gold of Sicily",
+    description:
+      "Gold of Sicily lager sicilianske arancini i Oslo: sprø risballer med ragu, ost, trøffel og sopp. Første popup fikk 4,5/5 i smak.",
+    path: "/",
+  } satisfies PageSeo,
   "/next-popup": {
-    title: "Neste batch kommer snart — Gold of Sicily",
+    title: "Neste arancini-popup i Oslo kommer snart — Gold of Sicily",
     description:
       "Meld deg på listen for neste Gold of Sicily-popup i Oslo. Små batcher med sicilianske arancini, begrenset antall og først beskjed til listen.",
     path: "/next-popup",
   },
   "/what-is-arancini": {
-    title: "Hva er arancini? — Gold of Sicily",
+    title: "Hva er arancini? Sicilianske risballer forklart — Gold of Sicily",
     description:
-      "Sicilianske risballer med sprø skorpe og fyll fra Palermo. Slik lager Gold of Sicily håndlagde arancini i Oslo — popup streetfood i små batcher.",
+      "Hva er arancini? Lær om sicilianske risballer med sprø skorpe, varmt fyll og hvorfor Gold of Sicily lager dem som popup streetfood i Oslo.",
     path: "/what-is-arancini",
   },
   "/about": {
