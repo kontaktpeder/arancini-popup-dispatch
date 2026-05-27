@@ -55,6 +55,6 @@ export const CMS_DEFAULTS: CmsContentMap = {
     body: "Vi jobber med neste Gold of Sicily-popup nå. Meld deg på listen, så får du dato og sted før det legges ut offentlig.",
     secondary_body:
       "Små batcher, begrenset antall og først beskjed til listen.",
-    cta_label: "Få beskjed først",
+    cta_label: "Få beskjed om neste popup",
   },
 };
