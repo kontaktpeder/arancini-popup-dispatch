@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
 });
 
 const NEWSLETTER_COPY_NO = {
-  label: "Få beskjed om neste batch",
+  label: "​",
   placeholder: "din@epost.no",
   cta: "Meld på",
   success: "Du får beskjed når neste batch er klar.",
@@ -41,7 +41,7 @@ function Index() {
           title: "Sicilianske arancini i Oslo",
           body: "Håndlagde risballer med sprø skorpe, varmt fyll og smaken av siciliansk streetfood. Første popup i Sigurds gate 7 viste én ting: Oslo vil ha mer.",
           proof: "4,5/5 i smak · 28 av 34 ville kjøpt igjen",
-          ctaLabel: "Få beskjed om neste batch",
+          ctaLabel: "​",
           scrollLabel: "Hva folk sa",
         }}
         newsletter={<NewsletterSignup lang="no" copy={NEWSLETTER_COPY_NO} />}
