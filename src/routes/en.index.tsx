@@ -19,7 +19,7 @@ export const Route = createFileRoute("/en/")({
 });
 
 const NEWSLETTER_COPY_EN = {
-  label: "Get notified about the next batch",
+  label: "​",
   placeholder: "you@email.com",
   cta: "Sign up",
   success: "You'll hear from us when the next batch is ready.",
@@ -41,7 +41,7 @@ function IndexEn() {
           title: "Sicilian arancini in Oslo",
           body: "Handmade rice balls with a crisp shell, warm filling and the flavour of Sicilian street food. Our first popup at Sigurds gate 7 made one thing clear: Oslo wants more.",
           proof: "4.5/5 on taste · 28 of 34 would buy again",
-          ctaLabel: "Get notified about the next batch",
+          ctaLabel: "​",
           scrollLabel: "What people said",
         }}
         newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
