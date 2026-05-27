@@ -69,6 +69,8 @@ const FIELDS: Record<CmsSlug, { groups: { title: string; fields: FieldDef[] }[] 
           { key: "section_1_body", label: "Seksjon 1 – tekst", type: "textarea" },
           { key: "section_2_heading", label: "Seksjon 2 – H2", type: "input" },
           { key: "section_2_body", label: "Seksjon 2 – tekst", type: "textarea" },
+          { key: "section_3_heading", label: "Seksjon 3 – H2", type: "input" },
+          { key: "section_3_body", label: "Seksjon 3 – tekst", type: "textarea" },
         ],
       },
       {
@@ -102,6 +104,8 @@ const FIELDS: Record<CmsSlug, { groups: { title: string; fields: FieldDef[] }[] 
           { key: "section_1_body", label: "Seksjon 1 – tekst", type: "textarea" },
           { key: "section_2_heading", label: "Seksjon 2 – H2", type: "input" },
           { key: "section_2_body", label: "Seksjon 2 – tekst", type: "textarea" },
+          { key: "proof_heading", label: "Proof – H2", type: "input" },
+          { key: "proof_body", label: "Proof – tekst", type: "textarea" },
         ],
       },
       {
@@ -130,30 +134,15 @@ const FIELDS: Record<CmsSlug, { groups: { title: string; fields: FieldDef[] }[] 
         ],
       },
       {
-        title: "Tid & sted",
-        fields: [
-          { key: "date_label", label: "Dato (tekst)", type: "input" },
-          { key: "time_label", label: "Klokkeslett (tekst)", type: "input" },
-          { key: "address_short", label: "Adresse – kort", type: "input" },
-          { key: "address_full", label: "Adresse – full", type: "input" },
-          { key: "maps_url", label: "Google Maps URL", type: "input" },
-        ],
-      },
-      {
         title: "Innhold",
         fields: [
-          { key: "intro_body", label: "Brødtekst", type: "textarea" },
-          { key: "scarcity", label: "Scarcity-linje (italic)", type: "input" },
-          { key: "menu_heading", label: "Meny – overskrift", type: "input" },
+          { key: "body", label: "Brødtekst", type: "textarea" },
+          { key: "secondary_body", label: "Sekundær tekst (italic)", type: "textarea" },
         ],
       },
       {
         title: "Lenker",
-        fields: [
-          { key: "cta_maps_label", label: "CTA – kart", type: "input" },
-          { key: "cta_instagram_label", label: "CTA – Instagram", type: "input" },
-          { key: "cta_what_is_label", label: "CTA – hva er arancini", type: "input" },
-        ],
+        fields: [{ key: "cta_label", label: "CTA-label", type: "input" }],
       },
     ],
   },
