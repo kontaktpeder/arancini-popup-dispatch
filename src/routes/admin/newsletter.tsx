@@ -61,7 +61,7 @@ function NewsletterAdmin() {
       </div>
 
       <div className="overflow-hidden rounded-xl border border-border/60 bg-card">
-        <table className="w-full text-sm">
+        <table className="hidden w-full text-sm sm:table">
           <thead className="bg-muted/40 text-left text-xs uppercase tracking-wide text-muted-foreground">
             <tr>
               <th className="px-4 py-3">E-post</th>
@@ -72,7 +72,7 @@ function NewsletterAdmin() {
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} className="border-t border-border/40">
-                <td className="px-4 py-3">{r.email}</td>
+                <td className="px-4 py-3 break-all">{r.email}</td>
                 <td className="px-4 py-3 text-muted-foreground">{r.lang}</td>
                 <td className="px-4 py-3 text-muted-foreground">
                   {new Date(r.created_at).toLocaleString()}
@@ -88,6 +88,23 @@ function NewsletterAdmin() {
             ) : null}
           </tbody>
         </table>
+
+        <ul className="divide-y divide-border/40 sm:hidden">
+          {rows.map((r) => (
+            <li key={r.id} className="px-4 py-3">
+              <div className="break-all text-sm font-medium">{r.email}</div>
+              <div className="mt-1 flex items-center justify-between gap-2 text-xs text-muted-foreground">
+                <span className="uppercase tracking-wide">{r.lang}</span>
+                <span>{new Date(r.created_at).toLocaleString()}</span>
+              </div>
+            </li>
+          ))}
+          {!loading && !rows.length ? (
+            <li className="px-4 py-8 text-center text-sm text-muted-foreground">
+              Ingen påmeldte ennå.
+            </li>
+          ) : null}
+        </ul>
       </div>
     </div>
   );
