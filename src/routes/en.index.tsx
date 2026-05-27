@@ -1,22 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-
 import { EditorialCards } from "@/components/editorial-cards";
-import { FeedbackSection } from "@/components/feedback-section";
-import { NewsletterSignup } from "@/components/newsletter-signup";
-
-import { SiteHeader } from "@/components/site-header";
+import { Favorites } from "@/components/favorites";
+import { HomeHero } from "@/components/home-hero";
 import { LangSwitch } from "@/components/lang-switch";
-import { Poster } from "@/components/poster";
+import { NewsletterSignup } from "@/components/newsletter-signup";
+import { NextBatch } from "@/components/next-batch";
 import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { SocialFollow } from "@/components/social-follow";
+import { Testimonials } from "@/components/testimonials";
 import { DISCOVERY_EN } from "@/lib/discovery-copy";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
-import { CURRENT_POPUP_EN } from "@/lib/site";
 
 export const Route = createFileRoute("/en/")({
   head: () => buildPageHead(PAGE_SEO["/en"]),
   component: IndexEn,
 });
+
+const NEWSLETTER_COPY_EN = {
+  label: "Get notified about the next batch",
+  placeholder: "you@email.com",
+  cta: "Sign up",
+  success: "You'll hear from us when the next batch is ready.",
+  exists: "You're already on the list — we'll be in touch.",
+  error: "Something went wrong. Try again.",
+  invalid: "Check the email address.",
+};
 
 function IndexEn() {
   return (
@@ -25,66 +35,58 @@ function IndexEn() {
       <LangSwitch lang="en" />
       <SiteHeader tagline={DISCOVERY_EN.heroIntro.body} />
 
-      <FeedbackSection
-        tallyUrl="https://tally.so/r/rjkYqN"
-        newsletter={
-          <NewsletterSignup
-            lang="en"
-            copy={{
-              label: "Hear about the next popup",
-              placeholder: "you@email.com",
-              cta: "Sign up",
-              success: "You'll hear from us before the next popup.",
-              exists: "You're already on the list — we'll be in touch.",
-              error: "Something went wrong. Try again.",
-              invalid: "Check the email address.",
-            }}
-          />
-        }
+      <HomeHero
         copy={{
-          eyebrow: "Batch",
-          followLabel: "Follow us",
+          altArancini: "Arancini on crinkled paper",
+          title: "Sicilian arancini in Oslo",
+          body: "Handmade rice balls with a crisp shell, warm filling and the flavour of Sicilian street food. Our first popup at Sigurds gate 7 made one thing clear: Oslo wants more.",
+          proof: "4.5/5 on taste · 28 of 34 would buy again",
+          ctaLabel: "Get notified about the next batch",
+          scrollLabel: "What people said",
+        }}
+        newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
+      />
 
-          title: "Help us shape Gold of Sicily",
-          body: "We're making small batches of Sicilian arancini in Oslo and testing the concept live. Tasted one? Tell us what you think — flavour, price, what we should make more of.",
-          microNote: "Under 30 seconds",
-          cta: "Give feedback",
-          qrLabel: "Scan to answer",
-          formTitle: "Live · Batch 001",
-          stats: [
-            { value: "100", label: "pcs only" },
-            { value: "3", label: "fillings" },
-            { value: "01", label: "first popup" },
+      <Testimonials
+        copy={{
+          eyebrow: "Voices from batch 001",
+          title: "What people said",
+          quotes: [
+            "Proper Sicilian street food, rich in flavour with a fine balance between the cheese and the salt.",
+            "Crunchy, juicy delicacy.",
+            "Fried risotto with insane flavour and great cheese pull.",
+            "Beautiful Italian food.",
+            "A delicious taste experience.",
+            "Italian bar food that pops in your mouth with a beer alongside.",
           ],
         }}
       />
 
-      <Poster
+      <Favorites
         copy={{
-
-          altArancini: "Arancini on crinkled paper",
-          tagTop: "Crispy outside.",
-          tagBottom: "Soft inside.",
-          subtitle: "Sicilian street food",
-          nextLabel: "Next popup",
-          date: CURRENT_POPUP_EN.dateShort,
-          address: `${CURRENT_POPUP_EN.timeLabel} · ${CURRENT_POPUP_EN.addressShort}`,
-          scarcity: CURRENT_POPUP_EN.scarcity,
-          follow: "Follow on Instagram",
-          countdownTarget: "2026-05-26T16:00:00Z",
-          countdownLabels: {
-            days: "Days",
-            hours: "Hours",
-            minutes: "Min",
-            seconds: "Sec",
-            live: "We're live — come by!",
-          },
+          eyebrow: "Batch 001 · 34 tasters",
+          title: "The people's favourite",
+          items: [
+            { name: "Truffle & mushroom", votes: 16, voteLabel: "votes" },
+            { name: "Ragu", votes: 11, voteLabel: "votes" },
+            { name: "'Nduja", votes: 9, voteLabel: "votes" },
+          ],
         }}
       />
 
+      <NextBatch
+        copy={{
+          eyebrow: "Next popup",
+          title: "Next batch coming soon",
+          body: "We're planning the next popup now. Sign up to hear first — batches are small.",
+        }}
+        newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
+      />
+
+      <SocialFollow label="Follow us" />
+
       <EditorialCards copy={DISCOVERY_EN.editorial} />
-      
-      
+
       <SiteFooter copy={DISCOVERY_EN.footer} />
     </main>
   );
