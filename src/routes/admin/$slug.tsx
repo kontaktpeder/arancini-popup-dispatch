@@ -182,10 +182,6 @@ function AdminEditor() {
     setForm((prev) => ({ ...prev, [key]: value }) as AnyContent);
   };
 
-  const menu = useMemo(() => {
-    if (slugTyped !== "next-popup") return null;
-    return (form as NextPopupContent).menu ?? [];
-  }, [form, slugTyped]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -284,77 +280,6 @@ function AdminEditor() {
         </section>
       ))}
 
-      {menu ? (
-        <section className="space-y-4 rounded-xl border border-border/60 bg-card p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg tracking-tight">Meny</h2>
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              onClick={() =>
-                set("menu", [...menu, { name: "", description: "" }])
-              }
-            >
-              + Legg til
-            </Button>
-          </div>
-          {menu.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Ingen retter.</p>
-          ) : (
-            <ul className="space-y-4">
-              {menu.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="space-y-2 rounded-lg border border-border/60 p-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground">
-                      #{idx + 1}
-                    </span>
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => {
-                        const next = menu.filter((_, i) => i !== idx);
-                        set("menu", next);
-                      }}
-                    >
-                      Fjern
-                    </Button>
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Navn</Label>
-                    <Input
-                      value={item.name}
-                      onChange={(e) => {
-                        const next = menu.map((m, i) =>
-                          i === idx ? { ...m, name: e.target.value } : m,
-                        );
-                        set("menu", next);
-                      }}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>Beskrivelse</Label>
-                    <Textarea
-                      rows={2}
-                      value={item.description}
-                      onChange={(e) => {
-                        const next = menu.map((m, i) =>
-                          i === idx ? { ...m, description: e.target.value } : m,
-                        );
-                        set("menu", next);
-                      }}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-      ) : null}
 
       <div className="flex justify-end gap-2">
         <Button type="submit" disabled={saving}>
