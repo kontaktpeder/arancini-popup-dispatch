@@ -69,7 +69,7 @@ export function HomeHero({
 
           <a
             href="#feedback"
-            className="group mt-10 inline-flex items-center gap-3 rounded-full border border-foreground/70 bg-background/60 px-5 py-2.5 text-[0.7rem] font-medium uppercase tracking-[0.28em] text-foreground shadow-[0_1px_0_rgba(0,0,0,0.04)] backdrop-blur-sm transition hover:border-foreground hover:bg-foreground hover:text-background"
+            className="group mt-10 inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-background px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-[3px_3px_0_0_var(--color-foreground)] transition hover:bg-foreground hover:text-background hover:shadow-[1px_1px_0_0_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px]"
           >
             <span>{copy.scrollLabel}</span>
             <span aria-hidden className="inline-block animate-bounce text-sm">↓</span>
