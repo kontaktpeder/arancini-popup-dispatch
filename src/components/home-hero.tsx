@@ -53,8 +53,8 @@ export function HomeHero({
             {copy.body}
           </p>
 
-          <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-foreground/20 bg-background/60 px-4 py-2 text-[0.72rem] uppercase tracking-[0.22em] text-foreground/80 backdrop-blur-sm">
-            <span aria-hidden className="text-[color:var(--tomato)]">★</span>
+          <div className="mt-6 inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-[color:var(--tomato)] px-4 py-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--blush)] shadow-[3px_3px_0_0_var(--color-foreground)] md:text-[0.85rem]">
+            <span aria-hidden className="text-base text-[color:var(--golden)]">★</span>
             <span>{copy.proof}</span>
           </div>
 
