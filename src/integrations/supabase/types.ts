@@ -99,6 +99,7 @@ export type Database = {
           notes: string | null
           paid_amount: number | null
           payment_status: string
+          pre_company_expense: boolean
           quantity: number | null
           sort_order: number | null
           source_type: string
@@ -131,6 +132,7 @@ export type Database = {
           notes?: string | null
           paid_amount?: number | null
           payment_status?: string
+          pre_company_expense?: boolean
           quantity?: number | null
           sort_order?: number | null
           source_type?: string
@@ -163,6 +165,7 @@ export type Database = {
           notes?: string | null
           paid_amount?: number | null
           payment_status?: string
+          pre_company_expense?: boolean
           quantity?: number | null
           sort_order?: number | null
           source_type?: string
