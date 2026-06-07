@@ -44,6 +44,8 @@ export function EntryDetailPanel({ entry, onClose }: Props) {
   });
   const [unsupported, setUnsupported] = useState(false);
   const patch = usePatchEntry();
+  const del = useDeleteEntry();
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const categories = categoriesFor(entry.entry_type);
 
   async function save() {
