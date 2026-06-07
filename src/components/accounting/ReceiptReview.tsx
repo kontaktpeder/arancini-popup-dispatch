@@ -40,6 +40,7 @@ export function ReceiptUploadButton({
   const { uploadAttachment, isUploading } = useFinanceAttachmentUpload();
   const createDraft = useCreateReceiptDraft();
   const analyze = useServerFn(analyzeReceiptDraft);
+  const qc = useQueryClient();
   const [analyzing, setAnalyzing] = useState(false);
 
   const handleFile = async (file: File) => {
