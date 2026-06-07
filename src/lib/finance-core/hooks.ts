@@ -123,6 +123,24 @@ export function useScanReceipt() {
   });
 }
 
+export function useDeleteEntry() {
+  const fn = useServerFn(deleteEntry);
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => fn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
+  });
+}
+
+export function useDeleteAttachment() {
+  const fn = useServerFn(deleteAttachment);
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => fn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
+  });
+}
+
 export const FINANCE_CORE_BASE_URL =
   (import.meta.env.VITE_FINANCE_CORE_BASE_URL as string | undefined) ??
   "https://project--71d47bcd-142c-4661-be6b-2d7bcddce79c.lovable.app";
