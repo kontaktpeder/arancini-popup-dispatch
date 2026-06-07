@@ -268,12 +268,12 @@ export function ReceiptReviewDialog({
 
   const handleSave = async () => {
     if (!form.description.trim() && !form.counterparty.trim()) {
-      toast.error("Fyll inn beskrivelse eller leverandør");
+      toast.error(t.review.fillRequired);
       return;
     }
     const gross = parseKrToOre(form.gross_amount_kr);
     if (gross <= 0) {
-      toast.error("Beløp må være større enn 0");
+      toast.error(t.review.amountRequired);
       return;
     }
     setSaving(true);
@@ -300,10 +300,10 @@ export function ReceiptReviewDialog({
         status: "converted",
         converted_entry_id: entry?.id ?? null,
       });
-      toast.success("Regnskapspost opprettet");
+      toast.success(t.review.created);
       onOpenChange(false);
     } catch (e: any) {
-      toast.error(e?.message || "Kunne ikke lagre");
+      toast.error(e?.message || t.review.saveError);
     } finally {
       setSaving(false);
     }
@@ -311,7 +311,7 @@ export function ReceiptReviewDialog({
 
   const handleReject = async () => {
     await update.mutateAsync({ id: draft.id, status: "rejected" });
-    toast.success("Forslag avvist");
+    toast.success(t.review.rejected);
     onOpenChange(false);
   };
 
