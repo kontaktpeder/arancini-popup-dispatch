@@ -188,7 +188,49 @@ export function EntryDetailPanel({ entry, onClose }: Props) {
             <Save className="h-4 w-4" /> Lagre
           </Button>
           <Button variant="ghost" onClick={onClose}>Lukk</Button>
+          <div className="ml-auto">
+            <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="sm" disabled={del.isPending}>
+                  <Trash2 className="h-4 w-4" /> Slett post
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Slette posten?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    <span className="block">
+                      <strong>{entry.description}</strong> — {formatNok(Number(entry.amount_gross) || 0)}
+                    </span>
+                    <span className="mt-2 block">
+                      Posten og alle tilhørende bilag slettes permanent fra Finance Core.
+                      Handlingen kan ikke angres.
+                    </span>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Avbryt</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={async () => {
+                      try {
+                        await del.mutateAsync(entry.id);
+                        toast.success("Post slettet");
+                        setConfirmDelete(false);
+                        onClose();
+                      } catch (e: any) {
+                        toast.error(`Feil: ${e?.message ?? e}`);
+                      }
+                    }}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
+                    Slett post
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </div>
+
 
         <div className="grid grid-cols-2 gap-3 border-t pt-3 text-xs text-muted-foreground">
           <div><span className="font-medium">Kilde-app:</span> {entry.source_app ?? "—"}</div>
