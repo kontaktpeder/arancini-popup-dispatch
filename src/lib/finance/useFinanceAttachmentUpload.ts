@@ -1,3 +1,4 @@
+/** @deprecated Bruk Finance Core API via src/lib/finance-core/ */
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
