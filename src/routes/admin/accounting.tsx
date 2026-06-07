@@ -128,8 +128,14 @@ function BookView({
     };
   }, [entries]);
 
-  const expenses = entries.filter((e) => e.entry_type === "expense");
-  const incomes = entries.filter((e) => e.entry_type === "income");
+  const [filter, setFilter] = useState<"all" | "pre" | "ordinary">("all");
+  const applyFilter = (list: FinanceEntry[]) =>
+    filter === "pre" ? list.filter((e) => e.pre_company_expense)
+    : filter === "ordinary" ? list.filter((e) => !e.pre_company_expense)
+    : list;
+
+  const expenses = applyFilter(entries.filter((e) => e.entry_type === "expense"));
+  const incomes = applyFilter(entries.filter((e) => e.entry_type === "income"));
 
   const handleAdd = (type: FinanceEntryType) => {
     if (!userId) return;
@@ -183,6 +189,29 @@ function BookView({
         <Kpi label="Ubetalt" value={formatNok(kpis.unpaid)} />
         <Kpi label="Mangler faktura" value={formatNok(kpis.pendingInvoice)} />
         <Kpi label="Mangler bilag" value={formatNok(kpis.missingAttachment)} />
+      </div>
+
+      {/* Filter + help text */}
+      <div className="rounded-lg border border-border/60 bg-muted/30 p-3 space-y-2">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-xs font-medium">Vis:</span>
+          <Select value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
+            <SelectTrigger className="h-8 w-[220px] text-xs"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Alle poster</SelectItem>
+              <SelectItem value="pre">Kun før selskapsstiftelse</SelectItem>
+              <SelectItem value="ordinary">Kun ordinære poster</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+          <Info className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+          <span>
+            Poster merket «Før selskapsstiftelse» ble registrert før selskapet ble etablert. Registreringen
+            brukes for å dokumentere oppstartskostnader og historikk. Om kostnaden senere kan overføres til
+            selskapet må vurderes separat.
+          </span>
+        </p>
       </div>
 
       {/* Expenses */}
