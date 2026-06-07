@@ -1,8 +1,14 @@
 import { useState } from "react";
-import { Paperclip, Upload, ExternalLink, AlertCircle } from "lucide-react";
+import { Paperclip, Upload, ExternalLink, AlertCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { useEntryAttachments, useUploadAttachment } from "@/lib/finance-core/hooks";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  useDeleteAttachment, useEntryAttachments, useUploadAttachment,
+} from "@/lib/finance-core/hooks";
 
 interface Props {
   entryId: string;
@@ -11,7 +17,9 @@ interface Props {
 export function AttachmentSection({ entryId }: Props) {
   const q = useEntryAttachments(entryId);
   const upload = useUploadAttachment();
+  const del = useDeleteAttachment();
   const [file, setFile] = useState<File | null>(null);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
   async function handleUpload() {
     if (!file) {
