@@ -25,7 +25,6 @@ import { AiScanDialog } from "./AiScanDialog";
 
 import {
   useAccountingStatus,
-  useCategoryReport,
   useSendKlinkSettlement,
   useSendManualEntry,
   useSendTestIncome,
@@ -44,7 +43,6 @@ import {
 export function AccountingTabs() {
   const status = useAccountingStatus();
   const year = new Date().getFullYear();
-  const categoryReport = useCategoryReport(year);
 
   const entries = status.data?.entries ?? [];
   const totals = status.data?.totals;
@@ -156,14 +154,7 @@ export function AccountingTabs() {
                 <CardTitle className="text-base">Utgifter per kategori</CardTitle>
               </CardHeader>
               <CardContent className="overflow-x-auto p-0">
-                {categoryReport.data?.supported && categoryReport.data.rows.length > 0 ? (
-                  <ReportsCategories
-                    rows={categoryReport.data.rows
-                      .map((r) => ({ category: r.category, amount: Number(r.amount) || 0, share: r.share ?? 0 }))}
-                  />
-                ) : (
-                  <ReportsCategories rows={expenseShares} emptyText="Ingen utgifter ennå." />
-                )}
+                <ReportsCategories rows={expenseShares} emptyText="Ingen utgifter ennå." />
               </CardContent>
             </Card>
             <Card>
