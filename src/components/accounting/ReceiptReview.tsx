@@ -59,8 +59,10 @@ export function ReceiptUploadButton({
       toast.info("AI analyserer kvitteringen…");
       try {
         await analyze({ data: { draftId: draft.id } });
+        await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
         toast.success("AI-forslag klart");
       } catch (e: any) {
+        await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
         toast.error(e?.message || "AI-analyse feilet");
       } finally {
         setAnalyzing(false);
