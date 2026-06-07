@@ -222,7 +222,7 @@ const dict = {
       errorPrefix: "Error",
     },
   },
-} as const;
+};
 
 export type AccountingDict = typeof dict.no;
 
