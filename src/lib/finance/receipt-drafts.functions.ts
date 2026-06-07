@@ -1,3 +1,4 @@
+/** @deprecated Bruk Finance Core API via src/lib/finance-core/ */
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";

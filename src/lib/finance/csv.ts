@@ -1,3 +1,4 @@
+/** @deprecated Bruk Finance Core API via src/lib/finance-core/ */
 import type { FinanceEntry } from "./types";
 
 function escape(v: string | number | null | undefined): string {

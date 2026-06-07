@@ -1,3 +1,4 @@
+/** @deprecated Bruk Finance Core API via src/lib/finance-core/ */
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQueryClient } from "@tanstack/react-query";

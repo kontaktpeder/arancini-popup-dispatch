@@ -1,3 +1,4 @@
+/** @deprecated Bruk Finance Core API via src/lib/finance-core/ */
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type {
