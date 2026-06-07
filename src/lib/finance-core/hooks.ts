@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
+  deleteAttachment,
+  deleteEntry,
   fetchCategoryReport,
   fetchEntry,
   getAccountingStatus,
@@ -118,6 +120,24 @@ export function useScanReceipt() {
   const fn = useServerFn(scanReceipt);
   return useMutation({
     mutationFn: (form: FormData) => fn({ data: form }),
+  });
+}
+
+export function useDeleteEntry() {
+  const fn = useServerFn(deleteEntry);
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => fn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
+  });
+}
+
+export function useDeleteAttachment() {
+  const fn = useServerFn(deleteAttachment);
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => fn({ data: { id } }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
   });
 }
 

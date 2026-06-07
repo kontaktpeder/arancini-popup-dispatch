@@ -1,8 +1,14 @@
 import { useState } from "react";
-import { Paperclip, Upload, ExternalLink, AlertCircle } from "lucide-react";
+import { Paperclip, Upload, ExternalLink, AlertCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { useEntryAttachments, useUploadAttachment } from "@/lib/finance-core/hooks";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  useDeleteAttachment, useEntryAttachments, useUploadAttachment,
+} from "@/lib/finance-core/hooks";
 
 interface Props {
   entryId: string;
@@ -11,7 +17,9 @@ interface Props {
 export function AttachmentSection({ entryId }: Props) {
   const q = useEntryAttachments(entryId);
   const upload = useUploadAttachment();
+  const del = useDeleteAttachment();
   const [file, setFile] = useState<File | null>(null);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
   async function handleUpload() {
     if (!file) {
@@ -61,15 +69,55 @@ export function AttachmentSection({ entryId }: Props) {
                 <Paperclip className="h-3 w-3" />
                 <span className="truncate">{a.filename ?? a.id}</span>
               </span>
-              {a.url && (
-                <a href={a.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground">
-                  Åpne <ExternalLink className="h-3 w-3" />
-                </a>
-              )}
+              <span className="inline-flex items-center gap-2">
+                {a.url && (
+                  <a href={a.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground">
+                    Åpne <ExternalLink className="h-3 w-3" />
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setConfirmId(a.id)}
+                  className="inline-flex items-center gap-1 text-muted-foreground hover:text-destructive"
+                  aria-label="Slett bilag"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </button>
+              </span>
             </li>
           ))}
         </ul>
       )}
+
+      <AlertDialog open={!!confirmId} onOpenChange={(o) => !o && setConfirmId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Slette bilag?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Bilaget fjernes permanent fra Finance Core. Handlingen kan ikke angres.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Avbryt</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async () => {
+                if (!confirmId) return;
+                try {
+                  await del.mutateAsync(confirmId);
+                  toast.success("Bilag slettet");
+                  setConfirmId(null);
+                  q.refetch();
+                } catch (e: any) {
+                  toast.error(`Feil: ${e?.message ?? e}`);
+                }
+              }}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Slett
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <div className="flex flex-wrap items-center gap-2 pt-1">
         <input
