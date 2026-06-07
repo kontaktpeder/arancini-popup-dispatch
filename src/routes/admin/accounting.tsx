@@ -23,6 +23,10 @@ import {
 import { useFinanceAttachmentUpload } from "@/lib/finance/useFinanceAttachmentUpload";
 import { formatNok, parseKrToOre } from "@/lib/finance/format";
 import { entriesToCsv, downloadCsv } from "@/lib/finance/csv";
+import { useReceiptDrafts } from "@/lib/finance/receipt-drafts.hooks";
+import {
+  ReceiptUploadButton, ReceiptDraftList, ReceiptReviewDialog,
+} from "@/components/accounting/ReceiptReview";
 import type {
   FinanceEntry, FinanceEntryType,
   FinancePaymentStatus, FinanceInvoiceStatus,
@@ -105,6 +109,10 @@ function BookView({
   const del = useDeleteFinanceEntry(bookId);
   const { uploadAttachment, isUploading } = useFinanceAttachmentUpload();
 
+  const { data: drafts } = useReceiptDrafts(bookId);
+  const [reviewDraftId, setReviewDraftId] = useState<string | null>(null);
+  const reviewDraft = (drafts || []).find((d) => d.id === reviewDraftId) ?? null;
+
   const kpis = useMemo(() => {
     let income = 0, expense = 0;
     const active = entries.filter((e) => e.payment_status !== "cancelled");
@@ -179,11 +187,30 @@ function BookView({
               </SelectContent>
             </Select>
           )}
+          <ReceiptUploadButton
+            bookId={bookId}
+            userId={userId}
+            onUploaded={(id) => setReviewDraftId(id)}
+          />
           <Button variant="outline" size="sm" onClick={handleExport}>
             <Download className="h-4 w-4 mr-1" /> CSV
           </Button>
         </div>
       </div>
+
+      <ReceiptDraftList
+        drafts={drafts || []}
+        bookId={bookId}
+        onReview={(id) => setReviewDraftId(id)}
+      />
+
+      <ReceiptReviewDialog
+        draft={reviewDraft}
+        bookId={bookId}
+        userId={userId}
+        open={!!reviewDraftId}
+        onOpenChange={(v) => { if (!v) setReviewDraftId(null); }}
+      />
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
