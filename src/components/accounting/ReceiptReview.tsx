@@ -320,26 +320,23 @@ export function ReceiptReviewDialog({
       <DialogContent className="max-w-6xl max-h-[92vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4" /> Kontroller AI-forslag
+            <Sparkles className="h-4 w-4" /> {t.review.title}
           </DialogTitle>
         </DialogHeader>
 
         <div className="rounded-md border border-amber-300/60 bg-amber-50/60 dark:bg-amber-950/20 p-3 flex items-start gap-2 text-xs">
           <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-          <p>
-            AI kan tolke feil. Du må kontrollere at beløp, dato, leverandør og MVA stemmer
-            før posten lagres.
-          </p>
+          <p>{t.review.warning}</p>
         </div>
 
         {draft.error && (
           <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive">
-            AI-feil: {draft.error}
+            {t.review.aiError}: {draft.error}
           </div>
         )}
         {!s && !draft.error && (
           <div className="rounded-md border border-border/60 p-3 text-xs text-muted-foreground inline-flex items-center gap-2">
-            <Loader2 className="h-3 w-3 animate-spin" /> AI analyserer dokumentet…
+            <Loader2 className="h-3 w-3 animate-spin" /> {t.review.analyzing}
           </div>
         )}
 
@@ -354,12 +351,12 @@ export function ReceiptReviewDialog({
           <div className="space-y-3">
             <div className="flex justify-end">
               <Button variant="outline" size="sm" onClick={approveAll}>
-                Godkjenn alle
+                {t.review.approveAll}
               </Button>
             </div>
 
             <ReceiptFieldApproval
-              label="Type"
+              label={t.review.type}
               suggested={s?.entry_type}
               approved={!!approved.entry_type}
               onApprove={() => toggle("entry_type")}
@@ -367,14 +364,14 @@ export function ReceiptReviewDialog({
               <Select value={form.entry_type} onValueChange={(v) => setField("entry_type", v as any)}>
                 <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="expense">Utgift</SelectItem>
-                  <SelectItem value="income">Inntekt</SelectItem>
+                  <SelectItem value="expense">{t.review.typeExpense}</SelectItem>
+                  <SelectItem value="income">{t.review.typeIncome}</SelectItem>
                 </SelectContent>
               </Select>
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Dato"
+              label={t.review.date}
               suggested={s?.date_incurred}
               note={notes.date_incurred}
               confidence={conf.date_incurred}
@@ -390,7 +387,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Leverandør / motpart"
+              label={t.review.counterparty}
               suggested={s?.counterparty}
               note={notes.counterparty}
               confidence={conf.counterparty}
@@ -405,7 +402,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Beskrivelse"
+              label={t.review.description}
               suggested={s?.description}
               approved={!!approved.description}
               onApprove={() => toggle("description")}
@@ -418,7 +415,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Kategori"
+              label={t.review.category}
               suggested={s?.category}
               approved={!!approved.category}
               onApprove={() => toggle("category")}
@@ -432,7 +429,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Totalbeløp (kr)"
+              label={t.review.gross}
               suggested={s?.gross_amount != null ? formatNok(s.gross_amount) : null}
               note={notes.gross_amount}
               confidence={conf.gross_amount}
@@ -449,7 +446,7 @@ export function ReceiptReviewDialog({
 
             <div className="grid grid-cols-2 gap-3">
               <ReceiptFieldApproval
-                label="MVA-sats"
+                label={t.review.vatRate}
                 suggested={s?.vat_rate}
                 approved={!!approved.vat_rate}
                 onApprove={() => toggle("vat_rate")}
@@ -463,7 +460,7 @@ export function ReceiptReviewDialog({
                 />
               </ReceiptFieldApproval>
               <ReceiptFieldApproval
-                label="MVA-beløp (kr)"
+                label={t.review.vatAmount}
                 suggested={s?.vat_amount != null ? formatNok(s.vat_amount) : null}
                 note={notes.vat_amount}
                 confidence={conf.vat_amount}
@@ -481,7 +478,7 @@ export function ReceiptReviewDialog({
 
             <div className="grid grid-cols-2 gap-3">
               <ReceiptFieldApproval
-                label="Betalingsstatus"
+                label={t.review.paymentStatus}
                 suggested={s?.payment_status}
                 approved={!!approved.payment_status}
                 onApprove={() => toggle("payment_status")}
@@ -489,14 +486,14 @@ export function ReceiptReviewDialog({
                 <Select value={form.payment_status} onValueChange={(v) => setField("payment_status", v as any)}>
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="unpaid">Ubetalt</SelectItem>
-                    <SelectItem value="paid">Betalt</SelectItem>
-                    <SelectItem value="partial">Delvis</SelectItem>
+                    <SelectItem value="unpaid">{t.payment.unpaid}</SelectItem>
+                    <SelectItem value="paid">{t.payment.paid}</SelectItem>
+                    <SelectItem value="partial">{t.payment.partial}</SelectItem>
                   </SelectContent>
                 </Select>
               </ReceiptFieldApproval>
               <ReceiptFieldApproval
-                label="Fakturastatus"
+                label={t.review.invoiceStatus}
                 suggested={s?.invoice_status}
                 approved={!!approved.invoice_status}
                 onApprove={() => toggle("invoice_status")}
@@ -504,16 +501,16 @@ export function ReceiptReviewDialog({
                 <Select value={form.invoice_status} onValueChange={(v) => setField("invoice_status", v as any)}>
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pending">Mangler</SelectItem>
-                    <SelectItem value="received">Mottatt</SelectItem>
-                    <SelectItem value="not_required">Ikke nødvendig</SelectItem>
+                    <SelectItem value="pending">{t.invoice.pending}</SelectItem>
+                    <SelectItem value="received">{t.invoice.received}</SelectItem>
+                    <SelectItem value="not_required">{t.invoice.not_required}</SelectItem>
                   </SelectContent>
                 </Select>
               </ReceiptFieldApproval>
             </div>
 
             <ReceiptFieldApproval
-              label="Før selskapsstiftelse"
+              label={t.review.pre}
               suggested={s?.pre_company_expense != null ? String(s.pre_company_expense) : null}
               approved={!!approved.pre_company_expense}
               onApprove={() => toggle("pre_company_expense")}
@@ -524,7 +521,7 @@ export function ReceiptReviewDialog({
                   onCheckedChange={(v) => setField("pre_company_expense", v)}
                 />
                 <span className="text-xs text-muted-foreground">
-                  {form.pre_company_expense ? "Ja" : "Nei"}
+                  {form.pre_company_expense ? t.review.yes : t.review.no}
                 </span>
               </div>
             </ReceiptFieldApproval>
@@ -533,11 +530,11 @@ export function ReceiptReviewDialog({
 
         <DialogFooter className="gap-2">
           <Button variant="ghost" onClick={handleReject}>
-            <X className="h-4 w-4 mr-1" /> Avvis forslag
+            <X className="h-4 w-4 mr-1" /> {t.review.reject}
           </Button>
           <Button onClick={handleSave} disabled={saving || !s}>
             {saving ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Check className="h-4 w-4 mr-1" />}
-            Godkjenn og opprett post
+            {t.review.saveCreate}
           </Button>
         </DialogFooter>
       </DialogContent>
