@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { financeCore, FinanceCoreError, normalizeEntries } from "./client.server";
+import { financeCore, FinanceCoreError } from "./client.server";
 import {
   mapKlinkSettlement,
   mapManualEntry,
@@ -20,15 +20,40 @@ function aggregate(entries: FinanceCoreEntry[]) {
   return { income, expense, result: income - expense, unpaidCount: unpaid, missingAttachmentCount: missing };
 }
 
+function logFcError(label: string, e: unknown) {
+  if (e instanceof FinanceCoreError) {
+    console.error(`[finance-core] ${label} failed: status=${e.status} body=`, e.body);
+  } else {
+    console.error(`[finance-core] ${label} failed:`, e);
+  }
+}
+
 export const getAccountingStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async (): Promise<AccountingStatus> => {
     const year = new Date().getFullYear();
-    const [entriesRes, summary] = await Promise.all([
-      financeCore.getEntries(200).catch((e) => { console.error("[finance-core] getEntries", e); return [] as FinanceCoreEntry[]; }),
-      financeCore.getSummary(year).catch((e) => { console.error("[finance-core] getSummary", e); return null; }),
+    const [entriesResult, summaryResult] = await Promise.allSettled([
+      financeCore.getEntries(200),
+      financeCore.getSummary(year),
     ]);
-    const entries = normalizeEntries(entriesRes as any);
+
+    let entries: FinanceCoreEntry[] = [];
+    if (entriesResult.status === "fulfilled") {
+      entries = entriesResult.value;
+    } else {
+      logFcError("getEntries", entriesResult.reason);
+      const r = entriesResult.reason;
+      const msg = r instanceof FinanceCoreError ? `Finance Core ${r.status}: ${JSON.stringify(r.body)}` : (r?.message ?? String(r));
+      throw new Error(msg);
+    }
+
+    let summary = null as AccountingStatus["summary"];
+    if (summaryResult.status === "fulfilled") {
+      summary = summaryResult.value;
+    } else {
+      logFcError("getSummary", summaryResult.reason);
+    }
+
     return { summary, entries, totals: aggregate(entries) };
   });
 
