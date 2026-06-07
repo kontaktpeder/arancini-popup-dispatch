@@ -105,16 +105,17 @@ export function ReceiptUploadButton({
 // ------------------------------ Document Preview ------------------------------
 
 export function ReceiptDocumentPreview({ draft }: { draft: ReceiptDraft }) {
+  const { t } = useAccountingT();
   const isPdf = (draft.mime_type || "").includes("pdf");
   const isImage = (draft.mime_type || "").startsWith("image/");
   if (!draft.file_url) {
-    return <div className="text-xs text-muted-foreground">Ingen forhåndsvisning</div>;
+    return <div className="text-xs text-muted-foreground">{t.review.noPreview}</div>;
   }
   if (isImage) {
     return (
       <img
         src={draft.file_url}
-        alt={draft.file_name || "Kvittering"}
+        alt={draft.file_name || "Receipt"}
         className="w-full h-auto rounded-md border border-border/60 bg-muted"
       />
     );
@@ -135,7 +136,7 @@ export function ReceiptDocumentPreview({ draft }: { draft: ReceiptDraft }) {
       rel="noopener noreferrer"
       className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
     >
-      <FileText className="h-4 w-4" /> Åpne {draft.file_name}
+      <FileText className="h-4 w-4" /> {t.review.open} {draft.file_name}
     </a>
   );
 }
