@@ -27,6 +27,7 @@ import {
 } from "@/lib/finance/receipt-drafts.hooks";
 import { analyzeReceiptDraft } from "@/lib/finance/receipt-drafts.functions";
 import { useUpsertEntry } from "@/lib/finance/hooks";
+import { useAccountingT } from "@/lib/finance/i18n";
 
 // ------------------------------ Upload Button ------------------------------
 
@@ -41,6 +42,7 @@ export function ReceiptUploadButton({
   const createDraft = useCreateReceiptDraft();
   const analyze = useServerFn(analyzeReceiptDraft);
   const qc = useQueryClient();
+  const { t } = useAccountingT();
   const [analyzing, setAnalyzing] = useState(false);
 
   const handleFile = async (file: File) => {
@@ -56,19 +58,19 @@ export function ReceiptUploadButton({
       });
       onUploaded(draft.id);
       setAnalyzing(true);
-      toast.info("AI analyserer kvitteringen…");
+      toast.info(t.analyzing);
       try {
         await analyze({ data: { draftId: draft.id } });
         await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
-        toast.success("AI-forslag klart");
+        toast.success(t.aiReady);
       } catch (e: any) {
         await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
-        toast.error(e?.message || "AI-analyse feilet");
+        toast.error(e?.message || t.aiFailed);
       } finally {
         setAnalyzing(false);
       }
     } catch (e: any) {
-      toast.error(e?.message || "Opplasting feilet");
+      toast.error(e?.message || t.uploadFailed);
     }
   };
 
@@ -82,7 +84,7 @@ export function ReceiptUploadButton({
           ) : (
             <Upload className="h-4 w-4 mr-1" />
           )}
-          Last opp kvittering
+          {t.uploadReceipt}
         </span>
       </Button>
       <input
@@ -103,16 +105,17 @@ export function ReceiptUploadButton({
 // ------------------------------ Document Preview ------------------------------
 
 export function ReceiptDocumentPreview({ draft }: { draft: ReceiptDraft }) {
+  const { t } = useAccountingT();
   const isPdf = (draft.mime_type || "").includes("pdf");
   const isImage = (draft.mime_type || "").startsWith("image/");
   if (!draft.file_url) {
-    return <div className="text-xs text-muted-foreground">Ingen forhåndsvisning</div>;
+    return <div className="text-xs text-muted-foreground">{t.review.noPreview}</div>;
   }
   if (isImage) {
     return (
       <img
         src={draft.file_url}
-        alt={draft.file_name || "Kvittering"}
+        alt={draft.file_name || "Receipt"}
         className="w-full h-auto rounded-md border border-border/60 bg-muted"
       />
     );
@@ -133,7 +136,7 @@ export function ReceiptDocumentPreview({ draft }: { draft: ReceiptDraft }) {
       rel="noopener noreferrer"
       className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
     >
-      <FileText className="h-4 w-4" /> Åpne {draft.file_name}
+      <FileText className="h-4 w-4" /> {t.review.open} {draft.file_name}
     </a>
   );
 }
@@ -152,6 +155,7 @@ export function ReceiptFieldApproval({
   children: React.ReactNode;
   onApprove: () => void;
 }) {
+  const { t } = useAccountingT();
   const pct = confidence != null ? Math.round(confidence * 100) : null;
   return (
     <div className={`rounded-md border p-3 space-y-1.5 ${approved ? "border-emerald-300/60 bg-emerald-50/40 dark:bg-emerald-950/20" : "border-border/60"}`}>
@@ -171,7 +175,7 @@ export function ReceiptFieldApproval({
             onClick={onApprove}
           >
             {approved ? <Check className="h-3 w-3 mr-1" /> : null}
-            {approved ? "Godkjent" : "Godkjenn"}
+            {approved ? t.review.approved : t.review.approve}
           </Button>
         </div>
       </div>
@@ -233,6 +237,7 @@ export function ReceiptReviewDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { t } = useAccountingT();
   const [form, setForm] = useState<FormState>(suggestionToForm(null));
   const [approved, setApproved] = useState<Record<string, boolean>>({});
   const update = useUpdateReceiptDraft(bookId);
@@ -263,12 +268,12 @@ export function ReceiptReviewDialog({
 
   const handleSave = async () => {
     if (!form.description.trim() && !form.counterparty.trim()) {
-      toast.error("Fyll inn beskrivelse eller leverandør");
+      toast.error(t.review.fillRequired);
       return;
     }
     const gross = parseKrToOre(form.gross_amount_kr);
     if (gross <= 0) {
-      toast.error("Beløp må være større enn 0");
+      toast.error(t.review.amountRequired);
       return;
     }
     setSaving(true);
@@ -295,10 +300,10 @@ export function ReceiptReviewDialog({
         status: "converted",
         converted_entry_id: entry?.id ?? null,
       });
-      toast.success("Regnskapspost opprettet");
+      toast.success(t.review.created);
       onOpenChange(false);
     } catch (e: any) {
-      toast.error(e?.message || "Kunne ikke lagre");
+      toast.error(e?.message || t.review.saveError);
     } finally {
       setSaving(false);
     }
@@ -306,7 +311,7 @@ export function ReceiptReviewDialog({
 
   const handleReject = async () => {
     await update.mutateAsync({ id: draft.id, status: "rejected" });
-    toast.success("Forslag avvist");
+    toast.success(t.review.rejected);
     onOpenChange(false);
   };
 
@@ -315,26 +320,23 @@ export function ReceiptReviewDialog({
       <DialogContent className="max-w-6xl max-h-[92vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4" /> Kontroller AI-forslag
+            <Sparkles className="h-4 w-4" /> {t.review.title}
           </DialogTitle>
         </DialogHeader>
 
         <div className="rounded-md border border-amber-300/60 bg-amber-50/60 dark:bg-amber-950/20 p-3 flex items-start gap-2 text-xs">
           <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-          <p>
-            AI kan tolke feil. Du må kontrollere at beløp, dato, leverandør og MVA stemmer
-            før posten lagres.
-          </p>
+          <p>{t.review.warning}</p>
         </div>
 
         {draft.error && (
           <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive">
-            AI-feil: {draft.error}
+            {t.review.aiError}: {draft.error}
           </div>
         )}
         {!s && !draft.error && (
           <div className="rounded-md border border-border/60 p-3 text-xs text-muted-foreground inline-flex items-center gap-2">
-            <Loader2 className="h-3 w-3 animate-spin" /> AI analyserer dokumentet…
+            <Loader2 className="h-3 w-3 animate-spin" /> {t.review.analyzing}
           </div>
         )}
 
@@ -349,12 +351,12 @@ export function ReceiptReviewDialog({
           <div className="space-y-3">
             <div className="flex justify-end">
               <Button variant="outline" size="sm" onClick={approveAll}>
-                Godkjenn alle
+                {t.review.approveAll}
               </Button>
             </div>
 
             <ReceiptFieldApproval
-              label="Type"
+              label={t.review.type}
               suggested={s?.entry_type}
               approved={!!approved.entry_type}
               onApprove={() => toggle("entry_type")}
@@ -362,14 +364,14 @@ export function ReceiptReviewDialog({
               <Select value={form.entry_type} onValueChange={(v) => setField("entry_type", v as any)}>
                 <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="expense">Utgift</SelectItem>
-                  <SelectItem value="income">Inntekt</SelectItem>
+                  <SelectItem value="expense">{t.review.typeExpense}</SelectItem>
+                  <SelectItem value="income">{t.review.typeIncome}</SelectItem>
                 </SelectContent>
               </Select>
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Dato"
+              label={t.review.date}
               suggested={s?.date_incurred}
               note={notes.date_incurred}
               confidence={conf.date_incurred}
@@ -385,7 +387,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Leverandør / motpart"
+              label={t.review.counterparty}
               suggested={s?.counterparty}
               note={notes.counterparty}
               confidence={conf.counterparty}
@@ -400,7 +402,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Beskrivelse"
+              label={t.review.description}
               suggested={s?.description}
               approved={!!approved.description}
               onApprove={() => toggle("description")}
@@ -413,7 +415,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Kategori"
+              label={t.review.category}
               suggested={s?.category}
               approved={!!approved.category}
               onApprove={() => toggle("category")}
@@ -427,7 +429,7 @@ export function ReceiptReviewDialog({
             </ReceiptFieldApproval>
 
             <ReceiptFieldApproval
-              label="Totalbeløp (kr)"
+              label={t.review.gross}
               suggested={s?.gross_amount != null ? formatNok(s.gross_amount) : null}
               note={notes.gross_amount}
               confidence={conf.gross_amount}
@@ -444,7 +446,7 @@ export function ReceiptReviewDialog({
 
             <div className="grid grid-cols-2 gap-3">
               <ReceiptFieldApproval
-                label="MVA-sats"
+                label={t.review.vatRate}
                 suggested={s?.vat_rate}
                 approved={!!approved.vat_rate}
                 onApprove={() => toggle("vat_rate")}
@@ -458,7 +460,7 @@ export function ReceiptReviewDialog({
                 />
               </ReceiptFieldApproval>
               <ReceiptFieldApproval
-                label="MVA-beløp (kr)"
+                label={t.review.vatAmount}
                 suggested={s?.vat_amount != null ? formatNok(s.vat_amount) : null}
                 note={notes.vat_amount}
                 confidence={conf.vat_amount}
@@ -476,7 +478,7 @@ export function ReceiptReviewDialog({
 
             <div className="grid grid-cols-2 gap-3">
               <ReceiptFieldApproval
-                label="Betalingsstatus"
+                label={t.review.paymentStatus}
                 suggested={s?.payment_status}
                 approved={!!approved.payment_status}
                 onApprove={() => toggle("payment_status")}
@@ -484,14 +486,14 @@ export function ReceiptReviewDialog({
                 <Select value={form.payment_status} onValueChange={(v) => setField("payment_status", v as any)}>
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="unpaid">Ubetalt</SelectItem>
-                    <SelectItem value="paid">Betalt</SelectItem>
-                    <SelectItem value="partial">Delvis</SelectItem>
+                    <SelectItem value="unpaid">{t.payment.unpaid}</SelectItem>
+                    <SelectItem value="paid">{t.payment.paid}</SelectItem>
+                    <SelectItem value="partial">{t.payment.partial}</SelectItem>
                   </SelectContent>
                 </Select>
               </ReceiptFieldApproval>
               <ReceiptFieldApproval
-                label="Fakturastatus"
+                label={t.review.invoiceStatus}
                 suggested={s?.invoice_status}
                 approved={!!approved.invoice_status}
                 onApprove={() => toggle("invoice_status")}
@@ -499,16 +501,16 @@ export function ReceiptReviewDialog({
                 <Select value={form.invoice_status} onValueChange={(v) => setField("invoice_status", v as any)}>
                   <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pending">Mangler</SelectItem>
-                    <SelectItem value="received">Mottatt</SelectItem>
-                    <SelectItem value="not_required">Ikke nødvendig</SelectItem>
+                    <SelectItem value="pending">{t.invoice.pending}</SelectItem>
+                    <SelectItem value="received">{t.invoice.received}</SelectItem>
+                    <SelectItem value="not_required">{t.invoice.not_required}</SelectItem>
                   </SelectContent>
                 </Select>
               </ReceiptFieldApproval>
             </div>
 
             <ReceiptFieldApproval
-              label="Før selskapsstiftelse"
+              label={t.review.pre}
               suggested={s?.pre_company_expense != null ? String(s.pre_company_expense) : null}
               approved={!!approved.pre_company_expense}
               onApprove={() => toggle("pre_company_expense")}
@@ -519,7 +521,7 @@ export function ReceiptReviewDialog({
                   onCheckedChange={(v) => setField("pre_company_expense", v)}
                 />
                 <span className="text-xs text-muted-foreground">
-                  {form.pre_company_expense ? "Ja" : "Nei"}
+                  {form.pre_company_expense ? t.review.yes : t.review.no}
                 </span>
               </div>
             </ReceiptFieldApproval>
@@ -528,11 +530,11 @@ export function ReceiptReviewDialog({
 
         <DialogFooter className="gap-2">
           <Button variant="ghost" onClick={handleReject}>
-            <X className="h-4 w-4 mr-1" /> Avvis forslag
+            <X className="h-4 w-4 mr-1" /> {t.review.reject}
           </Button>
           <Button onClick={handleSave} disabled={saving || !s}>
             {saving ? <Loader2 className="h-4 w-4 mr-1 animate-spin" /> : <Check className="h-4 w-4 mr-1" />}
-            Godkjenn og opprett post
+            {t.review.saveCreate}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -550,12 +552,13 @@ export function ReceiptDraftList({
   bookId: string;
 }) {
   const del = useDeleteReceiptDraft(bookId);
+  const { t } = useAccountingT();
   if (drafts.length === 0) return null;
   return (
     <div className="rounded-lg border border-border/60 bg-card">
       <div className="px-3 py-2 border-b border-border/60 flex items-center gap-2">
         <Sparkles className="h-4 w-4 text-primary" />
-        <h3 className="text-sm font-medium">AI-utkast som venter på godkjenning</h3>
+        <h3 className="text-sm font-medium">{t.review.drafts}</h3>
         <Badge variant="secondary" className="ml-auto">{drafts.length}</Badge>
       </div>
       <ul className="divide-y divide-border/60">
@@ -566,7 +569,7 @@ export function ReceiptDraftList({
               <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
               <div className="min-w-0 flex-1">
                 <div className="truncate">
-                  {s?.counterparty || d.file_name || "Kvittering"}
+                  {s?.counterparty || d.file_name || t.col.attachment}
                   {s?.gross_amount != null && (
                     <span className="ml-2 text-xs text-muted-foreground tabular-nums">
                       {formatNok(s.gross_amount)}
@@ -574,21 +577,21 @@ export function ReceiptDraftList({
                   )}
                 </div>
                 <div className="text-[11px] text-muted-foreground truncate">
-                  {d.error ? `Feil: ${d.error}` : s ? s.description || "AI-forslag klart" : "Analyserer…"}
+                  {d.error ? `${t.review.errorPrefix}: ${d.error}` : s ? s.description || t.review.aiReady : t.review.analyzingShort}
                 </div>
               </div>
               {d.status === "rejected" && (
-                <Badge variant="outline" className="text-[10px]">Avvist</Badge>
+                <Badge variant="outline" className="text-[10px]">{t.review.rejectedBadge}</Badge>
               )}
               <Button size="sm" variant="outline" onClick={() => onReview(d.id)}>
-                Kontroller
+                {t.review.check}
               </Button>
               <Button
                 size="icon"
                 variant="ghost"
                 className="h-7 w-7 text-muted-foreground hover:text-destructive"
                 onClick={() => {
-                  if (confirm("Slett utkast?")) del.mutate(d.id);
+                  if (confirm(t.review.deleteDraft)) del.mutate(d.id);
                 }}
               >
                 <Trash2 className="h-3.5 w-3.5" />
