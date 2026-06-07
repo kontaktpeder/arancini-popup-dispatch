@@ -212,3 +212,21 @@ export const scanReceipt = createServerFn({ method: "POST" })
     const scan = await financeCore.scanReceipt(file);
     return { ok: true, scan };
   });
+
+/* ── New: DELETE entry ────────────────────────────────────── */
+export const deleteEntry = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ id: z.string().min(1) }).parse(d))
+  .handler(async ({ data }) => {
+    await financeCore.deleteEntry(data.id);
+    return { ok: true };
+  });
+
+/* ── New: DELETE attachment ───────────────────────────────── */
+export const deleteAttachment = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ id: z.string().min(1) }).parse(d))
+  .handler(async ({ data }) => {
+    await financeCore.deleteAttachment(data.id);
+    return { ok: true };
+  });
