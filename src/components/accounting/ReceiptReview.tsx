@@ -27,6 +27,7 @@ import {
 } from "@/lib/finance/receipt-drafts.hooks";
 import { analyzeReceiptDraft } from "@/lib/finance/receipt-drafts.functions";
 import { useUpsertEntry } from "@/lib/finance/hooks";
+import { useAccountingT } from "@/lib/finance/i18n";
 
 // ------------------------------ Upload Button ------------------------------
 
