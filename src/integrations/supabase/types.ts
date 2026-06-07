@@ -187,6 +187,72 @@ export type Database = {
           },
         ]
       }
+      finance_receipt_drafts: {
+        Row: {
+          ai_suggestion: Json | null
+          book_id: string
+          converted_entry_id: string | null
+          created_at: string
+          error: string | null
+          extracted_text: string | null
+          file_name: string | null
+          file_path: string | null
+          file_url: string | null
+          id: string
+          mime_type: string | null
+          status: string
+          updated_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          ai_suggestion?: Json | null
+          book_id: string
+          converted_entry_id?: string | null
+          created_at?: string
+          error?: string | null
+          extracted_text?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_url?: string | null
+          id?: string
+          mime_type?: string | null
+          status?: string
+          updated_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          ai_suggestion?: Json | null
+          book_id?: string
+          converted_entry_id?: string | null
+          created_at?: string
+          error?: string | null
+          extracted_text?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_url?: string | null
+          id?: string
+          mime_type?: string | null
+          status?: string
+          updated_at?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "finance_receipt_drafts_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "finance_books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "finance_receipt_drafts_converted_entry_id_fkey"
+            columns: ["converted_entry_id"]
+            isOneToOne: false
+            referencedRelation: "finance_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
