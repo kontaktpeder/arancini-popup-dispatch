@@ -26,22 +26,39 @@ export function useSendTestIncome() {
   });
 }
 
+export interface ManualEntryData {
+  entry_type: "income" | "expense";
+  entry_date: string;
+  description: string;
+  amount_gross: number;
+  category?: string;
+  counterparty?: string;
+  notes?: string;
+}
+
 export function useSendManualEntry() {
   const fn = useServerFn(sendManualEntry);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (data: Parameters<typeof sendManualEntry>[0]["data"]) =>
-      fn({ data }),
+    mutationFn: (data: ManualEntryData) => fn({ data }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
   });
+}
+
+export interface KlinkSettlementData {
+  eventSlug: string;
+  eventName: string;
+  settlementDate: string;
+  totalRevenueNok: number;
+  ourSharePercent: number;
+  reportUrl?: string;
 }
 
 export function useSendKlinkSettlement() {
   const fn = useServerFn(sendKlinkSettlement);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (data: Parameters<typeof sendKlinkSettlement>[0]["data"]) =>
-      fn({ data }),
+    mutationFn: (data: KlinkSettlementData) => fn({ data }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
   });
 }

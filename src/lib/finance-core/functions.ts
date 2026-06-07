@@ -98,6 +98,6 @@ export const uploadAttachment = createServerFn({ method: "POST" })
     const file = data.get("file");
     const entryId = (data.get("entry_id") as string) || undefined;
     if (!(file instanceof File)) throw new Error("Missing file");
-    const result = await financeCore.uploadAttachment(file, entryId);
-    return { ok: true, result };
+    await financeCore.uploadAttachment(file, entryId);
+    return { ok: true };
   });

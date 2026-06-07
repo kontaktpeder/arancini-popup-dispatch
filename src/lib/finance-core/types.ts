@@ -47,11 +47,10 @@ export interface FinanceCoreEntry {
 }
 
 export interface FinanceCoreSummary {
-  year: number;
-  income: number;
-  expense: number;
-  result: number;
-  [k: string]: unknown;
+  year?: number;
+  income?: number;
+  expense?: number;
+  result?: number;
 }
 
 export interface AccountingStatus {
