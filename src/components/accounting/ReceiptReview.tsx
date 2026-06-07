@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   Upload, Loader2, Check, X, FileText, Sparkles, AlertTriangle, Trash2,
@@ -39,6 +40,7 @@ export function ReceiptUploadButton({
   const { uploadAttachment, isUploading } = useFinanceAttachmentUpload();
   const createDraft = useCreateReceiptDraft();
   const analyze = useServerFn(analyzeReceiptDraft);
+  const qc = useQueryClient();
   const [analyzing, setAnalyzing] = useState(false);
 
   const handleFile = async (file: File) => {
@@ -57,8 +59,10 @@ export function ReceiptUploadButton({
       toast.info("AI analyserer kvitteringen…");
       try {
         await analyze({ data: { draftId: draft.id } });
+        await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
         toast.success("AI-forslag klart");
       } catch (e: any) {
+        await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
         toast.error(e?.message || "AI-analyse feilet");
       } finally {
         setAnalyzing(false);
