@@ -59,22 +59,41 @@ async function call<T>(
 }
 
 export const financeCore = {
-  async getEntries(limit = 100): Promise<{ entries: FinanceCoreEntry[] } | FinanceCoreEntry[]> {
-    return call(`/api/public/v1/entries?limit=${limit}`);
+  async getEntries(limit = 100): Promise<FinanceCoreEntry[]> {
+    const res = await call<unknown>(`/api/public/v1/entries?limit=${limit}`);
+    return normalizeEntries(res);
   },
   async createEntry(input: FinanceCoreEntryInput): Promise<FinanceCoreEntry> {
-    const res = await call<{ entry?: FinanceCoreEntry } | FinanceCoreEntry>(
+    const res = await call<{ data?: FinanceCoreEntry; entry?: FinanceCoreEntry } | FinanceCoreEntry>(
       "/api/public/v1/entries",
       { method: "POST", json: input },
     );
-    return (res as any).entry ?? (res as FinanceCoreEntry);
+    const entry = (res as any)?.data ?? (res as any)?.entry ?? res;
+    if (!entry || typeof entry !== "object" || !(entry as any).id) {
+      throw new FinanceCoreError(500, res, "Missing data in createEntry response");
+    }
+    return entry as FinanceCoreEntry;
   },
   async getSummary(year?: number): Promise<FinanceCoreSummary> {
     const qs = year ? `?year=${year}` : "";
-    const res = await call<FinanceCoreSummary | { summary: FinanceCoreSummary }>(
-      `/api/public/v1/reports/summary${qs}`,
-    );
-    return (res as any).summary ?? (res as FinanceCoreSummary);
+    const res = await call<any>(`/api/public/v1/reports/summary${qs}`);
+    const payload = res?.data ?? res?.summary ?? res;
+
+    // If already flat shape
+    if (payload && (typeof payload.income === "number" || typeof payload.expense === "number")) {
+      const income = Number(payload.income) || 0;
+      const expense = Number(payload.expense) || 0;
+      return { year: payload.year, income, expense, result: income - expense };
+    }
+
+    // Months shape: { year, months: { "2026-01": { income, expense, vat } } }
+    const months = payload?.months ?? {};
+    let income = 0, expense = 0;
+    for (const m of Object.values(months) as any[]) {
+      income += Number(m?.income) || 0;
+      expense += Number(m?.expense) || 0;
+    }
+    return { year: payload?.year, income, expense, result: income - expense };
   },
   async uploadAttachment(file: File, entryId?: string): Promise<unknown> {
     const form = new FormData();
@@ -94,8 +113,12 @@ export const financeCore = {
   },
 };
 
-export function normalizeEntries(
-  res: { entries: FinanceCoreEntry[] } | FinanceCoreEntry[],
-): FinanceCoreEntry[] {
-  return Array.isArray(res) ? res : res.entries ?? [];
+export function normalizeEntries(res: unknown): FinanceCoreEntry[] {
+  if (Array.isArray(res)) return res as FinanceCoreEntry[];
+  if (res && typeof res === "object") {
+    const o = res as Record<string, unknown>;
+    if (Array.isArray(o.data)) return o.data as FinanceCoreEntry[];
+    if (Array.isArray(o.entries)) return o.entries as FinanceCoreEntry[];
+  }
+  return [];
 }
