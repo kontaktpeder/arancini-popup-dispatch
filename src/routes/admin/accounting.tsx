@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2, Upload, Paperclip, Download } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Upload, Paperclip, Download, Info } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,8 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
 
 import {
   useFinanceBooks, useFinanceEntries, useCreateFinanceBook,
@@ -126,8 +128,14 @@ function BookView({
     };
   }, [entries]);
 
-  const expenses = entries.filter((e) => e.entry_type === "expense");
-  const incomes = entries.filter((e) => e.entry_type === "income");
+  const [filter, setFilter] = useState<"all" | "pre" | "ordinary">("all");
+  const applyFilter = (list: FinanceEntry[]) =>
+    filter === "pre" ? list.filter((e) => e.pre_company_expense)
+    : filter === "ordinary" ? list.filter((e) => !e.pre_company_expense)
+    : list;
+
+  const expenses = applyFilter(entries.filter((e) => e.entry_type === "expense"));
+  const incomes = applyFilter(entries.filter((e) => e.entry_type === "income"));
 
   const handleAdd = (type: FinanceEntryType) => {
     if (!userId) return;
@@ -149,6 +157,10 @@ function BookView({
 
   return (
     <div className="space-y-8">
+      <datalist id="finance-category-suggestions">
+        <option value="Oppstartskostnad" />
+        <option value="Privat utlegg før stiftelse" />
+      </datalist>
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
           <Link to="/admin" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
@@ -181,6 +193,29 @@ function BookView({
         <Kpi label="Ubetalt" value={formatNok(kpis.unpaid)} />
         <Kpi label="Mangler faktura" value={formatNok(kpis.pendingInvoice)} />
         <Kpi label="Mangler bilag" value={formatNok(kpis.missingAttachment)} />
+      </div>
+
+      {/* Filter + help text */}
+      <div className="rounded-lg border border-border/60 bg-muted/30 p-3 space-y-2">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="text-xs font-medium">Vis:</span>
+          <Select value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
+            <SelectTrigger className="h-8 w-[220px] text-xs"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Alle poster</SelectItem>
+              <SelectItem value="pre">Kun før selskapsstiftelse</SelectItem>
+              <SelectItem value="ordinary">Kun ordinære poster</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+          <Info className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+          <span>
+            Poster merket «Før selskapsstiftelse» ble registrert før selskapet ble etablert. Registreringen
+            brukes for å dokumentere oppstartskostnader og historikk. Om kostnaden senere kan overføres til
+            selskapet må vurderes separat.
+          </span>
+        </p>
       </div>
 
       {/* Expenses */}
@@ -286,6 +321,7 @@ function EntryTable({
             <TableHead className="w-[120px]">Betalt</TableHead>
             <TableHead className="w-[120px]">Faktura</TableHead>
             <TableHead className="w-[120px]">Bilag</TableHead>
+            <TableHead className="w-[90px]" title="Før selskapsstiftelse">Før stift.</TableHead>
             <TableHead className="w-[40px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -336,19 +372,27 @@ function EntryRow({
         />
       </TableCell>
       <TableCell>
-        <Input
-          className="h-8 text-xs"
-          placeholder="Beskrivelse"
-          defaultValue={entry.description}
-          onBlur={(e) => {
-            if (e.target.value !== entry.description) onChange({ description: e.target.value });
-          }}
-        />
+        <div className="space-y-1">
+          <Input
+            className="h-8 text-xs"
+            placeholder="Beskrivelse"
+            defaultValue={entry.description}
+            onBlur={(e) => {
+              if (e.target.value !== entry.description) onChange({ description: e.target.value });
+            }}
+          />
+          {entry.pre_company_expense && (
+            <Badge variant="secondary" className="text-[10px] font-normal h-5 px-1.5">
+              Før selskapsstiftelse
+            </Badge>
+          )}
+        </div>
       </TableCell>
       <TableCell>
         <Input
           className="h-8 text-xs"
           placeholder="Kategori"
+          list="finance-category-suggestions"
           defaultValue={entry.category ?? ""}
           onBlur={(e) => {
             const v = e.target.value.trim();
@@ -434,6 +478,13 @@ function EntryRow({
             />
           </label>
         )}
+      </TableCell>
+      <TableCell>
+        <Switch
+          checked={entry.pre_company_expense}
+          onCheckedChange={(v) => onChange({ pre_company_expense: v })}
+          aria-label="Før selskapsstiftelse"
+        />
       </TableCell>
       <TableCell>
         <Button

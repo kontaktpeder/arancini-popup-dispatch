@@ -25,6 +25,7 @@ export function entriesToCsv(entries: FinanceEntry[]): string {
     "payment_status",
     "invoice_status",
     "attachment_name",
+    "pre_company_expense",
     "notes",
   ];
   const rows = entries.map((e) =>
@@ -44,6 +45,7 @@ export function entriesToCsv(entries: FinanceEntry[]): string {
       e.payment_status,
       e.invoice_status,
       e.attachment_name,
+      e.pre_company_expense ? "true" : "false",
       e.notes,
     ]
       .map(escape)
