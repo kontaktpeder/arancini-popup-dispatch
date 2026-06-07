@@ -317,6 +317,7 @@ function EntryTable({
             <TableHead className="w-[120px]">Betalt</TableHead>
             <TableHead className="w-[120px]">Faktura</TableHead>
             <TableHead className="w-[120px]">Bilag</TableHead>
+            <TableHead className="w-[90px]" title="Før selskapsstiftelse">Før stift.</TableHead>
             <TableHead className="w-[40px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -367,19 +368,27 @@ function EntryRow({
         />
       </TableCell>
       <TableCell>
-        <Input
-          className="h-8 text-xs"
-          placeholder="Beskrivelse"
-          defaultValue={entry.description}
-          onBlur={(e) => {
-            if (e.target.value !== entry.description) onChange({ description: e.target.value });
-          }}
-        />
+        <div className="space-y-1">
+          <Input
+            className="h-8 text-xs"
+            placeholder="Beskrivelse"
+            defaultValue={entry.description}
+            onBlur={(e) => {
+              if (e.target.value !== entry.description) onChange({ description: e.target.value });
+            }}
+          />
+          {entry.pre_company_expense && (
+            <Badge variant="secondary" className="text-[10px] font-normal h-5 px-1.5">
+              Før selskapsstiftelse
+            </Badge>
+          )}
+        </div>
       </TableCell>
       <TableCell>
         <Input
           className="h-8 text-xs"
           placeholder="Kategori"
+          list="finance-category-suggestions"
           defaultValue={entry.category ?? ""}
           onBlur={(e) => {
             const v = e.target.value.trim();
