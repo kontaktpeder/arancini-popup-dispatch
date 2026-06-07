@@ -42,6 +42,7 @@ export function ReceiptUploadButton({
   const createDraft = useCreateReceiptDraft();
   const analyze = useServerFn(analyzeReceiptDraft);
   const qc = useQueryClient();
+  const { t } = useAccountingT();
   const [analyzing, setAnalyzing] = useState(false);
 
   const handleFile = async (file: File) => {
@@ -57,19 +58,19 @@ export function ReceiptUploadButton({
       });
       onUploaded(draft.id);
       setAnalyzing(true);
-      toast.info("AI analyserer kvitteringen…");
+      toast.info(t.analyzing);
       try {
         await analyze({ data: { draftId: draft.id } });
         await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
-        toast.success("AI-forslag klart");
+        toast.success(t.aiReady);
       } catch (e: any) {
         await qc.invalidateQueries({ queryKey: ["receipt-drafts", bookId] });
-        toast.error(e?.message || "AI-analyse feilet");
+        toast.error(e?.message || t.aiFailed);
       } finally {
         setAnalyzing(false);
       }
     } catch (e: any) {
-      toast.error(e?.message || "Opplasting feilet");
+      toast.error(e?.message || t.uploadFailed);
     }
   };
 
@@ -83,7 +84,7 @@ export function ReceiptUploadButton({
           ) : (
             <Upload className="h-4 w-4 mr-1" />
           )}
-          Last opp kvittering
+          {t.uploadReceipt}
         </span>
       </Button>
       <input
