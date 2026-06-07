@@ -224,7 +224,7 @@ const dict = {
   },
 } as const;
 
-export type AccountingDict = (typeof dict)["no"];
+export type AccountingDict = typeof dict.no;
 
 const Ctx = createContext<{ lang: AccountingLang; setLang: (l: AccountingLang) => void; t: AccountingDict }>({
   lang: "no",
