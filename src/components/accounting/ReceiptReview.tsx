@@ -155,6 +155,7 @@ export function ReceiptFieldApproval({
   children: React.ReactNode;
   onApprove: () => void;
 }) {
+  const { t } = useAccountingT();
   const pct = confidence != null ? Math.round(confidence * 100) : null;
   return (
     <div className={`rounded-md border p-3 space-y-1.5 ${approved ? "border-emerald-300/60 bg-emerald-50/40 dark:bg-emerald-950/20" : "border-border/60"}`}>
@@ -174,7 +175,7 @@ export function ReceiptFieldApproval({
             onClick={onApprove}
           >
             {approved ? <Check className="h-3 w-3 mr-1" /> : null}
-            {approved ? "Godkjent" : "Godkjenn"}
+            {approved ? t.review.approved : t.review.approve}
           </Button>
         </div>
       </div>
