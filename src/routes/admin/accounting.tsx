@@ -476,6 +476,13 @@ function EntryRow({
         )}
       </TableCell>
       <TableCell>
+        <Switch
+          checked={entry.pre_company_expense}
+          onCheckedChange={(v) => onChange({ pre_company_expense: v })}
+          aria-label="Før selskapsstiftelse"
+        />
+      </TableCell>
+      <TableCell>
         <Button
           variant="ghost"
           size="icon"
