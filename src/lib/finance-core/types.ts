@@ -43,7 +43,9 @@ export interface FinanceCoreEntry {
   notes: string | null;
   has_attachment?: boolean;
   attachment_count?: number;
-  ai_meta?: Record<string, unknown> | null;
+  ai_confidence?: number | null;
+  ai_model?: string | null;
+  ai_notes?: string | null;
   created_at: string;
 }
 
@@ -102,7 +104,6 @@ export interface AiReceiptScan {
   attachment_id?: string;
   attachment_url?: string;
   confidence?: number;
-  raw?: Record<string, unknown>;
 }
 
 export interface AccountingStatus {
