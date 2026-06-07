@@ -194,6 +194,18 @@ export const financeCore = {
     return (unwrap<FinanceCoreAttachment>(parsed) ?? (parsed as any)) as FinanceCoreAttachment;
   },
 
+  async deleteEntry(id: string): Promise<void> {
+    await call<unknown>(`/api/public/v1/entries/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+  },
+
+  async deleteAttachment(id: string): Promise<void> {
+    await call<unknown>(`/api/public/v1/attachments/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    });
+  },
+
   async scanReceipt(file: File): Promise<AiReceiptScan> {
     const form = new FormData();
     form.append("file", file);
