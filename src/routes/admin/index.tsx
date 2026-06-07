@@ -42,7 +42,20 @@ function AdminIndex() {
             <span className="text-muted-foreground">→</span>
           </Link>
         </li>
+        <li>
+          <Link
+            to="/admin/accounting"
+            className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-accent/50"
+          >
+            <div>
+              <div className="font-medium">Regnskap</div>
+              <div className="text-xs text-muted-foreground">utgifter, inntekter, bilag</div>
+            </div>
+            <span className="text-muted-foreground">→</span>
+          </Link>
+        </li>
       </ul>
+
 
     </div>
   );

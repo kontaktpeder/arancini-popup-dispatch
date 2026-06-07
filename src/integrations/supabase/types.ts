@@ -38,6 +38,152 @@ export type Database = {
         }
         Relationships: []
       }
+      finance_books: {
+        Row: {
+          created_at: string
+          created_by: string
+          currency: string
+          id: string
+          name: string
+          owner_id: string | null
+          owner_type: string
+          status: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          currency?: string
+          id?: string
+          name: string
+          owner_id?: string | null
+          owner_type?: string
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          currency?: string
+          id?: string
+          name?: string
+          owner_id?: string | null
+          owner_type?: string
+          status?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      finance_entries: {
+        Row: {
+          attachment_name: string | null
+          attachment_url: string | null
+          book_id: string
+          category: string | null
+          counterparty: string | null
+          created_at: string
+          created_by: string
+          date_incurred: string
+          date_paid: string | null
+          description: string
+          entry_type: string
+          fee_amount: number | null
+          gross_amount: number
+          id: string
+          internal_only: boolean
+          invoice_status: string
+          net_amount: number
+          notes: string | null
+          paid_amount: number | null
+          payment_status: string
+          quantity: number | null
+          sort_order: number | null
+          source_type: string
+          status: string
+          subcategory: string | null
+          unit_amount: number | null
+          updated_at: string
+          vat_amount: number | null
+          vat_rate: number | null
+          voucher_number: string | null
+        }
+        Insert: {
+          attachment_name?: string | null
+          attachment_url?: string | null
+          book_id: string
+          category?: string | null
+          counterparty?: string | null
+          created_at?: string
+          created_by: string
+          date_incurred?: string
+          date_paid?: string | null
+          description?: string
+          entry_type: string
+          fee_amount?: number | null
+          gross_amount?: number
+          id?: string
+          internal_only?: boolean
+          invoice_status?: string
+          net_amount?: number
+          notes?: string | null
+          paid_amount?: number | null
+          payment_status?: string
+          quantity?: number | null
+          sort_order?: number | null
+          source_type?: string
+          status?: string
+          subcategory?: string | null
+          unit_amount?: number | null
+          updated_at?: string
+          vat_amount?: number | null
+          vat_rate?: number | null
+          voucher_number?: string | null
+        }
+        Update: {
+          attachment_name?: string | null
+          attachment_url?: string | null
+          book_id?: string
+          category?: string | null
+          counterparty?: string | null
+          created_at?: string
+          created_by?: string
+          date_incurred?: string
+          date_paid?: string | null
+          description?: string
+          entry_type?: string
+          fee_amount?: number | null
+          gross_amount?: number
+          id?: string
+          internal_only?: boolean
+          invoice_status?: string
+          net_amount?: number
+          notes?: string | null
+          paid_amount?: number | null
+          payment_status?: string
+          quantity?: number | null
+          sort_order?: number | null
+          source_type?: string
+          status?: string
+          subcategory?: string | null
+          unit_amount?: number | null
+          updated_at?: string
+          vat_amount?: number | null
+          vat_rate?: number | null
+          voucher_number?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "finance_entries_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "finance_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
