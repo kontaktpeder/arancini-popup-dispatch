@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { ArrowLeft, Plus, Trash2, Upload, Paperclip, Download, Info } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Upload, Paperclip, Download, Info, Languages } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,9 @@ import { useReceiptDrafts } from "@/lib/finance/receipt-drafts.hooks";
 import {
   ReceiptUploadButton, ReceiptDraftList, ReceiptReviewDialog,
 } from "@/components/accounting/ReceiptReview";
+import {
+  AccountingI18nProvider, useAccountingT,
+} from "@/lib/finance/i18n";
 import type {
   FinanceEntry, FinanceEntryType,
   FinancePaymentStatus, FinanceInvoiceStatus,
@@ -39,10 +42,15 @@ export const Route = createFileRoute("/admin/accounting")({
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
-  component: AccountingPage,
+  component: () => (
+    <AccountingI18nProvider>
+      <AccountingPage />
+    </AccountingI18nProvider>
+  ),
 });
 
 function AccountingPage() {
+  const { t } = useAccountingT();
   const { data: user } = useQuery({
     queryKey: ["current-user"],
     queryFn: async () => (await supabase.auth.getUser()).data.user,
@@ -71,13 +79,13 @@ function AccountingPage() {
   );
 
   if (booksLoading || (activeBookId && entriesLoading)) {
-    return <div className="text-sm text-muted-foreground">Laster regnskap…</div>;
+    return <div className="text-sm text-muted-foreground">{t.loading}</div>;
   }
 
   if (!activeBook) {
     return (
       <div className="text-sm text-muted-foreground">
-        Oppretter standard regnskap…
+        {t.creatingDefault}
       </div>
     );
   }
@@ -94,6 +102,29 @@ function AccountingPage() {
   );
 }
 
+function LanguageToggle() {
+  const { lang, setLang } = useAccountingT();
+  return (
+    <div className="inline-flex items-center rounded-md border border-border/60 bg-card p-0.5 text-xs">
+      <Languages className="h-3.5 w-3.5 mx-1 text-muted-foreground" />
+      <button
+        type="button"
+        onClick={() => setLang("no")}
+        className={`px-2 py-1 rounded ${lang === "no" ? "bg-accent text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+      >
+        NO
+      </button>
+      <button
+        type="button"
+        onClick={() => setLang("en")}
+        className={`px-2 py-1 rounded ${lang === "en" ? "bg-accent text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
+
 function BookView({
   bookId, bookName, entries, userId, allBooks, onSelectBook,
 }: {
@@ -104,6 +135,7 @@ function BookView({
   allBooks: { id: string; name: string }[];
   onSelectBook: (id: string) => void;
 }) {
+  const { t } = useAccountingT();
   const upsertExpense = useUpsertEntry(bookId, "expense");
   const upsertIncome = useUpsertEntry(bookId, "income");
   const del = useDeleteFinanceEntry(bookId);
@@ -168,15 +200,18 @@ function BookView({
       <datalist id="finance-category-suggestions">
         <option value="Oppstartskostnad" />
         <option value="Privat utlegg før stiftelse" />
+        <option value="Start-up cost" />
+        <option value="Private outlay pre-incorporation" />
       </datalist>
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
           <Link to="/admin" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-3 w-3" /> Tilbake
+            <ArrowLeft className="h-3 w-3" /> {t.back}
           </Link>
-          <h1 className="font-display text-3xl tracking-tight mt-1">Regnskap</h1>
+          <h1 className="font-display text-3xl tracking-tight mt-1">{t.title}</h1>
         </div>
         <div className="flex items-center gap-2">
+          <LanguageToggle />
           {allBooks.length > 1 && (
             <Select value={bookId} onValueChange={onSelectBook}>
               <SelectTrigger className="w-[200px]"><SelectValue /></SelectTrigger>
@@ -193,7 +228,7 @@ function BookView({
             onUploaded={(id) => setReviewDraftId(id)}
           />
           <Button variant="outline" size="sm" onClick={handleExport}>
-            <Download className="h-4 w-4 mr-1" /> CSV
+            <Download className="h-4 w-4 mr-1" /> {t.csv}
           </Button>
         </div>
       </div>
@@ -214,40 +249,36 @@ function BookView({
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        <Kpi label="Inntekter" value={formatNok(kpis.income)} />
-        <Kpi label="Utgifter" value={formatNok(kpis.expense)} />
-        <Kpi label="Resultat" value={formatNok(kpis.result)} accent={kpis.result >= 0 ? "pos" : "neg"} />
-        <Kpi label="Ubetalt" value={formatNok(kpis.unpaid)} />
-        <Kpi label="Mangler faktura" value={formatNok(kpis.pendingInvoice)} />
-        <Kpi label="Mangler bilag" value={formatNok(kpis.missingAttachment)} />
+        <Kpi label={t.kpi.income} value={formatNok(kpis.income)} />
+        <Kpi label={t.kpi.expense} value={formatNok(kpis.expense)} />
+        <Kpi label={t.kpi.result} value={formatNok(kpis.result)} accent={kpis.result >= 0 ? "pos" : "neg"} />
+        <Kpi label={t.kpi.unpaid} value={formatNok(kpis.unpaid)} />
+        <Kpi label={t.kpi.pendingInvoice} value={formatNok(kpis.pendingInvoice)} />
+        <Kpi label={t.kpi.missingAttachment} value={formatNok(kpis.missingAttachment)} />
       </div>
 
       {/* Filter + help text */}
       <div className="rounded-lg border border-border/60 bg-muted/30 p-3 space-y-2">
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-xs font-medium">Vis:</span>
+          <span className="text-xs font-medium">{t.show}</span>
           <Select value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
             <SelectTrigger className="h-8 w-[220px] text-xs"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Alle poster</SelectItem>
-              <SelectItem value="pre">Kun før selskapsstiftelse</SelectItem>
-              <SelectItem value="ordinary">Kun ordinære poster</SelectItem>
+              <SelectItem value="all">{t.filter.all}</SelectItem>
+              <SelectItem value="pre">{t.filter.pre}</SelectItem>
+              <SelectItem value="ordinary">{t.filter.ordinary}</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
           <Info className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-          <span>
-            Poster merket «Før selskapsstiftelse» ble registrert før selskapet ble etablert. Registreringen
-            brukes for å dokumentere oppstartskostnader og historikk. Om kostnaden senere kan overføres til
-            selskapet må vurderes separat.
-          </span>
+          <span>{t.preHelp}</span>
         </p>
       </div>
 
       {/* Expenses */}
       <Section
-        title="Utgifter"
+        title={t.expenses}
         onAdd={() => handleAdd("expense")}
       >
         <EntryTable
@@ -262,15 +293,15 @@ function BookView({
                 attachment_url: res.url,
                 attachment_name: res.name,
               });
-              toast.success("Bilag lastet opp");
-            } catch (e: any) { toast.error(e.message || "Opplasting feilet"); }
+              toast.success(t.attachmentUploaded);
+            } catch (e: any) { toast.error(e.message || t.uploadFailed); }
           }}
           isUploading={isUploading}
         />
       </Section>
 
       {/* Incomes */}
-      <Section title="Inntekter" onAdd={() => handleAdd("income")}>
+      <Section title={t.incomes} onAdd={() => handleAdd("income")}>
         <EntryTable
           entries={incomes}
           onChange={(id, patch) => upsertIncome.mutate({ id, ...patch })}
@@ -283,8 +314,8 @@ function BookView({
                 attachment_url: res.url,
                 attachment_name: res.name,
               });
-              toast.success("Bilag lastet opp");
-            } catch (e: any) { toast.error(e.message || "Opplasting feilet"); }
+              toast.success(t.attachmentUploaded);
+            } catch (e: any) { toast.error(e.message || t.uploadFailed); }
           }}
           isUploading={isUploading}
         />
@@ -305,12 +336,13 @@ function Kpi({ label, value, accent }: { label: string; value: string; accent?: 
 }
 
 function Section({ title, onAdd, children }: { title: string; onAdd: () => void; children: React.ReactNode }) {
+  const { t } = useAccountingT();
   return (
     <section className="space-y-3">
       <div className="flex items-center justify-between">
         <h2 className="font-display text-xl tracking-tight">{title}</h2>
         <Button size="sm" variant="outline" onClick={onAdd}>
-          <Plus className="h-4 w-4 mr-1" /> Ny rad
+          <Plus className="h-4 w-4 mr-1" /> {t.newRow}
         </Button>
       </div>
       {children}
@@ -327,10 +359,11 @@ function EntryTable({
   onUpload: (entry: FinanceEntry, file: File) => void;
   isUploading: boolean;
 }) {
+  const { t } = useAccountingT();
   if (entries.length === 0) {
     return (
       <div className="rounded-lg border border-dashed border-border/60 p-6 text-center text-sm text-muted-foreground">
-        Ingen rader ennå.
+        {t.noRows}
       </div>
     );
   }
@@ -339,16 +372,16 @@ function EntryTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[90px]">Bilag</TableHead>
-            <TableHead className="w-[120px]">Dato</TableHead>
-            <TableHead>Beskrivelse</TableHead>
-            <TableHead className="w-[140px]">Kategori</TableHead>
-            <TableHead className="w-[140px]">Motpart</TableHead>
-            <TableHead className="w-[120px] text-right">Beløp (kr)</TableHead>
-            <TableHead className="w-[120px]">Betalt</TableHead>
-            <TableHead className="w-[120px]">Faktura</TableHead>
-            <TableHead className="w-[120px]">Bilag</TableHead>
-            <TableHead className="w-[90px]" title="Før selskapsstiftelse">Før stift.</TableHead>
+            <TableHead className="w-[90px]">{t.col.voucher}</TableHead>
+            <TableHead className="w-[120px]">{t.col.date}</TableHead>
+            <TableHead>{t.col.description}</TableHead>
+            <TableHead className="w-[140px]">{t.col.category}</TableHead>
+            <TableHead className="w-[140px]">{t.col.counterparty}</TableHead>
+            <TableHead className="w-[120px] text-right">{t.col.amount}</TableHead>
+            <TableHead className="w-[120px]">{t.col.paid}</TableHead>
+            <TableHead className="w-[120px]">{t.col.invoice}</TableHead>
+            <TableHead className="w-[120px]">{t.col.attachment}</TableHead>
+            <TableHead className="w-[90px]" title={t.badgePre}>{t.col.pre}</TableHead>
             <TableHead className="w-[40px]"></TableHead>
           </TableRow>
         </TableHeader>
@@ -378,6 +411,7 @@ function EntryRow({
   onUpload: (file: File) => void;
   isUploading: boolean;
 }) {
+  const { t } = useAccountingT();
   const [amountInput, setAmountInput] = useState(
     String((entry.net_amount ?? 0) / 100),
   );
@@ -402,7 +436,7 @@ function EntryRow({
         <div className="space-y-1">
           <Input
             className="h-8 text-xs"
-            placeholder="Beskrivelse"
+            placeholder={t.placeholder.description}
             defaultValue={entry.description}
             onBlur={(e) => {
               if (e.target.value !== entry.description) onChange({ description: e.target.value });
@@ -410,7 +444,7 @@ function EntryRow({
           />
           {entry.pre_company_expense && (
             <Badge variant="secondary" className="text-[10px] font-normal h-5 px-1.5">
-              Før selskapsstiftelse
+              {t.badgePre}
             </Badge>
           )}
         </div>
@@ -418,7 +452,7 @@ function EntryRow({
       <TableCell>
         <Input
           className="h-8 text-xs"
-          placeholder="Kategori"
+          placeholder={t.placeholder.category}
           list="finance-category-suggestions"
           defaultValue={entry.category ?? ""}
           onBlur={(e) => {
@@ -430,7 +464,7 @@ function EntryRow({
       <TableCell>
         <Input
           className="h-8 text-xs"
-          placeholder="Leverandør / kunde"
+          placeholder={t.placeholder.counterparty}
           defaultValue={entry.counterparty ?? ""}
           onBlur={(e) => {
             const v = e.target.value.trim();
@@ -459,10 +493,10 @@ function EntryRow({
         >
           <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="unpaid">Ubetalt</SelectItem>
-            <SelectItem value="paid">Betalt</SelectItem>
-            <SelectItem value="partial">Delvis</SelectItem>
-            <SelectItem value="cancelled">Kansellert</SelectItem>
+            <SelectItem value="unpaid">{t.payment.unpaid}</SelectItem>
+            <SelectItem value="paid">{t.payment.paid}</SelectItem>
+            <SelectItem value="partial">{t.payment.partial}</SelectItem>
+            <SelectItem value="cancelled">{t.payment.cancelled}</SelectItem>
           </SelectContent>
         </Select>
       </TableCell>
@@ -473,9 +507,9 @@ function EntryRow({
         >
           <SelectTrigger className="h-8 text-xs"><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="pending">Mangler</SelectItem>
-            <SelectItem value="received">Mottatt</SelectItem>
-            <SelectItem value="not_required">Ikke nødvendig</SelectItem>
+            <SelectItem value="pending">{t.invoice.pending}</SelectItem>
+            <SelectItem value="received">{t.invoice.received}</SelectItem>
+            <SelectItem value="not_required">{t.invoice.not_required}</SelectItem>
           </SelectContent>
         </Select>
       </TableCell>
@@ -486,14 +520,14 @@ function EntryRow({
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
-            title={entry.attachment_name ?? "Bilag"}
+            title={entry.attachment_name ?? t.col.attachment}
           >
-            <Paperclip className="h-3 w-3" /> Vis
+            <Paperclip className="h-3 w-3" /> {t.view}
           </a>
         ) : (
           <label className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground cursor-pointer">
             <Upload className="h-3 w-3" />
-            {isUploading ? "Laster…" : "Last opp"}
+            {isUploading ? t.uploading : t.upload}
             <input
               type="file"
               className="hidden"
@@ -510,7 +544,7 @@ function EntryRow({
         <Switch
           checked={entry.pre_company_expense}
           onCheckedChange={(v) => onChange({ pre_company_expense: v })}
-          aria-label="Før selskapsstiftelse"
+          aria-label={t.aria.pre}
         />
       </TableCell>
       <TableCell>
@@ -519,7 +553,7 @@ function EntryRow({
           size="icon"
           className="h-7 w-7 text-muted-foreground hover:text-destructive"
           onClick={() => {
-            if (confirm("Slett denne raden?")) onDelete();
+            if (confirm(t.deleteRow)) onDelete();
           }}
         >
           <Trash2 className="h-3.5 w-3.5" />
