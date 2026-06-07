@@ -552,12 +552,13 @@ export function ReceiptDraftList({
   bookId: string;
 }) {
   const del = useDeleteReceiptDraft(bookId);
+  const { t } = useAccountingT();
   if (drafts.length === 0) return null;
   return (
     <div className="rounded-lg border border-border/60 bg-card">
       <div className="px-3 py-2 border-b border-border/60 flex items-center gap-2">
         <Sparkles className="h-4 w-4 text-primary" />
-        <h3 className="text-sm font-medium">AI-utkast som venter på godkjenning</h3>
+        <h3 className="text-sm font-medium">{t.review.drafts}</h3>
         <Badge variant="secondary" className="ml-auto">{drafts.length}</Badge>
       </div>
       <ul className="divide-y divide-border/60">
@@ -568,7 +569,7 @@ export function ReceiptDraftList({
               <FileText className="h-4 w-4 text-muted-foreground shrink-0" />
               <div className="min-w-0 flex-1">
                 <div className="truncate">
-                  {s?.counterparty || d.file_name || "Kvittering"}
+                  {s?.counterparty || d.file_name || t.col.attachment}
                   {s?.gross_amount != null && (
                     <span className="ml-2 text-xs text-muted-foreground tabular-nums">
                       {formatNok(s.gross_amount)}
@@ -576,21 +577,21 @@ export function ReceiptDraftList({
                   )}
                 </div>
                 <div className="text-[11px] text-muted-foreground truncate">
-                  {d.error ? `Feil: ${d.error}` : s ? s.description || "AI-forslag klart" : "Analyserer…"}
+                  {d.error ? `${t.review.errorPrefix}: ${d.error}` : s ? s.description || t.review.aiReady : t.review.analyzingShort}
                 </div>
               </div>
               {d.status === "rejected" && (
-                <Badge variant="outline" className="text-[10px]">Avvist</Badge>
+                <Badge variant="outline" className="text-[10px]">{t.review.rejectedBadge}</Badge>
               )}
               <Button size="sm" variant="outline" onClick={() => onReview(d.id)}>
-                Kontroller
+                {t.review.check}
               </Button>
               <Button
                 size="icon"
                 variant="ghost"
                 className="h-7 w-7 text-muted-foreground hover:text-destructive"
                 onClick={() => {
-                  if (confirm("Slett utkast?")) del.mutate(d.id);
+                  if (confirm(t.review.deleteDraft)) del.mutate(d.id);
                 }}
               >
                 <Trash2 className="h-3.5 w-3.5" />
