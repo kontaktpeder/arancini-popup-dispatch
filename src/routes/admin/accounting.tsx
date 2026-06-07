@@ -157,6 +157,10 @@ function BookView({
 
   return (
     <div className="space-y-8">
+      <datalist id="finance-category-suggestions">
+        <option value="Oppstartskostnad" />
+        <option value="Privat utlegg før stiftelse" />
+      </datalist>
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div>
           <Link to="/admin" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground">
