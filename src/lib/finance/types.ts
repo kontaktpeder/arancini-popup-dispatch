@@ -42,6 +42,7 @@ export interface FinanceEntry {
   attachment_url: string | null;
   attachment_name: string | null;
   internal_only: boolean;
+  pre_company_expense: boolean;
   payment_status: FinancePaymentStatus;
   paid_amount: number | null;
   invoice_status: FinanceInvoiceStatus;
