@@ -187,11 +187,30 @@ function BookView({
               </SelectContent>
             </Select>
           )}
+          <ReceiptUploadButton
+            bookId={bookId}
+            userId={userId}
+            onUploaded={(id) => setReviewDraftId(id)}
+          />
           <Button variant="outline" size="sm" onClick={handleExport}>
             <Download className="h-4 w-4 mr-1" /> CSV
           </Button>
         </div>
       </div>
+
+      <ReceiptDraftList
+        drafts={drafts || []}
+        bookId={bookId}
+        onReview={(id) => setReviewDraftId(id)}
+      />
+
+      <ReceiptReviewDialog
+        draft={reviewDraft}
+        bookId={bookId}
+        userId={userId}
+        open={!!reviewDraftId}
+        onOpenChange={(v) => { if (!v) setReviewDraftId(null); }}
+      />
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
