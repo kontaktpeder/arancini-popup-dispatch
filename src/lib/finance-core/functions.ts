@@ -7,7 +7,11 @@ import {
   mapManualEntry,
   mapTestEntry,
 } from "./mappers";
-import type { AccountingStatus, FinanceCoreEntry } from "./types";
+import type {
+  AccountingStatus,
+  FinanceCoreCategoryReport,
+  FinanceCoreEntry,
+} from "./types";
 
 function aggregate(entries: FinanceCoreEntry[]) {
   let income = 0, expense = 0, unpaid = 0, missing = 0;
@@ -33,7 +37,7 @@ export const getAccountingStatus = createServerFn({ method: "GET" })
   .handler(async (): Promise<AccountingStatus> => {
     const year = new Date().getFullYear();
     const [entriesResult, summaryResult] = await Promise.allSettled([
-      financeCore.getEntries(200),
+      financeCore.getEntries(300),
       financeCore.getSummary(year),
     ]);
 
@@ -123,6 +127,88 @@ export const uploadAttachment = createServerFn({ method: "POST" })
     const file = data.get("file");
     const entryId = (data.get("entry_id") as string) || undefined;
     if (!(file instanceof File)) throw new Error("Missing file");
-    await financeCore.uploadAttachment(file, entryId);
-    return { ok: true };
+    const attachment = await financeCore.uploadAttachment(file, entryId);
+    return { ok: true, attachment };
+  });
+
+/* ── New: PATCH entry ─────────────────────────────────────── */
+const PatchSchema = z.object({
+  id: z.string().min(1),
+  patch: z.object({
+    entry_date: z.string().min(8).max(20).optional(),
+    description: z.string().min(1).max(500).optional(),
+    counterparty: z.string().max(200).nullable().optional(),
+    category: z.string().max(120).nullable().optional(),
+    category_group: z.string().max(120).nullable().optional(),
+    amount_gross: z.number().optional(),
+    amount_net: z.number().optional(),
+    vat_rate: z.number().min(0).max(1).nullable().optional(),
+    payment_status: z.enum(["unpaid", "paid", "partial", "cancelled"]).optional(),
+    invoice_status: z.enum(["pending", "sent", "received", "not_required"]).optional(),
+    notes: z.string().max(2000).nullable().optional(),
+    external_url: z.string().url().nullable().optional(),
+  }),
+});
+
+export const patchEntry = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => PatchSchema.parse(d))
+  .handler(async ({ data }) => {
+    try {
+      const entry = await financeCore.patchEntry(data.id, data.patch);
+      return { ok: true, supported: true, entry };
+    } catch (e) {
+      if (e instanceof FinanceCoreError && (e.status === 404 || e.status === 405 || e.status === 501)) {
+        return { ok: false, supported: false, entry: null };
+      }
+      throw e;
+    }
+  });
+
+/* ── New: GET single entry ────────────────────────────────── */
+export const fetchEntry = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ id: z.string().min(1) }).parse(d))
+  .handler(async ({ data }) => {
+    const entry = await financeCore.getEntry(data.id);
+    return { entry };
+  });
+
+/* ── New: list attachments for an entry (degrades gracefully) ── */
+export const listEntryAttachments = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ entryId: z.string().min(1) }).parse(d))
+  .handler(async ({ data }) => {
+    try {
+      const attachments = await financeCore.listAttachments(data.entryId);
+      return { ok: true, supported: true, attachments };
+    } catch (e) {
+      if (e instanceof FinanceCoreError && (e.status === 404 || e.status === 501)) {
+        return { ok: false, supported: false, attachments: [] };
+      }
+      throw e;
+    }
+  });
+
+/* ── New: category report ─────────────────────────────────── */
+export const fetchCategoryReport = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ year: z.number().int().optional() }).parse(d))
+  .handler(async ({ data }) => {
+    const rows = await financeCore.getCategoryReport(data.year);
+    return { supported: rows !== null, rows: (rows ?? []) as FinanceCoreCategoryReport[] };
+  });
+
+/* ── New: AI scan receipt ─────────────────────────────────── */
+export const scanReceipt = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => {
+    if (!(d instanceof FormData)) throw new Error("Expected FormData");
+    return d;
+  })
+  .handler(async ({ data }) => {
+    const file = data.get("file");
+    if (!(file instanceof File)) throw new Error("Missing file");
+    const scan = await financeCore.scanReceipt(file);
+    return { ok: true, scan };
   });
