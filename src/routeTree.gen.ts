@@ -21,6 +21,7 @@ import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-aranci
 import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
 import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
+import { Route as AdminAccountingRouteImport } from './routes/admin/accounting'
 import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
 
 const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
@@ -83,6 +84,11 @@ const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
   path: '/newsletter',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAccountingRoute = AdminAccountingRouteImport.update({
+  id: '/accounting',
+  path: '/accounting',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSlugRoute = AdminSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -97,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/admin/accounting': typeof AdminAccountingRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/en/about': typeof EnAboutRoute
   '/en/next-popup': typeof EnNextPopupRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/admin/accounting': typeof AdminAccountingRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/en/about': typeof EnAboutRoute
   '/en/next-popup': typeof EnNextPopupRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/next-popup': typeof NextPopupRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
+  '/admin/accounting': typeof AdminAccountingRoute
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/en/about': typeof EnAboutRoute
   '/en/next-popup': typeof EnNextPopupRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/admin/accounting'
     | '/admin/newsletter'
     | '/en/about'
     | '/en/next-popup'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/admin/accounting'
     | '/admin/newsletter'
     | '/en/about'
     | '/en/next-popup'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/next-popup'
     | '/what-is-arancini'
     | '/admin/$slug'
+    | '/admin/accounting'
     | '/admin/newsletter'
     | '/en/about'
     | '/en/next-popup'
@@ -274,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminNewsletterRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/accounting': {
+      id: '/admin/accounting'
+      path: '/accounting'
+      fullPath: '/admin/accounting'
+      preLoaderRoute: typeof AdminAccountingRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/$slug': {
       id: '/admin/$slug'
       path: '/$slug'
@@ -286,12 +305,14 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminSlugRoute: typeof AdminSlugRoute
+  AdminAccountingRoute: typeof AdminAccountingRoute
   AdminNewsletterRoute: typeof AdminNewsletterRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminSlugRoute: AdminSlugRoute,
+  AdminAccountingRoute: AdminAccountingRoute,
   AdminNewsletterRoute: AdminNewsletterRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
@@ -325,3 +346,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
