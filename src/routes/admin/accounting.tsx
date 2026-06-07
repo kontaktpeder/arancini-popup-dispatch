@@ -109,6 +109,10 @@ function BookView({
   const del = useDeleteFinanceEntry(bookId);
   const { uploadAttachment, isUploading } = useFinanceAttachmentUpload();
 
+  const { data: drafts } = useReceiptDrafts(bookId);
+  const [reviewDraftId, setReviewDraftId] = useState<string | null>(null);
+  const reviewDraft = (drafts || []).find((d) => d.id === reviewDraftId) ?? null;
+
   const kpis = useMemo(() => {
     let income = 0, expense = 0;
     const active = entries.filter((e) => e.payment_status !== "cancelled");
