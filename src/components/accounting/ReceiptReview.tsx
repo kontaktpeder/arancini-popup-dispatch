@@ -237,6 +237,7 @@ export function ReceiptReviewDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
+  const { t } = useAccountingT();
   const [form, setForm] = useState<FormState>(suggestionToForm(null));
   const [approved, setApproved] = useState<Record<string, boolean>>({});
   const update = useUpdateReceiptDraft(bookId);
