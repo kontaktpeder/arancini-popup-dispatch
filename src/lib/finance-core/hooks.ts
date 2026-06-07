@@ -73,10 +73,12 @@ export function useUploadAttachment() {
 }
 
 export const FINANCE_CORE_BASE_URL =
+  (import.meta.env.VITE_FINANCE_CORE_BASE_URL as string | undefined) ??
   "https://project--71d47bcd-142c-4661-be6b-2d7bcddce79c.lovable.app";
 export const FINANCE_CORE_ORG_ID =
+  (import.meta.env.VITE_FINANCE_CORE_ORGANIZATION_ID as string | undefined) ??
   "bbc194b3-3067-4eb9-9918-87bed9ab7670";
 
 export function financeCoreOrgUrl() {
-  return `${FINANCE_CORE_BASE_URL}/orgs/${FINANCE_CORE_ORG_ID}`;
+  return `${FINANCE_CORE_BASE_URL.replace(/\/+$/, "")}/orgs/${FINANCE_CORE_ORG_ID}`;
 }
