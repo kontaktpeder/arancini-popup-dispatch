@@ -161,7 +161,10 @@ export const financeCore = {
       if (Array.isArray(list)) return list as FinanceCoreCategoryReport[];
       return [];
     } catch (e) {
-      if (e instanceof FinanceCoreError && (e.status === 404 || e.status === 501)) return null;
+      if (e instanceof FinanceCoreError && (e.status === 404 || e.status === 501 || e.status >= 500)) {
+        console.error("Finance Core category report unavailable:", e.status, e.body);
+        return null;
+      }
       throw e;
     }
   },
