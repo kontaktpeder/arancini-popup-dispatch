@@ -197,6 +197,6 @@ export const financeCore = {
     try { parsed = text ? JSON.parse(text) : null; } catch { parsed = text; }
     if (!res.ok) throw new FinanceCoreError(res.status, parsed);
     const data = unwrap<AiReceiptScan>(parsed) ?? (parsed as AiReceiptScan);
-    return { ...data, raw: (parsed as any) ?? undefined };
+    return data;
   },
 };
