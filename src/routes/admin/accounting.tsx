@@ -146,8 +146,9 @@ function AccountingPage() {
       </Card>
 
       <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Siste poster fra Finance Core</CardTitle>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle className="text-base">Siste poster</CardTitle>
+          <span className="text-xs text-muted-foreground">Viser siste 10</span>
         </CardHeader>
         <CardContent className="overflow-x-auto p-0">
           {status.isLoading ? (
@@ -159,39 +160,41 @@ function AccountingPage() {
               <thead className="bg-muted/50 text-left text-xs uppercase text-muted-foreground">
                 <tr>
                   <th className="px-4 py-2">Dato</th>
-                  <th className="px-4 py-2">Type</th>
                   <th className="px-4 py-2">Beskrivelse</th>
-                  <th className="px-4 py-2">Kategori</th>
                   <th className="px-4 py-2 text-right">Beløp</th>
                   <th className="px-4 py-2">Status</th>
-                  <th className="px-4 py-2">Kilde</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {entries.slice(0, 50).map((e) => (
+                {entries.slice(0, 10).map((e) => (
                   <tr key={e.id} className="hover:bg-muted/30">
                     <td className="px-4 py-2 tabular-nums">{e.entry_date}</td>
-                    <td className="px-4 py-2">
-                      <Badge variant={e.entry_type === "income" ? "default" : "secondary"}>
-                        {e.entry_type === "income" ? "Inntekt" : "Utgift"}
-                      </Badge>
-                    </td>
                     <td className="px-4 py-2">
                       <div className="font-medium">{e.description}</div>
                       {e.counterparty && <div className="text-xs text-muted-foreground">{e.counterparty}</div>}
                     </td>
-                    <td className="px-4 py-2 text-muted-foreground">{e.category ?? "—"}</td>
                     <td className={`px-4 py-2 text-right tabular-nums ${e.entry_type === "income" ? "text-emerald-600" : "text-rose-600"}`}>
-                      {formatNok(Number(e.amount_gross))}
+                      {e.entry_type === "income" ? "+" : "−"}{formatNok(Number(e.amount_gross))}
                     </td>
                     <td className="px-4 py-2 text-xs text-muted-foreground">{e.payment_status}</td>
-                    <td className="px-4 py-2 text-xs text-muted-foreground">{e.source_app ?? "—"}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           )}
         </CardContent>
+        {entries.length > 0 && (
+          <div className="border-t p-3 text-center">
+            <a
+              href={financeCoreOrgUrl()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+            >
+              Se alle poster i FinansHub <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
+        )}
       </Card>
     </div>
   );
