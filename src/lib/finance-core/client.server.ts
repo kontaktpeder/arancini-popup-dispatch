@@ -117,16 +117,24 @@ export const financeCore = {
   },
 
   async listAttachments(entryId: string): Promise<FinanceCoreAttachment[]> {
-    const res = await call<unknown>(
-      `/api/public/v1/entries/${encodeURIComponent(entryId)}/attachments`,
-    );
-    const list = unwrap<unknown>(res);
-    if (Array.isArray(list)) return list as FinanceCoreAttachment[];
-    if (res && typeof res === "object") {
-      const o = res as Record<string, unknown>;
-      if (Array.isArray(o.attachments)) return o.attachments as FinanceCoreAttachment[];
+    try {
+      const res = await call<unknown>(
+        `/api/public/v1/entries/${encodeURIComponent(entryId)}/attachments`,
+      );
+      const list = unwrap<unknown>(res);
+      if (Array.isArray(list)) return list as FinanceCoreAttachment[];
+      if (res && typeof res === "object") {
+        const o = res as Record<string, unknown>;
+        if (Array.isArray(o.attachments)) return o.attachments as FinanceCoreAttachment[];
+      }
+      return [];
+    } catch (e) {
+      if (e instanceof FinanceCoreError && (e.status === 404 || e.status === 501 || e.status >= 500)) {
+        console.error("Finance Core attachments unavailable:", e.status, e.body);
+        return [];
+      }
+      throw e;
     }
-    return [];
   },
 
   async getSummary(year?: number): Promise<FinanceCoreSummary> {
