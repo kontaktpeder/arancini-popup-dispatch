@@ -1,12 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
+  fetchCategoryReport,
+  fetchEntry,
   getAccountingStatus,
+  listEntryAttachments,
+  patchEntry,
+  scanReceipt,
   sendKlinkSettlement,
   sendManualEntry,
   sendTestIncome,
   uploadAttachment,
 } from "./functions";
+import type { FinanceCoreEntryPatch } from "./types";
 
 export function useAccountingStatus() {
   const fn = useServerFn(getAccountingStatus);
@@ -69,6 +75,49 @@ export function useUploadAttachment() {
   return useMutation({
     mutationFn: (form: FormData) => fn({ data: form }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
+  });
+}
+
+export function usePatchEntry() {
+  const fn = useServerFn(patchEntry);
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (vars: { id: string; patch: FinanceCoreEntryPatch }) => fn({ data: vars }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
+  });
+}
+
+export function useEntry(id: string | null | undefined) {
+  const fn = useServerFn(fetchEntry);
+  return useQuery({
+    queryKey: ["finance-core", "entry", id],
+    queryFn: () => fn({ data: { id: id! } }),
+    enabled: !!id,
+  });
+}
+
+export function useEntryAttachments(id: string | null | undefined) {
+  const fn = useServerFn(listEntryAttachments);
+  return useQuery({
+    queryKey: ["finance-core", "entry", id, "attachments"],
+    queryFn: () => fn({ data: { entryId: id! } }),
+    enabled: !!id,
+  });
+}
+
+export function useCategoryReport(year?: number) {
+  const fn = useServerFn(fetchCategoryReport);
+  return useQuery({
+    queryKey: ["finance-core", "category-report", year],
+    queryFn: () => fn({ data: { year } }),
+    staleTime: 60_000,
+  });
+}
+
+export function useScanReceipt() {
+  const fn = useServerFn(scanReceipt);
+  return useMutation({
+    mutationFn: (form: FormData) => fn({ data: form }),
   });
 }
 
