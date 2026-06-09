@@ -12,6 +12,7 @@ import { SocialFollow } from "@/components/social-follow";
 import { Testimonials } from "@/components/testimonials";
 import { DISCOVERY_EN } from "@/lib/discovery-copy";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
+import { CURRENT_POPUP_EN } from "@/lib/site";
 
 export const Route = createFileRoute("/en/")({
   head: () => buildPageHead(PAGE_SEO["/en"]),
@@ -76,9 +77,22 @@ function IndexEn() {
 
       <NextBatch
         copy={{
-          eyebrow: "Next popup",
-          title: "Next batch coming soon",
-          body: "We're planning the next popup now. Sign up to hear first — batches are small.",
+          eyebrow: "Popup today",
+          title: CURRENT_POPUP_EN.venue,
+          body: `${CURRENT_POPUP_EN.dateShort} · ${CURRENT_POPUP_EN.timeLabel} · ${CURRENT_POPUP_EN.addressShort}`,
+          dateLabel: CURRENT_POPUP_EN.dateLabel,
+          timeLabel: CURRENT_POPUP_EN.timeLabel,
+          addressLabel: CURRENT_POPUP_EN.addressFull,
+          mapsGoogle: CURRENT_POPUP_EN.mapsGoogle,
+          mapsApple: CURRENT_POPUP_EN.mapsApple,
+          countdownTarget: CURRENT_POPUP_EN.countdownTarget,
+          countdownLabels: {
+            days: "days",
+            hours: "hours",
+            minutes: "min",
+            seconds: "sec",
+            live: "Live now",
+          },
         }}
         newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
       />
