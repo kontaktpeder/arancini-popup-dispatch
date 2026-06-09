@@ -64,6 +64,12 @@ export function AccountingTabs() {
     <div className="space-y-6 pb-12">
       <Header refreshing={status.isFetching} onRefresh={() => status.refetch()} />
 
+      {/* Mobile-first scan CTA */}
+      <div className="md:hidden">
+        <MobileReceiptScanButton />
+      </div>
+
+
       {status.error && (
         <Card className="border-destructive/40">
           <CardContent className="flex items-start gap-2 p-4 text-sm">
