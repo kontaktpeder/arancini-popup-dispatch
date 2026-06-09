@@ -21,7 +21,7 @@ import { EntryRow } from "./EntryRow";
 import { EntryDetailPanel } from "./EntryDetailPanel";
 import { ReportsMonths } from "./ReportsMonths";
 import { ReportsCategories } from "./ReportsCategories";
-import { AiScanDialog } from "./AiScanDialog";
+import { MobileReceiptScanButton } from "./MobileReceiptScanButton";
 
 import {
   useAccountingStatus,
