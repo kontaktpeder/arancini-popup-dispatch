@@ -24,7 +24,7 @@ type Copy = {
 export function NextBatch({ copy, newsletter }: { copy: Copy; newsletter?: ReactNode }) {
   const hasDetails = copy.dateLabel || copy.addressLabel;
   return (
-    <section className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-24">
+    <section id="next-popup" className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-24">
       <p className="eyebrow">{copy.eyebrow}</p>
       <h2 className="mt-6 font-display text-[clamp(2.25rem,7vw,4rem)] italic leading-[1.05] tracking-tight">
         {copy.title}

@@ -48,6 +48,28 @@ function IndexEn() {
         newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
       />
 
+      <NextBatch
+        copy={{
+          eyebrow: "Popup today",
+          title: CURRENT_POPUP_EN.venue,
+          body: `${CURRENT_POPUP_EN.dateShort} · ${CURRENT_POPUP_EN.timeLabel} · ${CURRENT_POPUP_EN.addressShort}`,
+          dateLabel: CURRENT_POPUP_EN.dateLabel,
+          timeLabel: CURRENT_POPUP_EN.timeLabel,
+          addressLabel: CURRENT_POPUP_EN.addressFull,
+          mapsGoogle: CURRENT_POPUP_EN.mapsGoogle,
+          mapsApple: CURRENT_POPUP_EN.mapsApple,
+          countdownTarget: CURRENT_POPUP_EN.countdownTarget,
+          countdownLabels: {
+            days: "days",
+            hours: "hours",
+            minutes: "min",
+            seconds: "sec",
+            live: "Live now",
+          },
+        }}
+        newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
+      />
+
       <Testimonials
         copy={{
           eyebrow: "Voices from batch 001",

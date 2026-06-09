@@ -68,7 +68,7 @@ export function HomeHero({
           ) : null}
 
           <a
-            href="#feedback"
+            href="#next-popup"
             className="group mt-10 inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-background px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-[3px_3px_0_0_var(--color-foreground)] transition hover:bg-foreground hover:text-background hover:shadow-[1px_1px_0_0_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px]"
           >
             <span>{copy.scrollLabel}</span>
