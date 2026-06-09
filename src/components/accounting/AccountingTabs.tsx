@@ -184,7 +184,8 @@ export function AccountingTabs() {
                 Last opp en kvittering eller faktura. AI-en foreslår felter automatisk —
                 du godkjenner før posten bokføres i Finance Core.
               </p>
-              <AiScanDialog />
+              <MobileReceiptScanButton />
+
             </CardContent>
           </Card>
         </TabsContent>
