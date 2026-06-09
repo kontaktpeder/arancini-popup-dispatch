@@ -97,6 +97,7 @@ function Index() {
         }}
       />
 
+      <SocialFollow label="Følg oss" />
 
       <EditorialCards copy={DISCOVERY_NO.editorial} />
 

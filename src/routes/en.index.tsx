@@ -97,6 +97,7 @@ function IndexEn() {
         }}
       />
 
+      <SocialFollow label="Follow us" />
 
       <EditorialCards copy={DISCOVERY_EN.editorial} />
 
