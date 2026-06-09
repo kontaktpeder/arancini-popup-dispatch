@@ -222,7 +222,7 @@ function Header({ refreshing, onRefresh }: { refreshing: boolean; onRefresh: () 
         <ManualEntryDialog type="expense" />
         <KlinkSettlementDialog />
         <AttachmentDialog />
-        <AiScanDialog />
+        <MobileReceiptScanButton variant="compact" />
         <Button variant="outline" size="sm" onClick={handleTest} disabled={testMut.isPending}>
           <Send className="h-4 w-4" /> Test
         </Button>
