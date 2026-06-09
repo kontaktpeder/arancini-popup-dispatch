@@ -48,6 +48,28 @@ function Index() {
         newsletter={<NewsletterSignup lang="no" copy={NEWSLETTER_COPY_NO} />}
       />
 
+      <NextBatch
+        copy={{
+          eyebrow: "Popup nå",
+          title: CURRENT_POPUP.venue,
+          body: `${CURRENT_POPUP.dateShort} · ${CURRENT_POPUP.timeLabel} · ${CURRENT_POPUP.addressShort}`,
+          dateLabel: CURRENT_POPUP.dateLabel,
+          timeLabel: CURRENT_POPUP.timeLabel,
+          addressLabel: CURRENT_POPUP.addressFull,
+          mapsGoogle: CURRENT_POPUP.mapsGoogle,
+          mapsApple: CURRENT_POPUP.mapsApple,
+          countdownTarget: CURRENT_POPUP.countdownTarget,
+          countdownLabels: {
+            days: "dager",
+            hours: "timer",
+            minutes: "min",
+            seconds: "sek",
+            live: "Live nå",
+          },
+        }}
+        newsletter={<NewsletterSignup lang="no" copy={NEWSLETTER_COPY_NO} />}
+      />
+
       <Testimonials
         copy={{
           eyebrow: "Stemmer fra batch 001",
@@ -73,28 +95,6 @@ function Index() {
             { name: "'Nduja", votes: 9, voteLabel: "stemmer" },
           ],
         }}
-      />
-
-      <NextBatch
-        copy={{
-          eyebrow: "Popup nå",
-          title: CURRENT_POPUP.venue,
-          body: `${CURRENT_POPUP.dateShort} · ${CURRENT_POPUP.timeLabel} · ${CURRENT_POPUP.addressShort}`,
-          dateLabel: CURRENT_POPUP.dateLabel,
-          timeLabel: CURRENT_POPUP.timeLabel,
-          addressLabel: CURRENT_POPUP.addressFull,
-          mapsGoogle: CURRENT_POPUP.mapsGoogle,
-          mapsApple: CURRENT_POPUP.mapsApple,
-          countdownTarget: CURRENT_POPUP.countdownTarget,
-          countdownLabels: {
-            days: "dager",
-            hours: "timer",
-            minutes: "min",
-            seconds: "sek",
-            live: "Live nå",
-          },
-        }}
-        newsletter={<NewsletterSignup lang="no" copy={NEWSLETTER_COPY_NO} />}
       />
 
       <SocialFollow label="Følg oss" />
