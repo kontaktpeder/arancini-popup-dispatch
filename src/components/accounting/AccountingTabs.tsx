@@ -21,7 +21,7 @@ import { EntryRow } from "./EntryRow";
 import { EntryDetailPanel } from "./EntryDetailPanel";
 import { ReportsMonths } from "./ReportsMonths";
 import { ReportsCategories } from "./ReportsCategories";
-import { AiScanDialog } from "./AiScanDialog";
+import { MobileReceiptScanButton } from "./MobileReceiptScanButton";
 
 import {
   useAccountingStatus,
@@ -63,6 +63,12 @@ export function AccountingTabs() {
   return (
     <div className="space-y-6 pb-12">
       <Header refreshing={status.isFetching} onRefresh={() => status.refetch()} />
+
+      {/* Mobile-first scan CTA */}
+      <div className="md:hidden">
+        <MobileReceiptScanButton />
+      </div>
+
 
       {status.error && (
         <Card className="border-destructive/40">
@@ -178,7 +184,8 @@ export function AccountingTabs() {
                 Last opp en kvittering eller faktura. AI-en foreslår felter automatisk —
                 du godkjenner før posten bokføres i Finance Core.
               </p>
-              <AiScanDialog />
+              <MobileReceiptScanButton />
+
             </CardContent>
           </Card>
         </TabsContent>
@@ -215,7 +222,7 @@ function Header({ refreshing, onRefresh }: { refreshing: boolean; onRefresh: () 
         <ManualEntryDialog type="expense" />
         <KlinkSettlementDialog />
         <AttachmentDialog />
-        <AiScanDialog />
+        <MobileReceiptScanButton variant="compact" />
         <Button variant="outline" size="sm" onClick={handleTest} disabled={testMut.isPending}>
           <Send className="h-4 w-4" /> Test
         </Button>
