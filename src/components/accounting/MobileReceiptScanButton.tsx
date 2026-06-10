@@ -207,7 +207,7 @@ export function MobileReceiptScanButton({ variant = "primary" }: Props) {
           )}
 
           {step === "preview" && file && previewUrl && (
-            <div className="flex h-full flex-col gap-3">
+            <div className="flex flex-col gap-3">
               <ReceiptPreviewStep
                 file={file}
                 previewUrl={previewUrl}
