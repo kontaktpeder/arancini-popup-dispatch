@@ -210,8 +210,11 @@ export const scanReceipt = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const file = data.get("file");
     if (!(file instanceof File)) throw new Error("Missing file");
-    const scan = await financeCore.scanReceipt(file);
-    return { ok: true, scan };
+    const { scan, source } = await scanReceiptWithFallback(
+      (f) => financeCore.scanReceipt(f),
+      file,
+    );
+    return { ok: true, scan, source };
   });
 
 /* ── New: DELETE entry ────────────────────────────────────── */
