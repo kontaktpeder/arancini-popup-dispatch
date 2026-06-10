@@ -87,7 +87,8 @@ export function MobileReceiptScanButton({ variant = "primary" }: Props) {
     setOpen(false);
   }
 
-  function pickFile(f: File) {
+  async function pickFile(raw: File) {
+    const f = await normalizeReceiptFile(raw).catch(() => raw);
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setFile(f);
     setPreviewUrl(URL.createObjectURL(f));
