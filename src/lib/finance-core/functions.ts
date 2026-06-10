@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { financeCore, FinanceCoreError } from "./client.server";
+import { scanReceiptWithFallback } from "./scan-receipt-ai.server";
 import {
   mapKlinkSettlement,
   mapManualEntry,
