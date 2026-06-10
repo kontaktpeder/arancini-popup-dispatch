@@ -107,9 +107,18 @@ export function MobileReceiptScanButton({ variant = "primary" }: Props) {
       const r = await scan.mutateAsync(form);
       setDraft(fromScan(r.scan));
       setConfidence(r.scan.confidence ?? null);
+      if ((r as any).source === "lovable-gateway") {
+        toast.message("AI via reservekanal", {
+          description: "Finance Core AI ikke tilgjengelig — brukte Lovable AI.",
+        });
+      }
       setStep("review");
     } catch (e: any) {
-      const msg = e?.message ?? String(e);
+      const raw = e?.message ?? String(e);
+      let msg = raw;
+      if (/404/.test(raw)) msg = "AI-skanning er ikke aktivert i Finance Core ennå";
+      else if (/LOVABLE_API_KEY/i.test(raw)) msg = "AI-nøkkel mangler i miljøvariabler";
+      else if (raw.length > 160) msg = "AI-skanning feilet";
       setScanError(msg);
       toast.error(`AI-skanning feilet: ${msg}`);
     }
