@@ -17,6 +17,7 @@ import {
   useScanReceipt, useSendManualEntry, useUploadAttachment,
 } from "@/lib/finance-core/hooks";
 import type { AiReceiptScan } from "@/lib/finance-core/types";
+import { normalizeReceiptFile } from "@/lib/receipt-image";
 
 type Step = "capture" | "preview" | "review";
 
