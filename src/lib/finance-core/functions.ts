@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { financeCore, FinanceCoreError } from "./client.server";
+import { scanReceiptWithFallback } from "./scan-receipt-ai.server";
 import {
   mapKlinkSettlement,
   mapManualEntry,
@@ -209,8 +210,11 @@ export const scanReceipt = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const file = data.get("file");
     if (!(file instanceof File)) throw new Error("Missing file");
-    const scan = await financeCore.scanReceipt(file);
-    return { ok: true, scan };
+    const { scan, source } = await scanReceiptWithFallback(
+      (f) => financeCore.scanReceipt(f),
+      file,
+    );
+    return { ok: true, scan, source };
   });
 
 /* ── New: DELETE entry ────────────────────────────────────── */

@@ -20,7 +20,7 @@ export function ReceiptCameraInput({ onFile }: Props) {
       <input
         ref={cameraRef}
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/*"
         capture="environment"
         className="hidden"
         onChange={(e) => {

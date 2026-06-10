@@ -17,6 +17,7 @@ import {
   useScanReceipt, useSendManualEntry, useUploadAttachment,
 } from "@/lib/finance-core/hooks";
 import type { AiReceiptScan } from "@/lib/finance-core/types";
+import { normalizeReceiptFile } from "@/lib/receipt-image";
 
 type Step = "capture" | "preview" | "review";
 
@@ -86,7 +87,8 @@ export function MobileReceiptScanButton({ variant = "primary" }: Props) {
     setOpen(false);
   }
 
-  function pickFile(f: File) {
+  async function pickFile(raw: File) {
+    const f = await normalizeReceiptFile(raw).catch(() => raw);
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     setFile(f);
     setPreviewUrl(URL.createObjectURL(f));
@@ -105,9 +107,18 @@ export function MobileReceiptScanButton({ variant = "primary" }: Props) {
       const r = await scan.mutateAsync(form);
       setDraft(fromScan(r.scan));
       setConfidence(r.scan.confidence ?? null);
+      if ((r as any).source === "lovable-gateway") {
+        toast.message("AI via reservekanal", {
+          description: "Finance Core AI ikke tilgjengelig — brukte Lovable AI.",
+        });
+      }
       setStep("review");
     } catch (e: any) {
-      const msg = e?.message ?? String(e);
+      const raw = e?.message ?? String(e);
+      let msg = raw;
+      if (/404/.test(raw)) msg = "AI-skanning er ikke aktivert i Finance Core ennå";
+      else if (/LOVABLE_API_KEY/i.test(raw)) msg = "AI-nøkkel mangler i miljøvariabler";
+      else if (raw.length > 160) msg = "AI-skanning feilet";
       setScanError(msg);
       toast.error(`AI-skanning feilet: ${msg}`);
     }
@@ -196,7 +207,7 @@ export function MobileReceiptScanButton({ variant = "primary" }: Props) {
           )}
 
           {step === "preview" && file && previewUrl && (
-            <div className="flex h-full flex-col gap-3">
+            <div className="flex flex-col gap-3">
               <ReceiptPreviewStep
                 file={file}
                 previewUrl={previewUrl}
