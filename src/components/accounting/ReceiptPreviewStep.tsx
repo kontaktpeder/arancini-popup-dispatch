@@ -12,23 +12,19 @@ interface Props {
 export function ReceiptPreviewStep({ file, previewUrl, scanning, onRetake, onUse }: Props) {
   const isPdf = file.type === "application/pdf";
   return (
-    <div className="flex h-full flex-col gap-3">
-      <div className="flex-1 min-h-0 overflow-auto rounded-lg border bg-muted/30">
+    <div className="flex flex-col gap-3">
+      <div className="min-h-[60vh] overflow-auto rounded-lg border bg-muted/30">
         {isPdf ? (
-          <iframe src={previewUrl} className="h-full min-h-[60vh] w-full" title="PDF" />
+          <iframe src={previewUrl} className="min-h-[60vh] w-full" title="PDF" />
         ) : (
-          <div className="h-full w-full overflow-auto touch-pinch-zoom">
-            {/* touch-pinch-zoom enables native pinch on iOS Safari */}
-            <img
-              src={previewUrl}
-              alt="Kvittering"
-              className="mx-auto max-w-none"
-              style={{ maxHeight: "none" }}
-            />
-          </div>
+          <img
+            src={previewUrl}
+            alt="Kvittering"
+            className="mx-auto w-full max-h-[70vh] object-contain"
+          />
         )}
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid shrink-0 grid-cols-2 gap-2">
         <Button
           variant="outline"
           size="lg"
