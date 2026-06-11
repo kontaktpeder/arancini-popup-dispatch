@@ -4,6 +4,7 @@ import { Countdown } from "@/components/countdown";
 
 type Copy = {
   eyebrow: string;
+  status: "announced" | "coming_soon";
   title: string;
   body: string;
   dateLabel?: string;
@@ -22,9 +23,18 @@ type Copy = {
 };
 
 export function NextBatch({ copy, newsletter }: { copy: Copy; newsletter?: ReactNode }) {
-  const hasDetails = copy.dateLabel || copy.addressLabel;
+  const isAnnounced = copy.status === "announced";
+  const appleLink =
+    copy.mapsApple ||
+    (copy.addressLabel
+      ? `maps://?q=${encodeURIComponent(copy.addressLabel)}`
+      : undefined);
+
   return (
-    <section id="next-popup" className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-24">
+    <section
+      id="next-popup"
+      className="border-t border-foreground/15 bg-background px-6 py-16 text-center md:py-24"
+    >
       <p className="eyebrow">{copy.eyebrow}</p>
       <h2 className="mt-6 font-display text-[clamp(2.25rem,7vw,4rem)] italic leading-[1.05] tracking-tight">
         {copy.title}
@@ -33,7 +43,7 @@ export function NextBatch({ copy, newsletter }: { copy: Copy; newsletter?: React
         {copy.body}
       </p>
 
-      {hasDetails ? (
+      {isAnnounced && (copy.dateLabel || copy.addressLabel) ? (
         <div className="mx-auto mt-8 flex max-w-md flex-col items-center gap-2 text-sm text-foreground/80">
           {copy.dateLabel ? (
             <p className="font-display text-[clamp(1.25rem,3.5vw,1.75rem)] italic leading-tight">
@@ -47,12 +57,12 @@ export function NextBatch({ copy, newsletter }: { copy: Copy; newsletter?: React
                 href={copy.mapsGoogle}
                 onClick={(e) => {
                   if (
-                    copy.mapsApple &&
+                    appleLink &&
                     typeof navigator !== "undefined" &&
                     /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)
                   ) {
                     e.preventDefault();
-                    window.location.href = copy.mapsApple;
+                    window.location.href = appleLink;
                   }
                 }}
                 target="_blank"
@@ -70,7 +80,7 @@ export function NextBatch({ copy, newsletter }: { copy: Copy; newsletter?: React
         </div>
       ) : null}
 
-      {copy.countdownTarget && copy.countdownLabels ? (
+      {isAnnounced && copy.countdownTarget && copy.countdownLabels ? (
         <Countdown target={copy.countdownTarget} labels={copy.countdownLabels} />
       ) : null}
 

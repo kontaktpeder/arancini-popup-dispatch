@@ -1,14 +1,18 @@
 import type { ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
 
 import arancini from "@/assets/arancini-watercolor.png";
 
 type Copy = {
   altArancini: string;
   title: string;
+  subtitle?: string;
   body: string;
   proof: string;
   ctaLabel: string;
   scrollLabel: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
 };
 
 export function HomeHero({
@@ -20,7 +24,6 @@ export function HomeHero({
 }) {
   return (
     <section className="relative mx-auto w-full max-w-6xl px-5 pt-2 pb-12 md:px-8 md:pt-2 md:pb-6">
-      {/* Paper grain + warm bottom gradient */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.08] mix-blend-multiply"
@@ -49,6 +52,12 @@ export function HomeHero({
             {copy.title}
           </h2>
 
+          {copy.subtitle ? (
+            <p className="mt-3 text-[0.72rem] uppercase tracking-[0.28em] text-foreground/65 md:text-[0.78rem]">
+              {copy.subtitle}
+            </p>
+          ) : null}
+
           <p className="mt-6 max-w-md text-[0.95rem] leading-relaxed text-foreground/75 md:text-lg">
             {copy.body}
           </p>
@@ -67,13 +76,23 @@ export function HomeHero({
             </div>
           ) : null}
 
-          <a
-            href="#next-popup"
-            className="group mt-10 inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-background px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-[3px_3px_0_0_var(--color-foreground)] transition hover:bg-foreground hover:text-background hover:shadow-[1px_1px_0_0_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px]"
-          >
-            <span>{copy.scrollLabel}</span>
-            <span aria-hidden className="inline-block animate-bounce text-sm">↓</span>
-          </a>
+          <div className="mt-10 flex flex-wrap items-center gap-3 md:gap-4">
+            <a
+              href="#next-popup"
+              className="group inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-background px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-[3px_3px_0_0_var(--color-foreground)] transition hover:bg-foreground hover:text-background hover:shadow-[1px_1px_0_0_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px]"
+            >
+              <span>{copy.scrollLabel}</span>
+              <span aria-hidden className="inline-block animate-bounce text-sm">↓</span>
+            </a>
+            {copy.secondaryCtaLabel && copy.secondaryCtaHref ? (
+              <Link
+                to={copy.secondaryCtaHref}
+                className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-foreground/70 underline-offset-4 transition hover:text-foreground hover:underline"
+              >
+                {copy.secondaryCtaLabel} →
+              </Link>
+            ) : null}
+          </div>
         </div>
 
         <img

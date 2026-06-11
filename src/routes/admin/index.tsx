@@ -32,6 +32,30 @@ function AdminIndex() {
         ))}
         <li>
           <Link
+            to="/admin/popup"
+            className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-accent/50"
+          >
+            <div>
+              <div className="font-medium">Popup-innstillinger</div>
+              <div className="text-xs text-muted-foreground">styrer «Neste popup» på forsiden</div>
+            </div>
+            <span className="text-muted-foreground">→</span>
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/admin/inquiries"
+            className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-accent/50"
+          >
+            <div>
+              <div className="font-medium">Samarbeidsforespørsler</div>
+              <div className="text-xs text-muted-foreground">eventer, bryllup, firma</div>
+            </div>
+            <span className="text-muted-foreground">→</span>
+          </Link>
+        </li>
+        <li>
+          <Link
             to="/admin/newsletter"
             className="flex items-center justify-between px-5 py-4 transition-colors hover:bg-accent/50"
           >

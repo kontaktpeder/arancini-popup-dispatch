@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
 
+import { CollaborationInquiry } from "@/components/collaboration-inquiry";
 import { EditorialCards } from "@/components/editorial-cards";
-import { Favorites } from "@/components/favorites";
 import { HomeHero } from "@/components/home-hero";
 import { LangSwitch } from "@/components/lang-switch";
 import { NewsletterSignup } from "@/components/newsletter-signup";
@@ -11,25 +12,66 @@ import { SiteHeader } from "@/components/site-header";
 import { SocialFollow } from "@/components/social-follow";
 import { Testimonials } from "@/components/testimonials";
 import { DISCOVERY_EN } from "@/lib/discovery-copy";
+import { getPopupSettings } from "@/lib/popup/popup.functions";
+import type { SitePopupSettings } from "@/lib/popup/types";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
-import { CURRENT_POPUP_EN } from "@/lib/site";
+
+const popupQuery = queryOptions({
+  queryKey: ["site-popup-settings"],
+  queryFn: () => getPopupSettings(),
+});
 
 export const Route = createFileRoute("/en/")({
   head: () => buildPageHead(PAGE_SEO["/en"]),
+  loader: ({ context }) => context.queryClient.ensureQueryData(popupQuery),
   component: IndexEn,
 });
 
 const NEWSLETTER_COPY_EN = {
-  label: "​",
+  label: "Get notified before the next drop",
   placeholder: "you@email.com",
   cta: "Sign up",
-  success: "You'll hear from us when the next batch is ready.",
+  success: "You're on the list. We'll let you know before the next popup.",
   exists: "You're already on the list — we'll be in touch.",
   error: "Something went wrong. Try again.",
   invalid: "Check the email address.",
 };
 
+function buildPopupCopyEn(s: SitePopupSettings) {
+  if (s.popup_status === "coming_soon" || !s.venue) {
+    return {
+      eyebrow: "Next popup",
+      status: "coming_soon" as const,
+      title: "Next popup coming soon",
+      body: "We're testing recipes, popup locations and collaborations around Oslo. Join the list to hear when the next drop is announced.",
+    };
+  }
+  const parts = [s.date_short_en ?? s.date_short, s.time_label, s.address_short].filter(Boolean);
+  return {
+    eyebrow: "Next popup",
+    status: "announced" as const,
+    title: s.venue,
+    body: parts.join(" · "),
+    dateLabel: s.date_label_en ?? s.date_label ?? undefined,
+    timeLabel: s.time_label ?? undefined,
+    addressLabel: s.address_full ?? undefined,
+    mapsGoogle: s.maps_google ?? undefined,
+    mapsApple: s.maps_apple ?? undefined,
+    countdownTarget: s.countdown_target ?? undefined,
+    countdownLabels: {
+      days: "days",
+      hours: "hours",
+      minutes: "min",
+      seconds: "sec",
+      live: "Live now",
+    },
+  };
+}
+
 function IndexEn() {
+  const { data: popup } = useSuspenseQuery(popupQuery);
+  const popupCopy = buildPopupCopyEn(popup);
+
   return (
     <main className="min-h-screen bg-background">
       <h1 className="sr-only">Gold of Sicily — Sicilian arancini in Oslo</h1>
@@ -39,40 +81,30 @@ function IndexEn() {
       <HomeHero
         copy={{
           altArancini: "Arancini on crinkled paper",
-          title: "Sicilian arancini in Oslo",
-          body: "Handmade rice balls with a crisp shell, warm filling and the flavour of Sicilian street food. Our first popup at Sigurds gate 7 made one thing clear: Oslo wants more.",
-          proof: "4.5/5 on taste · 28 of 34 would buy again",
-          ctaLabel: "Get notified about the next popup",
-          scrollLabel: "What people said",
+          title: "Gold of Sicily",
+          subtitle: "Sicilian arancini in Oslo",
+          body: "Handmade Sicilian arancini. Small batches. Popups around Oslo.",
+          proof: "4.5/5 on taste",
+          ctaLabel: "Get notified before the next drop",
+          scrollLabel: "Next popup",
+          secondaryCtaLabel: "What is arancini?",
+          secondaryCtaHref: "/en/what-is-arancini",
         }}
         newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
       />
 
       <NextBatch
-        copy={{
-          eyebrow: "Popup today",
-          title: CURRENT_POPUP_EN.venue,
-          body: `${CURRENT_POPUP_EN.dateShort} · ${CURRENT_POPUP_EN.timeLabel} · ${CURRENT_POPUP_EN.addressShort}`,
-          dateLabel: CURRENT_POPUP_EN.dateLabel,
-          timeLabel: CURRENT_POPUP_EN.timeLabel,
-          addressLabel: CURRENT_POPUP_EN.addressFull,
-          mapsGoogle: CURRENT_POPUP_EN.mapsGoogle,
-          mapsApple: CURRENT_POPUP_EN.mapsApple,
-          countdownTarget: CURRENT_POPUP_EN.countdownTarget,
-          countdownLabels: {
-            days: "days",
-            hours: "hours",
-            minutes: "min",
-            seconds: "sec",
-            live: "Live now",
-          },
-        }}
-        newsletter={<NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />}
+        copy={popupCopy}
+        newsletter={
+          popupCopy.status === "coming_soon" ? (
+            <NewsletterSignup lang="en" copy={NEWSLETTER_COPY_EN} />
+          ) : undefined
+        }
       />
 
       <Testimonials
         copy={{
-          eyebrow: "Voices from batch 001",
+          eyebrow: "From our guests",
           title: "What people said",
           quotes: [
             "Proper Sicilian street food, rich in flavour with a fine balance between the cheese and the salt.",
@@ -85,19 +117,9 @@ function IndexEn() {
         }}
       />
 
-      <Favorites
-        copy={{
-          eyebrow: "Batch 001 · 34 tasters",
-          title: "The people's favourite",
-          items: [
-            { name: "Truffle & mushroom", votes: 16, voteLabel: "votes" },
-            { name: "Ragu", votes: 11, voteLabel: "votes" },
-            { name: "'Nduja", votes: 9, voteLabel: "votes" },
-          ],
-        }}
-      />
+      <CollaborationInquiry lang="en" />
 
-      <SocialFollow label="Follow us" />
+      <SocialFollow label="Follow the journey" />
 
       <EditorialCards copy={DISCOVERY_EN.editorial} />
 
