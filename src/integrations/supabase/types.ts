@@ -38,6 +38,39 @@ export type Database = {
         }
         Relationships: []
       }
+      collaboration_inquiries: {
+        Row: {
+          created_at: string
+          email: string
+          event_type: string
+          guest_count: string | null
+          id: string
+          lang: string
+          message: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_type: string
+          guest_count?: string | null
+          id?: string
+          lang?: string
+          message: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_type?: string
+          guest_count?: string | null
+          id?: string
+          lang?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
       finance_books: {
         Row: {
           created_at: string
@@ -271,6 +304,57 @@ export type Database = {
           email?: string
           id?: string
           lang?: string
+        }
+        Relationships: []
+      }
+      site_popup_settings: {
+        Row: {
+          address_full: string | null
+          address_short: string | null
+          countdown_target: string | null
+          date_label: string | null
+          date_label_en: string | null
+          date_short: string | null
+          date_short_en: string | null
+          id: string
+          maps_apple: string | null
+          maps_google: string | null
+          popup_status: string
+          time_label: string | null
+          updated_at: string
+          venue: string | null
+        }
+        Insert: {
+          address_full?: string | null
+          address_short?: string | null
+          countdown_target?: string | null
+          date_label?: string | null
+          date_label_en?: string | null
+          date_short?: string | null
+          date_short_en?: string | null
+          id?: string
+          maps_apple?: string | null
+          maps_google?: string | null
+          popup_status?: string
+          time_label?: string | null
+          updated_at?: string
+          venue?: string | null
+        }
+        Update: {
+          address_full?: string | null
+          address_short?: string | null
+          countdown_target?: string | null
+          date_label?: string | null
+          date_label_en?: string | null
+          date_short?: string | null
+          date_short_en?: string | null
+          id?: string
+          maps_apple?: string | null
+          maps_google?: string | null
+          popup_status?: string
+          time_label?: string | null
+          updated_at?: string
+          venue?: string | null
         }
         Relationships: []
       }
