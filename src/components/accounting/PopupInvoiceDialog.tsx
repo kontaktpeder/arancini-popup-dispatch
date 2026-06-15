@@ -233,6 +233,14 @@ export function PopupInvoiceDialog() {
                   (netto {formatNok(invoice.subtotal ?? 0)} + mva {formatNok(invoice.vat_amount ?? 0)})
                 </span>
               </div>
+              {(invoice.status === "sent" || invoice.status === "paid") && (
+                <div className="rounded-md bg-muted/40 px-2 py-1.5 text-xs text-muted-foreground">
+                  Faktura sendt. Regnskapspost opprettes automatisk i Finance Core.
+                  {invoice.finance_entry_id ? (
+                    <> · Regnskapspost: <strong>opprettet</strong></>
+                  ) : null}
+                </div>
+              )}
               <div className="flex flex-wrap gap-2 pt-2">
                 <Button asChild variant="ghost" size="sm">
                   <a href={financeCoreInvoiceUrl(invoice.id)} target="_blank" rel="noreferrer">
