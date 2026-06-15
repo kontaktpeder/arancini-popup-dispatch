@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatIsAranciniRouteImport } from './routes/what-is-arancini'
+import { Route as SamarbeidRouteImport } from './routes/samarbeid'
 import { Route as NextPopupRouteImport } from './routes/next-popup'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -19,6 +20,7 @@ import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
 import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
+import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
 import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as AdminPopupRouteImport } from './routes/admin/popup'
 import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
@@ -29,6 +31,11 @@ import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
 const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
   id: '/what-is-arancini',
   path: '/what-is-arancini',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SamarbeidRoute = SamarbeidRouteImport.update({
+  id: '/samarbeid',
+  path: '/samarbeid',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NextPopupRoute = NextPopupRouteImport.update({
@@ -76,6 +83,11 @@ const EnNextPopupRoute = EnNextPopupRouteImport.update({
   path: '/next-popup',
   getParentRoute: () => EnRoute,
 } as any)
+const EnCollaborateRoute = EnCollaborateRouteImport.update({
+  id: '/collaborate',
+  path: '/collaborate',
+  getParentRoute: () => EnRoute,
+} as any)
 const EnAboutRoute = EnAboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -113,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
   '/next-popup': typeof NextPopupRoute
+  '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
   '/admin/accounting': typeof AdminAccountingRoute
@@ -120,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
+  '/en/collaborate': typeof EnCollaborateRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
@@ -129,6 +143,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/next-popup': typeof NextPopupRoute
+  '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
   '/admin/accounting': typeof AdminAccountingRoute
@@ -136,6 +151,7 @@ export interface FileRoutesByTo {
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
+  '/en/collaborate': typeof EnCollaborateRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin': typeof AdminIndexRoute
@@ -148,6 +164,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
   '/next-popup': typeof NextPopupRoute
+  '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
   '/admin/accounting': typeof AdminAccountingRoute
@@ -155,6 +172,7 @@ export interface FileRoutesById {
   '/admin/newsletter': typeof AdminNewsletterRoute
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
+  '/en/collaborate': typeof EnCollaborateRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
@@ -168,6 +186,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/en'
     | '/next-popup'
+    | '/samarbeid'
     | '/what-is-arancini'
     | '/admin/$slug'
     | '/admin/accounting'
@@ -175,6 +194,7 @@ export interface FileRouteTypes {
     | '/admin/newsletter'
     | '/admin/popup'
     | '/en/about'
+    | '/en/collaborate'
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin/'
@@ -184,6 +204,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/next-popup'
+    | '/samarbeid'
     | '/what-is-arancini'
     | '/admin/$slug'
     | '/admin/accounting'
@@ -191,6 +212,7 @@ export interface FileRouteTypes {
     | '/admin/newsletter'
     | '/admin/popup'
     | '/en/about'
+    | '/en/collaborate'
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin'
@@ -202,6 +224,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/en'
     | '/next-popup'
+    | '/samarbeid'
     | '/what-is-arancini'
     | '/admin/$slug'
     | '/admin/accounting'
@@ -209,6 +232,7 @@ export interface FileRouteTypes {
     | '/admin/newsletter'
     | '/admin/popup'
     | '/en/about'
+    | '/en/collaborate'
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin/'
@@ -221,6 +245,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   EnRoute: typeof EnRouteWithChildren
   NextPopupRoute: typeof NextPopupRoute
+  SamarbeidRoute: typeof SamarbeidRoute
   WhatIsAranciniRoute: typeof WhatIsAranciniRoute
 }
 
@@ -231,6 +256,13 @@ declare module '@tanstack/react-router' {
       path: '/what-is-arancini'
       fullPath: '/what-is-arancini'
       preLoaderRoute: typeof WhatIsAranciniRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/samarbeid': {
+      id: '/samarbeid'
+      path: '/samarbeid'
+      fullPath: '/samarbeid'
+      preLoaderRoute: typeof SamarbeidRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/next-popup': {
@@ -294,6 +326,13 @@ declare module '@tanstack/react-router' {
       path: '/next-popup'
       fullPath: '/en/next-popup'
       preLoaderRoute: typeof EnNextPopupRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/collaborate': {
+      id: '/en/collaborate'
+      path: '/collaborate'
+      fullPath: '/en/collaborate'
+      preLoaderRoute: typeof EnCollaborateRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/about': {
@@ -363,6 +402,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EnRouteChildren {
   EnAboutRoute: typeof EnAboutRoute
+  EnCollaborateRoute: typeof EnCollaborateRoute
   EnNextPopupRoute: typeof EnNextPopupRoute
   EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
   EnIndexRoute: typeof EnIndexRoute
@@ -370,6 +410,7 @@ interface EnRouteChildren {
 
 const EnRouteChildren: EnRouteChildren = {
   EnAboutRoute: EnAboutRoute,
+  EnCollaborateRoute: EnCollaborateRoute,
   EnNextPopupRoute: EnNextPopupRoute,
   EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
   EnIndexRoute: EnIndexRoute,
@@ -383,18 +424,9 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   EnRoute: EnRouteWithChildren,
   NextPopupRoute: NextPopupRoute,
+  SamarbeidRoute: SamarbeidRoute,
   WhatIsAranciniRoute: WhatIsAranciniRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
