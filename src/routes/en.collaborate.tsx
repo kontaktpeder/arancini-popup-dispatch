@@ -3,6 +3,7 @@ import { CollaborationInquiry } from "@/components/collaboration-inquiry";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
+import { DISCOVERY_EN } from "@/lib/discovery-copy";
 
 export const Route = createFileRoute("/en/collaborate")({
   head: () => buildPageHead(PAGE_SEO["/en/collaborate"]),
@@ -16,7 +17,7 @@ function CollaborateEn() {
       <main className="flex-1">
         <CollaborationInquiry lang="en" />
       </main>
-      <SiteFooter />
+      <SiteFooter copy={DISCOVERY_EN.footer} />
     </div>
   );
 }
