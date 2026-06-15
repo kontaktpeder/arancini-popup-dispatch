@@ -224,7 +224,7 @@ function Header({ refreshing, onRefresh }: { refreshing: boolean; onRefresh: () 
       <div className="flex flex-wrap items-center gap-2">
         <ManualEntryDialog type="income" />
         <ManualEntryDialog type="expense" />
-        <KlinkSettlementDialog />
+        <KlinkSettlementDialog hasActivePopupInvoice={hasActivePopupInvoice} />
         <PopupInvoiceDialog />
         <AttachmentDialog />
         <MobileReceiptScanButton variant="compact" />
