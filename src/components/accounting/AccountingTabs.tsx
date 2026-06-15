@@ -22,6 +22,7 @@ import { EntryDetailPanel } from "./EntryDetailPanel";
 import { ReportsMonths } from "./ReportsMonths";
 import { ReportsCategories } from "./ReportsCategories";
 import { MobileReceiptScanButton } from "./MobileReceiptScanButton";
+import { PopupInvoiceDialog } from "./PopupInvoiceDialog";
 
 import {
   useAccountingStatus,
@@ -221,6 +222,7 @@ function Header({ refreshing, onRefresh }: { refreshing: boolean; onRefresh: () 
         <ManualEntryDialog type="income" />
         <ManualEntryDialog type="expense" />
         <KlinkSettlementDialog />
+        <PopupInvoiceDialog />
         <AttachmentDialog />
         <MobileReceiptScanButton variant="compact" />
         <Button variant="outline" size="sm" onClick={handleTest} disabled={testMut.isPending}>

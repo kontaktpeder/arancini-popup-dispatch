@@ -307,6 +307,33 @@ export type Database = {
         }
         Relationships: []
       }
+      popup_fc_invoices: {
+        Row: {
+          created_at: string
+          finance_core_invoice_id: string
+          invoice_number: string | null
+          reference_key: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          finance_core_invoice_id: string
+          invoice_number?: string | null
+          reference_key: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          finance_core_invoice_id?: string
+          invoice_number?: string | null
+          reference_key?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_popup_settings: {
         Row: {
           address_full: string | null

@@ -7,6 +7,8 @@ import type {
   FinanceCoreEntry,
   FinanceCoreEntryInput,
   FinanceCoreEntryPatch,
+  FinanceCoreInvoice,
+  FinanceCoreInvoiceInput,
   FinanceCoreSummary,
 } from "./types";
 
@@ -221,5 +223,43 @@ export const financeCore = {
     if (!res.ok) throw new FinanceCoreError(res.status, parsed);
     const data = unwrap<AiReceiptScan>(parsed) ?? (parsed as AiReceiptScan);
     return data;
+  },
+
+  async createInvoice(input: FinanceCoreInvoiceInput): Promise<FinanceCoreInvoice> {
+    const res = await call<unknown>("/api/public/v1/invoices", { method: "POST", json: input });
+    const invoice = unwrap<FinanceCoreInvoice>(res);
+    if (!invoice?.id) throw new FinanceCoreError(500, res, "Missing data in createInvoice response");
+    return invoice;
+  },
+
+  async getInvoice(id: string): Promise<FinanceCoreInvoice> {
+    const res = await call<unknown>(`/api/public/v1/invoices/${encodeURIComponent(id)}`);
+    const invoice = unwrap<FinanceCoreInvoice>(res);
+    if (!invoice?.id) throw new FinanceCoreError(500, res, "Missing data in getInvoice response");
+    return invoice;
+  },
+
+  async sendInvoice(id: string): Promise<FinanceCoreInvoice> {
+    const res = await call<unknown>(`/api/public/v1/invoices/${encodeURIComponent(id)}/send`, { method: "POST" });
+    const invoice = unwrap<FinanceCoreInvoice>(res);
+    if (!invoice?.id) throw new FinanceCoreError(500, res, "Missing data in sendInvoice response");
+    return invoice;
+  },
+
+  async getInvoicePdf(id: string): Promise<{ bytes: Uint8Array; fileName: string }> {
+    const { baseUrl, apiKey } = getConfig();
+    const res = await fetch(`${baseUrl}/api/public/v1/invoices/${encodeURIComponent(id)}/pdf`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      let parsed: unknown = text;
+      try { parsed = text ? JSON.parse(text) : null; } catch { /* */ }
+      throw new FinanceCoreError(res.status, parsed);
+    }
+    const buf = await res.arrayBuffer();
+    const disposition = res.headers.get("content-disposition") ?? "";
+    const match = disposition.match(/filename="?([^"]+)"?/i);
+    return { bytes: new Uint8Array(buf), fileName: match?.[1] ?? `invoice-${id}.pdf` };
   },
 };
