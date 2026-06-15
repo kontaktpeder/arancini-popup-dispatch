@@ -160,6 +160,7 @@ export interface FinanceCoreInvoice {
   vat_amount: number;
   total: number;
   invoice_lines?: FinanceCoreInvoiceLine[];
+  finance_entry_id?: string | null;
 }
 
 export interface PopupFcInvoiceRef {
