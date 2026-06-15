@@ -239,8 +239,14 @@ export const financeCore = {
     return invoice;
   },
 
-  async sendInvoice(id: string): Promise<FinanceCoreInvoice> {
-    const res = await call<unknown>(`/api/public/v1/invoices/${encodeURIComponent(id)}/send`, { method: "POST" });
+  async sendInvoice(
+    id: string,
+    opts?: { sourceApp?: string },
+  ): Promise<FinanceCoreInvoice> {
+    const res = await call<unknown>(`/api/public/v1/invoices/${encodeURIComponent(id)}/send`, {
+      method: "POST",
+      json: opts?.sourceApp ? { source_app: opts.sourceApp } : {},
+    });
     const invoice = unwrap<FinanceCoreInvoice>(res);
     if (!invoice?.id) throw new FinanceCoreError(500, res, "Missing data in sendInvoice response");
     return invoice;
