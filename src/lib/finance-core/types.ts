@@ -117,3 +117,54 @@ export interface AccountingStatus {
     missingAttachmentCount: number;
   };
 }
+
+export type FinanceCoreInvoiceStatus = "draft" | "sent" | "paid";
+
+export interface FinanceCoreInvoiceLine {
+  id?: string;
+  description: string;
+  quantity: number;
+  unit_price: number;
+  vat_rate: number;
+  line_net?: number;
+  line_vat?: number;
+  line_total?: number;
+}
+
+export interface FinanceCoreInvoiceInput {
+  issue_date?: string;
+  due_date?: string | null;
+  customer_name: string;
+  customer_org_number?: string | null;
+  customer_email?: string | null;
+  customer_address?: string | null;
+  lines: Array<{
+    description: string;
+    quantity: number;
+    unit_price: number;
+    vat_rate: number;
+  }>;
+}
+
+export interface FinanceCoreInvoice {
+  id: string;
+  invoice_number: string | null;
+  status: FinanceCoreInvoiceStatus;
+  issue_date: string;
+  due_date: string | null;
+  customer_name: string;
+  customer_org_number: string | null;
+  customer_email: string | null;
+  customer_address: string | null;
+  subtotal: number;
+  vat_amount: number;
+  total: number;
+  invoice_lines?: FinanceCoreInvoiceLine[];
+}
+
+export interface PopupFcInvoiceRef {
+  reference_key: string;
+  finance_core_invoice_id: string;
+  invoice_number: string | null;
+  status: FinanceCoreInvoiceStatus;
+}

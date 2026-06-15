@@ -14,6 +14,12 @@ import {
   sendTestIncome,
   uploadAttachment,
 } from "./functions";
+import {
+  createPopupInvoice,
+  fetchPopupInvoicePdf,
+  sendPopupInvoice,
+} from "./invoice.functions";
+import type { PopupInvoiceLineInput } from "./invoice.mappers";
 import type { FinanceCoreEntryPatch } from "./types";
 
 export function useAccountingStatus() {
@@ -150,4 +156,44 @@ export const FINANCE_CORE_ORG_ID =
 
 export function financeCoreOrgUrl() {
   return `${FINANCE_CORE_BASE_URL.replace(/\/+$/, "")}/orgs/${FINANCE_CORE_ORG_ID}`;
+}
+
+export function financeCoreInvoiceUrl(invoiceId: string) {
+  return `${financeCoreOrgUrl()}/invoices/${invoiceId}`;
+}
+
+export interface CreatePopupInvoiceData {
+  referenceKey: string;
+  issueDate?: string;
+  dueDate?: string;
+  lines: PopupInvoiceLineInput[];
+}
+
+export function useCreatePopupInvoice() {
+  const fn = useServerFn(createPopupInvoice);
+  return useMutation({
+    mutationFn: (data: CreatePopupInvoiceData) => fn({ data }),
+  });
+}
+
+export function useSendPopupInvoice() {
+  const fn = useServerFn(sendPopupInvoice);
+  return useMutation({
+    mutationFn: (invoiceId: string) => fn({ data: { invoiceId } }),
+  });
+}
+
+export function useOpenPopupInvoicePdf() {
+  const fn = useServerFn(fetchPopupInvoicePdf);
+  return useMutation({
+    mutationFn: async (invoiceId: string) => {
+      const r = await fn({ data: { invoiceId } });
+      const raw = atob(r.base64);
+      const bytes = new Uint8Array(raw.length);
+      for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+      const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
+      window.open(url, "_blank", "noopener,noreferrer");
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    },
+  });
 }
