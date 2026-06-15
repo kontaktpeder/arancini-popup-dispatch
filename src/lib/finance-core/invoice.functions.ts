@@ -93,7 +93,9 @@ export const sendPopupInvoice = createServerFn({ method: "POST" })
   .handler(async ({ data, context }): Promise<SendPopupInvoiceResult> => {
     const { supabase } = context;
     try {
-      const invoice = await financeCore.sendInvoice(data.invoiceId);
+      const invoice = await financeCore.sendInvoice(data.invoiceId, {
+        sourceApp: "gold-of-sicily",
+      });
 
       await supabase
         .from("popup_fc_invoices")

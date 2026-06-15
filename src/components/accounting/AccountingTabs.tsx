@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft, ExternalLink, RefreshCw, Send, AlertCircle, Plus, Receipt, Upload,
 } from "lucide-react";
@@ -14,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { supabase } from "@/integrations/supabase/client";
 
 import { KpiRow, formatNok } from "./KpiRow";
 import { CategoryGroup } from "./CategoryGroup";
@@ -334,6 +337,25 @@ function KlinkSettlementDialog() {
   const mut = useSendKlinkSettlement();
   const ourShare = Math.round((form.totalRevenueNok || 0) * (form.ourSharePercent / 100));
 
+  const { data: popupInvoices } = useQuery({
+    queryKey: ["popup-fc-invoices"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("popup_fc_invoices")
+        .select("reference_key, finance_core_invoice_id, invoice_number, status")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+  const hasActivePopupInvoice = !!popupInvoices?.some(
+    (i) => i.status === "sent" || i.status === "paid" || i.status === "draft",
+  );
+  const hasBookedPopupInvoice = !!popupInvoices?.some(
+    (i) => i.status === "sent" || i.status === "paid",
+  );
+
   async function submit() {
     if (!form.eventSlug || !form.eventName || !form.totalRevenueNok) {
       toast.error("Slug, eventnavn og omsetning er påkrevd");
@@ -360,6 +382,15 @@ function KlinkSettlementDialog() {
           <DialogTitle>Send Klink popup-oppgjør</DialogTitle>
         </DialogHeader>
         <div className="space-y-3">
+          {hasActivePopupInvoice && (
+            <Alert>
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Faktura finnes – regnskap føres via Finance Core-faktura. Ikke bruk Klink-oppgjør
+                i tillegg med mindre du vet at inntekten ikke er bokført dobbelt.
+              </AlertDescription>
+            </Alert>
+          )}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>Event slug</Label>
@@ -394,7 +425,13 @@ function KlinkSettlementDialog() {
         </div>
         <DialogFooter>
           <Button variant="ghost" onClick={() => setOpen(false)}>Avbryt</Button>
-          <Button onClick={submit} disabled={mut.isPending}>Send</Button>
+          <Button
+            onClick={submit}
+            disabled={mut.isPending || hasBookedPopupInvoice}
+            variant={hasBookedPopupInvoice ? "outline" : "default"}
+          >
+            Send
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
