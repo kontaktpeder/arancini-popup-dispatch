@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft, ExternalLink, RefreshCw, Send, AlertCircle, Plus, Receipt, Upload,
 } from "lucide-react";
@@ -14,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { supabase } from "@/integrations/supabase/client";
 
 import { KpiRow, formatNok } from "./KpiRow";
 import { CategoryGroup } from "./CategoryGroup";
