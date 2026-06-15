@@ -97,6 +97,20 @@ export const PAGE_SEO = {
       "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og signalene fra første popup i Sigurds gate 7.",
     path: "/about",
   },
+  "/samarbeid": {
+    title: "Arancini til ditt event — samarbeid med Gold of Sicily",
+    description:
+      "Bryllup, firmafest, festival eller popup-samarbeid i Oslo? Ta kontakt med Gold of Sicily for sicilianske arancini til ditt arrangement.",
+    path: "/samarbeid",
+  },
+  "/en/collaborate": {
+    title: "Arancini for your event — collaborate with Gold of Sicily",
+    description:
+      "Weddings, company events, festivals or popup partnerships in Oslo. Get in touch with Gold of Sicily about Sicilian arancini for your event.",
+    path: "/en/collaborate",
+    noindex: true,
+    locale: "en_GB",
+  },
   "/en": {
     title: "Gold of Sicily — Sicilian arancini in Oslo",
     description:
