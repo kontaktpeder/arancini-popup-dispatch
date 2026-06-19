@@ -61,6 +61,12 @@ function AdminLayout() {
             Gold of Sicily — Admin
           </Link>
           <div className="flex items-center gap-3 text-sm">
+            <Link
+              to="/"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Hjemmeside
+            </Link>
             <span className="text-muted-foreground hidden sm:inline">
               {session.user.email}
             </span>
