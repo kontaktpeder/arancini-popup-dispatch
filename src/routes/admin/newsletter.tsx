@@ -29,35 +29,44 @@ function NewsletterAdmin() {
       });
   }, []);
 
-  function exportCsv() {
-    const header = "email,lang,created_at\n";
-    const body = rows
-      .map((r) => `${r.email},${r.lang},${r.created_at}`)
-      .join("\n");
-    const blob = new Blob([header + body], { type: "text/csv" });
+  function exportEmails(lang: "no" | "en") {
+    const emails = rows
+      .filter((r) => r.lang === lang)
+      .map((r) => r.email)
+      .join(", ");
+    const blob = new Blob([emails], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `newsletter-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `newsletter-${lang}-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   }
 
+  const countNo = rows.filter((r) => r.lang === "no").length;
+  const countEn = rows.filter((r) => r.lang === "en").length;
+
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <Link to="/admin" className="text-xs text-muted-foreground hover:underline">
             ← Tilbake
           </Link>
           <h1 className="mt-2 font-display text-3xl tracking-tight">Nyhetsbrev</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            {loading ? "Laster…" : `${rows.length} påmeldte`}
+            {loading ? "Laster…" : `${rows.length} påmeldte (${countNo} norsk, ${countEn} engelsk)`}
           </p>
         </div>
-        <Button variant="outline" size="sm" onClick={exportCsv} disabled={!rows.length}>
-          Eksporter CSV
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="outline" size="sm" onClick={() => exportEmails("no")} disabled={!countNo}>
+            Eksporter norsk ({countNo})
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => exportEmails("en")} disabled={!countEn}>
+            Eksporter engelsk ({countEn})
+          </Button>
+        </div>
+
       </div>
 
       <div className="overflow-hidden rounded-xl border border-border/60 bg-card">
