@@ -29,18 +29,30 @@ function NewsletterAdmin() {
       });
   }, []);
 
-  function exportEmails(lang: "no" | "en") {
+  const [copied, setCopied] = useState<"no" | "en" | null>(null);
+
+  async function copyEmails(lang: "no" | "en") {
     const emails = rows
       .filter((r) => r.lang === lang)
       .map((r) => r.email)
       .join(", ");
-    const blob = new Blob([emails], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `newsletter-${lang}-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    if (!emails) {
+      alert(`Ingen ${lang === "no" ? "norske" : "engelske"} påmeldte ennå.`);
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(emails);
+    } catch {
+      // Fallback for older browsers / non-secure contexts
+      const ta = document.createElement("textarea");
+      ta.value = emails;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    setCopied(lang);
+    setTimeout(() => setCopied(null), 2000);
   }
 
   const countNo = rows.filter((r) => r.lang === "no").length;
@@ -57,15 +69,19 @@ function NewsletterAdmin() {
           <p className="mt-1 text-sm text-muted-foreground">
             {loading ? "Laster…" : `${rows.length} påmeldte (${countNo} norsk, ${countEn} engelsk)`}
           </p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Kopier e-poster og lim rett inn i Til-feltet i Gmail.
+          </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={() => exportEmails("no")} disabled={!countNo}>
-            Eksporter norsk ({countNo})
+          <Button variant="outline" size="sm" onClick={() => copyEmails("no")}>
+            {copied === "no" ? "✓ Kopiert" : `Kopier norsk (${countNo})`}
           </Button>
-          <Button variant="outline" size="sm" onClick={() => exportEmails("en")} disabled={!countEn}>
-            Eksporter engelsk ({countEn})
+          <Button variant="outline" size="sm" onClick={() => copyEmails("en")}>
+            {copied === "en" ? "✓ Kopiert" : `Kopier engelsk (${countEn})`}
           </Button>
         </div>
+
 
       </div>
 
