@@ -249,7 +249,12 @@ export function EntryDetailPanel({ entry, onClose }: Props) {
       </div>
 
       <div className="space-y-4 rounded-lg border bg-background p-4">
-        <AttachmentSection entryId={entry.id} />
+        <AttachmentSection
+          entryId={entry.id}
+          sourceType={entry.source_type}
+          sourceRef={entry.source_ref}
+        />
+
       </div>
     </div>
   );

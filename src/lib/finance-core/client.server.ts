@@ -131,9 +131,18 @@ export const financeCore = {
       }
       return [];
     } catch (e) {
-      if (e instanceof FinanceCoreError && (e.status === 404 || e.status === 501 || e.status >= 500)) {
-        console.error("Finance Core attachments unavailable:", e.status, e.body);
-        return [];
+      // Only treat 404 as "no attachments" when the body explicitly says the
+      // entry was not found. Do NOT swallow 403/500 — those are real errors
+      // that were hiding attachments in the UI as "Ingen bilag".
+      if (e instanceof FinanceCoreError && e.status === 404) {
+        const body = e.body as { message?: string; error?: string } | string | null;
+        const text =
+          typeof body === "string"
+            ? body
+            : `${body?.message ?? ""} ${body?.error ?? ""}`;
+        if (/entry.*not\s*found|not\s*found.*entry/i.test(text)) {
+          return [];
+        }
       }
       throw e;
     }

@@ -121,9 +121,32 @@ export const fetchPopupInvoice = createServerFn({ method: "GET" })
 
 export const fetchPopupInvoicePdf = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ invoiceId: z.string().uuid() }).parse(d))
-  .handler(async ({ data }): Promise<{ base64: string; fileName: string }> => {
-    const { bytes, fileName } = await financeCore.getInvoicePdf(data.invoiceId);
+  .inputValidator((d: unknown) =>
+    z
+      .object({
+        invoiceId: z.string().uuid().optional(),
+        invoiceNumber: z.string().min(1).max(60).optional(),
+      })
+      .refine((v) => !!v.invoiceId || !!v.invoiceNumber, {
+        message: "invoiceId or invoiceNumber required",
+      })
+      .parse(d),
+  )
+  .handler(async ({ data, context }): Promise<{ base64: string; fileName: string }> => {
+    let invoiceId = data.invoiceId;
+    if (!invoiceId && data.invoiceNumber) {
+      const { supabase } = context;
+      const { data: row } = await supabase
+        .from("popup_fc_invoices")
+        .select("finance_core_invoice_id")
+        .eq("invoice_number", data.invoiceNumber)
+        .maybeSingle();
+      invoiceId = (row as { finance_core_invoice_id?: string } | null)?.finance_core_invoice_id;
+      if (!invoiceId) {
+        throw new Error(`Fant ingen faktura med nummer ${data.invoiceNumber}`);
+      }
+    }
+    const { bytes, fileName } = await financeCore.getInvoicePdf(invoiceId!);
     let bin = "";
     for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
     return { base64: btoa(bin), fileName };

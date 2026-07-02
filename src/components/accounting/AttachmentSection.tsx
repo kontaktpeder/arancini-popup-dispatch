@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Paperclip, Upload, ExternalLink, AlertCircle, Trash2 } from "lucide-react";
+import { Paperclip, Upload, ExternalLink, AlertCircle, Trash2, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,19 +7,41 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
-  useDeleteAttachment, useEntryAttachments, useUploadAttachment,
+  useDeleteAttachment, useEntryAttachments, useOpenPopupInvoicePdf, useUploadAttachment,
 } from "@/lib/finance-core/hooks";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 interface Props {
   entryId: string;
+  sourceType?: string | null;
+  sourceRef?: string | null;
+  invoiceId?: string | null;
 }
 
-export function AttachmentSection({ entryId }: Props) {
+export function AttachmentSection({ entryId, sourceType, sourceRef, invoiceId }: Props) {
   const q = useEntryAttachments(entryId);
   const upload = useUploadAttachment();
   const del = useDeleteAttachment();
+  const openInvoicePdf = useOpenPopupInvoicePdf();
   const [file, setFile] = useState<File | null>(null);
   const [confirmId, setConfirmId] = useState<string | null>(null);
+
+  const resolvedInvoiceId = invoiceId ?? (sourceRef && UUID_RE.test(sourceRef) ? sourceRef : null);
+  const resolvedInvoiceNumber = !resolvedInvoiceId && sourceRef ? sourceRef : null;
+  const isInvoiceEntry = sourceType === "invoice" && (resolvedInvoiceId || resolvedInvoiceNumber);
+
+  async function handleOpenInvoicePdf() {
+    try {
+      await openInvoicePdf.mutateAsync(
+        resolvedInvoiceId
+          ? { invoiceId: resolvedInvoiceId }
+          : { invoiceNumber: resolvedInvoiceNumber! },
+      );
+    } catch (e: any) {
+      toast.error(`Kunne ikke åpne faktura-PDF: ${e?.message ?? e}`);
+    }
+  }
 
   async function handleUpload() {
     if (!file) {
@@ -58,7 +80,21 @@ export function AttachmentSection({ entryId }: Props) {
       )}
 
       {supported && attachments.length === 0 && !q.isLoading && (
-        <div className="text-xs text-muted-foreground">Ingen bilag på denne posten.</div>
+        <div className="space-y-2">
+          <div className="text-xs text-muted-foreground">Ingen bilag på denne posten.</div>
+          {isInvoiceEntry && (
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              onClick={handleOpenInvoicePdf}
+              disabled={openInvoicePdf.isPending}
+            >
+              <FileText className="h-3.5 w-3.5" />
+              {openInvoicePdf.isPending ? "Åpner…" : "Åpne faktura-PDF"}
+            </Button>
+          )}
+        </div>
       )}
 
       {attachments.length > 0 && (
