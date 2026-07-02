@@ -80,7 +80,21 @@ export function AttachmentSection({ entryId, sourceType, sourceRef, invoiceId }:
       )}
 
       {supported && attachments.length === 0 && !q.isLoading && (
-        <div className="text-xs text-muted-foreground">Ingen bilag på denne posten.</div>
+        <div className="space-y-2">
+          <div className="text-xs text-muted-foreground">Ingen bilag på denne posten.</div>
+          {isInvoiceEntry && (
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              onClick={handleOpenInvoicePdf}
+              disabled={openInvoicePdf.isPending}
+            >
+              <FileText className="h-3.5 w-3.5" />
+              {openInvoicePdf.isPending ? "Åpner…" : "Åpne faktura-PDF"}
+            </Button>
+          )}
+        </div>
       )}
 
       {attachments.length > 0 && (
