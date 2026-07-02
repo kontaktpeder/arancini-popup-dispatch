@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 import { FileText, ExternalLink, Send, Plus, Trash2 } from "lucide-react";
+
 
 import { Button } from "@/components/ui/button";
 import {
@@ -44,6 +46,8 @@ export function PopupInvoiceDialog() {
   const createMut = useCreatePopupInvoice();
   const sendMut = useSendPopupInvoice();
   const pdfMut = useOpenPopupInvoicePdf();
+  const qc = useQueryClient();
+
 
   const subtotal = lines.reduce(
     (acc, l) => acc + calcOurShareNok(l.totalRevenueNok || 0, l.ourSharePercent || 0),
@@ -83,8 +87,10 @@ export function PopupInvoiceDialog() {
     try {
       const r = await sendMut.mutateAsync(invoice.id);
       setInvoice(r.invoice);
+      await qc.invalidateQueries({ queryKey: ["finance-core"] });
       toast.success(`Faktura sendt – nr. ${r.invoice.invoice_number ?? "?"}`);
     } catch (e: any) {
+
       toast.error(`Feil: ${e?.message ?? e}`);
     }
   }
