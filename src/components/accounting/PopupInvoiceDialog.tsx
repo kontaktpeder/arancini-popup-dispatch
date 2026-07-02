@@ -87,8 +87,10 @@ export function PopupInvoiceDialog() {
     try {
       const r = await sendMut.mutateAsync(invoice.id);
       setInvoice(r.invoice);
+      await qc.invalidateQueries({ queryKey: ["finance-core"] });
       toast.success(`Faktura sendt – nr. ${r.invoice.invoice_number ?? "?"}`);
     } catch (e: any) {
+
       toast.error(`Feil: ${e?.message ?? e}`);
     }
   }
