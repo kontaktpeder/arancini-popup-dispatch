@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Paperclip, Upload, ExternalLink, AlertCircle, Trash2 } from "lucide-react";
+import { Paperclip, Upload, ExternalLink, AlertCircle, Trash2, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,11 +7,16 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
-  useDeleteAttachment, useEntryAttachments, useUploadAttachment,
+  useDeleteAttachment, useEntryAttachments, useOpenPopupInvoicePdf, useUploadAttachment,
 } from "@/lib/finance-core/hooks";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 interface Props {
   entryId: string;
+  sourceType?: string | null;
+  sourceRef?: string | null;
+  invoiceId?: string | null;
 }
 
 export function AttachmentSection({ entryId }: Props) {
