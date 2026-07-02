@@ -46,6 +46,8 @@ export function PopupInvoiceDialog() {
   const createMut = useCreatePopupInvoice();
   const sendMut = useSendPopupInvoice();
   const pdfMut = useOpenPopupInvoicePdf();
+  const qc = useQueryClient();
+
 
   const subtotal = lines.reduce(
     (acc, l) => acc + calcOurShareNok(l.totalRevenueNok || 0, l.ourSharePercent || 0),
