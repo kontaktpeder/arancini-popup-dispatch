@@ -186,8 +186,9 @@ export function useSendPopupInvoice() {
 export function useOpenPopupInvoicePdf() {
   const fn = useServerFn(fetchPopupInvoicePdf);
   return useMutation({
-    mutationFn: async (invoiceId: string) => {
-      const r = await fn({ data: { invoiceId } });
+    mutationFn: async (arg: string | { invoiceId?: string; invoiceNumber?: string }) => {
+      const data = typeof arg === "string" ? { invoiceId: arg } : arg;
+      const r = await fn({ data });
       const raw = atob(r.base64);
       const bytes = new Uint8Array(raw.length);
       for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
