@@ -9,7 +9,6 @@ import {
   listEntryAttachments,
   patchEntry,
   scanReceipt,
-  sendKlinkSettlement,
   sendManualEntry,
   sendTestIncome,
   uploadAttachment,
@@ -55,24 +54,6 @@ export function useSendManualEntry() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (data: ManualEntryData) => fn({ data }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
-  });
-}
-
-export interface KlinkSettlementData {
-  eventSlug: string;
-  eventName: string;
-  settlementDate: string;
-  totalRevenueNok: number;
-  ourSharePercent: number;
-  reportUrl?: string;
-}
-
-export function useSendKlinkSettlement() {
-  const fn = useServerFn(sendKlinkSettlement);
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (data: KlinkSettlementData) => fn({ data }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["finance-core"] }),
   });
 }

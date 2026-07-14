@@ -3,11 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { financeCore, FinanceCoreError } from "./client.server";
 import { scanReceiptWithFallback } from "./scan-receipt-ai.server";
-import {
-  mapKlinkSettlement,
-  mapManualEntry,
-  mapTestEntry,
-} from "./mappers";
+import { mapManualEntry, mapTestEntry } from "./mappers";
 import type {
   AccountingStatus,
   FinanceCoreCategoryReport,
@@ -92,30 +88,6 @@ export const sendManualEntry = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const entry = await financeCore.createEntry(mapManualEntry(data));
     return { ok: true, entry };
-  });
-
-const KlinkSchema = z.object({
-  eventSlug: z.string().min(1).max(120).regex(/^[a-z0-9_-]+$/i),
-  eventName: z.string().min(1).max(200),
-  settlementDate: z.string().min(8).max(20),
-  totalRevenueNok: z.number().positive(),
-  ourSharePercent: z.number().min(0).max(100),
-  reportUrl: z.string().url().optional(),
-});
-
-export const sendKlinkSettlement = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => KlinkSchema.parse(d))
-  .handler(async ({ data }) => {
-    try {
-      const entry = await financeCore.createEntry(mapKlinkSettlement(data));
-      return { ok: true, alreadyExists: false, entry };
-    } catch (e) {
-      if (e instanceof FinanceCoreError && e.status === 400) {
-        return { ok: true, alreadyExists: true, entry: null };
-      }
-      throw e;
-    }
   });
 
 export const uploadAttachment = createServerFn({ method: "POST" })

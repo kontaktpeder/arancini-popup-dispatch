@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
 import {
-  ArrowLeft, ExternalLink, RefreshCw, Send, AlertCircle, Plus, Receipt, Upload,
+  ArrowLeft, ExternalLink, RefreshCw, Send, AlertCircle, Plus, Upload,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
@@ -16,9 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { supabase } from "@/integrations/supabase/client";
 
-import { KpiRow, formatNok } from "./KpiRow";
+import { KpiRow } from "./KpiRow";
 import { CategoryGroup } from "./CategoryGroup";
 import { EntryRow } from "./EntryRow";
 import { EntryDetailPanel } from "./EntryDetailPanel";
@@ -29,12 +27,10 @@ import { PopupInvoiceDialog } from "./PopupInvoiceDialog";
 
 import {
   useAccountingStatus,
-  useSendKlinkSettlement,
   useSendManualEntry,
   useSendTestIncome,
   useUploadAttachment,
   financeCoreOrgUrl,
-  type KlinkSettlementData,
   type ManualEntryData,
 } from "@/lib/finance-core/hooks";
 import {
@@ -224,7 +220,6 @@ function Header({ refreshing, onRefresh }: { refreshing: boolean; onRefresh: () 
       <div className="flex flex-wrap items-center gap-2">
         <ManualEntryDialog type="income" />
         <ManualEntryDialog type="expense" />
-        <KlinkSettlementDialog />
         <PopupInvoiceDialog />
         <AttachmentDialog />
         <MobileReceiptScanButton variant="compact" />
@@ -317,121 +312,6 @@ function ManualEntryDialog({ type }: { type: "income" | "expense" }) {
         <DialogFooter>
           <Button variant="ghost" onClick={() => setOpen(false)}>Avbryt</Button>
           <Button onClick={submit} disabled={mut.isPending}>Opprett</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-/* ── Klink settlement ─────────────────────────────────────── */
-function KlinkSettlementDialog() {
-  const [open, setOpen] = useState(false);
-  const [form, setForm] = useState<KlinkSettlementData>({
-    eventSlug: "",
-    eventName: "",
-    settlementDate: new Date().toISOString().slice(0, 10),
-    totalRevenueNok: 0,
-    ourSharePercent: 70,
-    reportUrl: "",
-  });
-  const mut = useSendKlinkSettlement();
-  const ourShare = Math.round((form.totalRevenueNok || 0) * (form.ourSharePercent / 100));
-
-  const { data: popupInvoices } = useQuery({
-    queryKey: ["popup-fc-invoices"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("popup_fc_invoices")
-        .select("reference_key, finance_core_invoice_id, invoice_number, status")
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      return data ?? [];
-    },
-  });
-
-  const hasActivePopupInvoice = !!popupInvoices?.some(
-    (i) => i.status === "sent" || i.status === "paid" || i.status === "draft",
-  );
-  const hasBookedPopupInvoice = !!popupInvoices?.some(
-    (i) => i.status === "sent" || i.status === "paid",
-  );
-
-  async function submit() {
-    if (!form.eventSlug || !form.eventName || !form.totalRevenueNok) {
-      toast.error("Slug, eventnavn og omsetning er påkrevd");
-      return;
-    }
-    try {
-      const r = await mut.mutateAsync({ ...form, reportUrl: form.reportUrl?.trim() ? form.reportUrl : undefined });
-      toast.success(r.alreadyExists ? "Allerede bokført (idempotens OK)" : `Oppgjør sendt (${formatNok(ourShare)})`);
-      setOpen(false);
-    } catch (e: any) {
-      toast.error(`Feil: ${e?.message ?? e}`);
-    }
-  }
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Receipt className="h-4 w-4" /> Klink-oppgjør
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Send Klink popup-oppgjør</DialogTitle>
-        </DialogHeader>
-        <div className="space-y-3">
-          {hasActivePopupInvoice && (
-            <Alert>
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                Faktura finnes – regnskap føres via Finance Core-faktura. Ikke bruk Klink-oppgjør
-                i tillegg med mindre du vet at inntekten ikke er bokført dobbelt.
-              </AlertDescription>
-            </Alert>
-          )}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label>Event slug</Label>
-              <Input value={form.eventSlug} onChange={(e) => setForm({ ...form, eventSlug: e.target.value })} placeholder="klink-oslo-2026-06" />
-            </div>
-            <div>
-              <Label>Eventnavn</Label>
-              <Input value={form.eventName} onChange={(e) => setForm({ ...form, eventName: e.target.value })} placeholder="Klink Oslo" />
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <Label>Dato</Label>
-              <Input type="date" value={form.settlementDate} onChange={(e) => setForm({ ...form, settlementDate: e.target.value })} />
-            </div>
-            <div>
-              <Label>Total omsetning (kr)</Label>
-              <Input type="number" min={0} value={form.totalRevenueNok || ""} onChange={(e) => setForm({ ...form, totalRevenueNok: Number(e.target.value) })} />
-            </div>
-            <div>
-              <Label>Vår andel %</Label>
-              <Input type="number" min={0} max={100} value={form.ourSharePercent} onChange={(e) => setForm({ ...form, ourSharePercent: Number(e.target.value) })} />
-            </div>
-          </div>
-          <div>
-            <Label>Rapport-URL (valgfri)</Label>
-            <Input value={form.reportUrl ?? ""} onChange={(e) => setForm({ ...form, reportUrl: e.target.value })} placeholder="https://goldofsicily.no/..." />
-          </div>
-          <div className="rounded-md bg-muted/50 p-3 text-sm">
-            Vår andel: <strong>{formatNok(ourShare)}</strong>
-          </div>
-        </div>
-        <DialogFooter>
-          <Button variant="ghost" onClick={() => setOpen(false)}>Avbryt</Button>
-          <Button
-            onClick={submit}
-            disabled={mut.isPending || hasBookedPopupInvoice}
-            variant={hasBookedPopupInvoice ? "outline" : "default"}
-          >
-            Send
-          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

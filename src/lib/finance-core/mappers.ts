@@ -2,37 +2,6 @@ import type { FinanceCoreEntryInput } from "./types";
 
 export const SOURCE_APP = "gold-of-sicily";
 
-export interface KlinkSettlementInput {
-  eventSlug: string;
-  eventName: string;
-  settlementDate: string; // YYYY-MM-DD
-  totalRevenueNok: number;
-  ourSharePercent: number;
-  reportUrl?: string;
-}
-
-export function mapKlinkSettlement(s: KlinkSettlementInput): FinanceCoreEntryInput {
-  const ourShare = Math.round(s.totalRevenueNok * (s.ourSharePercent / 100));
-  return {
-    entry_type: "income",
-    entry_date: s.settlementDate,
-    description: `Andel av omsetning fra ${s.eventName}`,
-    counterparty: s.eventName,
-    category: "Popup-salg",
-    category_group: "Inntekter",
-    amount_gross: ourShare,
-    amount_net: ourShare,
-    vat_rate: 0,
-    payment_status: "unpaid",
-    invoice_status: "sent",
-    source_app: SOURCE_APP,
-    source_type: "popup_settlement",
-    source_ref: s.eventSlug,
-    external_url: s.reportUrl,
-    notes: `Total omsetning: ${s.totalRevenueNok} kr. Vår andel: ${s.ourSharePercent}%.`,
-  };
-}
-
 export function mapTestEntry(): FinanceCoreEntryInput {
   return {
     entry_type: "income",
