@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 Disallow: /for-barer
+Disallow: /en/for-bars
 
 Sitemap: https://goldofsicily.no/sitemap.xml

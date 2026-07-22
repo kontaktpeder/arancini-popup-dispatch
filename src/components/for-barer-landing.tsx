@@ -1,5 +1,5 @@
 /**
- * Sales page for bars — /for-barer
+ * Sales page for bars — /for-barer | /en/for-bars
  * Goal: a bar manager understands the offer in under two minutes and wants to call or email.
  */
 
@@ -9,129 +9,381 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { LangSwitch } from "@/components/lang-switch";
 import { SITE } from "@/lib/site";
 
 import imgMedDrikke from "@/assets/b2b-med-drikke.jpg";
 import imgSpiseklar from "@/assets/b2b-spiseklar.jpg";
 import imgPaFat from "@/assets/b2b-pa-fat.jpg";
 
-/** background=1 + title/byline/portrait off = ren looping video uten Vimeo-chrome */
+type Lang = "no" | "en";
+
+/** background=1 + title/byline/portrait off = clean looping video without Vimeo chrome */
 const VIMEO_SRC =
   "https://player.vimeo.com/video/1211999129?background=1&autoplay=1&muted=1&loop=1&autopause=0&title=0&byline=0&portrait=0&badge=0&controls=0";
 
-const MAIL_SMAKING = `mailto:${SITE.email}?subject=${encodeURIComponent("Book prøvesmaking — For barer")}`;
-const MAIL_PILOT = `mailto:${SITE.email}?subject=${encodeURIComponent("Bli pilotkunde — For barer")}`;
-
-const STEPS = [
-  { n: "01", title: "Vi leverer arancini.", body: "Ferdige, frosne — til døra." },
-  { n: "02", title: "Vi låner ut airfryer.", body: "Ingen investering fra dere." },
-  { n: "03", title: "Dere varmer dem på få minutter.", body: "Fast guide. Minimal opplæring." },
-  { n: "04", title: "Dere selger og tjener penger.", body: "Mat + ekstra drikkeomsetning." },
-] as const;
-
-const INKLUDERT = [
-  "Airfryer på utlån",
-  "Opplæring",
-  "Ferdige menyer",
-  "QR-koder",
-  "Produktbilder",
-  "Levering",
-  "Support",
-] as const;
-
-const WHY = [
-  {
-    title: "Ingen kjøkken",
-    lines: ["Ingen kokk.", "Ingen ventilasjon.", "Ingen investering."],
-  },
-  {
-    title: "Lite arbeid",
-    lines: ["Kun få minutters tilberedning.", "Én bartender klarer det.", "Fast oppvarmingsguide."],
-  },
-  {
-    title: "God fortjeneste",
-    lines: ["Lav innkjøpspris.", "God utsalgspris.", "Lengre besøk, mer drikke."],
-  },
-] as const;
-
-const PREP =
-  "Tines i kjøleskap dagen før (holder 24 t). Fra kjøleskap: 5–10 min i airfryer.";
-
-const PRODUCTS = [
-  {
-    name: "'Nduja",
+const COPY = {
+  no: {
+    eyebrow: "For barer",
+    heroTitleBefore: "Gi gjestene varm mat på under 10 minutter.",
+    heroTitleAccent: "Uten kjøkken.",
+    heroBody:
+      "Vi leverer ferdige, frosne arancini, låner ut airfryer og gir dere alt dere trenger for å komme i gang.",
+    bookVia: "Book via",
+    phoneOr: "telefon eller",
+    noForm: ". Ingen skjema.",
+    call: "Ring",
+    sendEmail: "Send e-post →",
+    bookTasting: "Bestill prøvesmaking",
+    becomePilot: "Bli pilotkunde →",
+    mailSubjectTasting: "Book prøvesmaking — For barer",
+    mailSubjectPilot: "Bli pilotkunde — For barer",
+    howEyebrow: "Hvordan fungerer det?",
+    howTitle: "Fire steg. Nesten null ekstra arbeid.",
+    steps: [
+      { n: "01", title: "Vi leverer arancini.", body: "Ferdige, frosne — til døra." },
+      { n: "02", title: "Vi låner ut airfryer.", body: "Ingen investering fra dere." },
+      { n: "03", title: "Dere varmer dem på få minutter.", body: "Fast guide. Minimal opplæring." },
+      { n: "04", title: "Dere selger og tjener penger.", body: "Mat + ekstra drikkeomsetning." },
+    ],
+    includedEyebrow: "Hva er inkludert?",
+    includedTitle: "En ferdig matløsning — ikke bare et produkt.",
+    included: [
+      "Airfryer på utlån",
+      "Opplæring",
+      "Ferdige menyer",
+      "QR-koder",
+      "Produktbilder",
+      "Levering",
+      "Support",
+    ],
+    whyEyebrow: "Hvorfor fungerer det?",
+    whyTitle: "Mer omsetning. Nesten null ekstra drift.",
+    why: [
+      {
+        title: "Ingen kjøkken",
+        lines: ["Ingen kokk.", "Ingen ventilasjon.", "Ingen investering."],
+      },
+      {
+        title: "Lite arbeid",
+        lines: [
+          "Kun få minutters tilberedning.",
+          "Én bartender klarer det.",
+          "Fast oppvarmingsguide.",
+        ],
+      },
+      {
+        title: "God fortjeneste",
+        lines: ["Lav innkjøpspris.", "God utsalgspris.", "Lengre besøk, mer drikke."],
+      },
+    ],
+    productsEyebrow: "Produktene",
+    productsTitle: "Håndlagde arancini. Klar på 5–10 minutter.",
+    allergensLabel: "Allergener:",
+    prepLabel: "Tilberedning:",
+    prep: "Tines i kjøleskap dagen før (holder 24 t). Fra kjøleskap: 5–10 min i airfryer.",
     allergens: "Gluten, melk, egg",
-    prep: PREP,
-    img: imgMedDrikke,
-    alt: "Arancini servert med drikke på bar",
+    products: [
+      {
+        name: "'Nduja",
+        img: imgMedDrikke,
+        alt: "Arancini servert med drikke på bar",
+      },
+      {
+        name: "Trøffel med sopp",
+        img: imgSpiseklar,
+        alt: "Arancini klar til å spises",
+      },
+    ],
+    packagesEyebrow: "Pakker",
+    packagesTitle: "Start i det små. Skaler når det selger.",
+    contactUs: "Kontakt oss →",
+    packages: [
+      {
+        name: "Pilot",
+        body: "50 stk, eller 100 stk (anbefalt). Kort test uten lang binding.",
+      },
+      {
+        name: "Standard",
+        body: "100 stk per levering. Fast rytme når dere er i gang.",
+      },
+      {
+        name: "Stor",
+        body: "200 stk. For steder med høyere volum.",
+      },
+    ],
+    spaceEyebrow: "Hvor mye plass trenger det?",
+    spaceTitle: "Airfryer bak baren. Ikke et kjøkken.",
+    spaceAlt: "Ferdige arancini klare til servering",
+    space: [
+      {
+        label: "Plass:",
+        body: "En vanlig benke-airfryer — typisk under 40 cm bredde.",
+      },
+      { label: "Strøm:", body: "Vanlig stikkontakt." },
+      {
+        label: "Kapasitet:",
+        body: "Flere stykk samtidig. Fra kjøleskap: 5–10 minutter.",
+      },
+      {
+        label: "Ventilasjon:",
+        body: "Ikke nødvendig for denne løsningen.",
+      },
+    ],
+    pilotEyebrow: "Pilotprogram",
+    pilotTitleBefore: "Vi søker et begrenset antall",
+    pilotTitleAccent: "pilotbarer.",
+    pilotPerks: [
+      "Introduksjonspris",
+      "Airfryer inkludert på utlån",
+      "Oppfølging underveis",
+      "Mulighet til å påvirke konseptet",
+    ],
+    mailPilotCta: "Mail: bli pilotkunde",
+    faqEyebrow: "Vanlige spørsmål",
+    faqTitle: "Det barsjefer spør om først.",
+    faq: [
+      {
+        q: "Hvor lenge holder de?",
+        a: "Oppbevares frosne til bruk. Tines i kjøleskap dagen før og holder da ca. 24 timer. Full holdbarhet følger skriftlig med levering.",
+      },
+      {
+        q: "Hvordan leveres de?",
+        a: "Frosne, ferdig pakket. Vi avtaler dag og sted med dere.",
+      },
+      {
+        q: "Hva koster det?",
+        a: "Pilot får introduksjonspris. Ring eller mail oss, så tar vi det konkret for deres volum.",
+      },
+      {
+        q: "Må vi ha kjøkken?",
+        a: "Nei. Airfryer bak baren er nok — ingen ventilasjon eller kokk.",
+      },
+      {
+        q: "Hvor lang binding?",
+        a: "Pilotperioden er kort, uten lang binding. Dere kan stoppe etter pilot.",
+      },
+      {
+        q: "Hvor ofte leverer dere?",
+        a: "Vi avtaler rytme per bar — typisk ukentlig eller annenhver uke.",
+      },
+      {
+        q: "Hva skjer hvis vi går tomme?",
+        a: "Si ifra tidlig. Vi prioriterer pilotbarer og sier ærlig hvis vi ikke rekker ekstra på kort varsel.",
+      },
+      {
+        q: "Hvor lang oppsigelse?",
+        a: "Avtales skriftlig før oppstart. Kort og tydelig — ingen skjulte klausuler.",
+      },
+    ],
+    aboutEyebrow: "Om Gold of Sicily",
+    aboutTitle: "Fra popup i Oslo til mat bak baren.",
+    aboutBody:
+      "Vi startet med én ting: ekte sicilianske arancini som streetfood. Etter popups med 4,5/5 i smak pakker vi samme håndverk for barer som vil servere varm mat — uten å bygge kjøkken.",
+    contactEyebrow: "Kontakt",
+    contactTitle: "Ring eller send mail.",
+    contactAccent: "Vi booker smaking.",
+    contactBody:
+      "Ingen skjema. Ingen venteliste. Si ifra hvilken bar, så avtaler vi tid.",
+    footer: `© ${SITE.name} · For barer`,
   },
-  {
-    name: "Trøffel med sopp",
-    allergens: "Gluten, melk, egg",
-    prep: PREP,
-    img: imgSpiseklar,
-    alt: "Arancini klar til å spises",
+  en: {
+    eyebrow: "For bars",
+    heroTitleBefore: "Serve guests hot food in under 10 minutes.",
+    heroTitleAccent: "No kitchen needed.",
+    heroBody:
+      "We deliver ready-made frozen arancini, lend you an air fryer, and give you everything you need to get started.",
+    bookVia: "Book via",
+    phoneOr: "phone or",
+    noForm: ". No form.",
+    call: "Call",
+    sendEmail: "Send email →",
+    bookTasting: "Book a tasting",
+    becomePilot: "Become a pilot →",
+    mailSubjectTasting: "Book a tasting — For bars",
+    mailSubjectPilot: "Become a pilot customer — For bars",
+    howEyebrow: "How does it work?",
+    howTitle: "Four steps. Almost no extra work.",
+    steps: [
+      {
+        n: "01",
+        title: "We deliver arancini.",
+        body: "Ready-made, frozen — to your door.",
+      },
+      {
+        n: "02",
+        title: "We lend you an air fryer.",
+        body: "No investment from you.",
+      },
+      {
+        n: "03",
+        title: "You heat them in minutes.",
+        body: "Fixed guide. Minimal training.",
+      },
+      {
+        n: "04",
+        title: "You sell and earn.",
+        body: "Food + extra drink sales.",
+      },
+    ],
+    includedEyebrow: "What's included?",
+    includedTitle: "A complete food solution — not just a product.",
+    included: [
+      "Air fryer on loan",
+      "Staff training",
+      "Ready-made menus",
+      "QR codes",
+      "Product photos",
+      "Delivery",
+      "Support",
+    ],
+    whyEyebrow: "Why it works",
+    whyTitle: "More revenue. Almost no extra operations.",
+    why: [
+      {
+        title: "No kitchen",
+        lines: ["No chef.", "No ventilation.", "No investment."],
+      },
+      {
+        title: "Little work",
+        lines: [
+          "Only a few minutes to prepare.",
+          "One bartender can handle it.",
+          "Fixed heating guide.",
+        ],
+      },
+      {
+        title: "Good margins",
+        lines: ["Low purchase price.", "Strong menu price.", "Longer stays, more drinks."],
+      },
+    ],
+    productsEyebrow: "The products",
+    productsTitle: "Handmade arancini. Ready in 5–10 minutes.",
+    allergensLabel: "Allergens:",
+    prepLabel: "Prep:",
+    prep: "Thaw in the fridge the day before (keeps 24 h). From fridge: 5–10 min in air fryer.",
+    allergens: "Gluten, milk, egg",
+    products: [
+      {
+        name: "'Nduja",
+        img: imgMedDrikke,
+        alt: "Arancini served with a drink at the bar",
+      },
+      {
+        name: "Truffle & mushroom",
+        img: imgSpiseklar,
+        alt: "Arancini ready to eat",
+      },
+    ],
+    packagesEyebrow: "Packages",
+    packagesTitle: "Start small. Scale when it sells.",
+    contactUs: "Contact us →",
+    packages: [
+      {
+        name: "Pilot",
+        body: "50 pcs, or 100 pcs (recommended). Short test with no long lock-in.",
+      },
+      {
+        name: "Standard",
+        body: "100 pcs per delivery. Steady rhythm once you're running.",
+      },
+      {
+        name: "Large",
+        body: "200 pcs. For venues with higher volume.",
+      },
+    ],
+    spaceEyebrow: "How much space do you need?",
+    spaceTitle: "An air fryer behind the bar. Not a kitchen.",
+    spaceAlt: "Finished arancini ready to serve",
+    space: [
+      {
+        label: "Space:",
+        body: "A standard countertop air fryer — typically under 40 cm wide.",
+      },
+      { label: "Power:", body: "A normal wall outlet." },
+      {
+        label: "Capacity:",
+        body: "Several at once. From fridge: 5–10 minutes.",
+      },
+      {
+        label: "Ventilation:",
+        body: "Not required for this setup.",
+      },
+    ],
+    pilotEyebrow: "Pilot programme",
+    pilotTitleBefore: "We're looking for a limited number of",
+    pilotTitleAccent: "pilot bars.",
+    pilotPerks: [
+      "Introductory pricing",
+      "Air fryer included on loan",
+      "Ongoing follow-up",
+      "A say in shaping the concept",
+    ],
+    mailPilotCta: "Email: become a pilot",
+    faqEyebrow: "FAQ",
+    faqTitle: "What bar managers ask first.",
+    faq: [
+      {
+        q: "How long do they keep?",
+        a: "Keep frozen until use. Thaw in the fridge the day before — then about 24 hours. Full shelf life is sent in writing with delivery.",
+      },
+      {
+        q: "How are they delivered?",
+        a: "Frozen, ready packed. We agree day and place with you.",
+      },
+      {
+        q: "What does it cost?",
+        a: "Pilots get introductory pricing. Call or email us and we'll make it concrete for your volume.",
+      },
+      {
+        q: "Do we need a kitchen?",
+        a: "No. An air fryer behind the bar is enough — no ventilation or chef.",
+      },
+      {
+        q: "How long is the commitment?",
+        a: "The pilot period is short, with no long lock-in. You can stop after the pilot.",
+      },
+      {
+        q: "How often do you deliver?",
+        a: "We agree a rhythm per bar — typically weekly or every other week.",
+      },
+      {
+        q: "What if we sell out?",
+        a: "Tell us early. We prioritise pilot bars and are honest if we can't do extras on short notice.",
+      },
+      {
+        q: "What's the notice period?",
+        a: "Agreed in writing before start. Short and clear — no hidden clauses.",
+      },
+    ],
+    aboutEyebrow: "About Gold of Sicily",
+    aboutTitle: "From pop-ups in Oslo to food behind the bar.",
+    aboutBody:
+      "We started with one thing: real Sicilian arancini as street food. After pop-ups scoring 4.5/5 on taste, we package the same craft for bars that want to serve hot food — without building a kitchen.",
+    contactEyebrow: "Contact",
+    contactTitle: "Call or email.",
+    contactAccent: "We'll book a tasting.",
+    contactBody:
+      "No form. No waitlist. Tell us which bar, and we'll find a time.",
+    footer: `© ${SITE.name} · For bars`,
   },
-] as const;
+} as const;
 
-const PACKAGES = [
-  {
-    name: "Pilot",
-    body: "50 stk, eller 100 stk (anbefalt). Kort test uten lang binding.",
-  },
-  {
-    name: "Standard",
-    body: "100 stk per levering. Fast rytme når dere er i gang.",
-  },
-  {
-    name: "Stor",
-    body: "200 stk. For steder med høyere volum.",
-  },
-] as const;
-
-const FAQ = [
-  {
-    q: "Hvor lenge holder de?",
-    a: "Oppbevares frosne til bruk. Tines i kjøleskap dagen før og holder da ca. 24 timer. Full holdbarhet følger skriftlig med levering.",
-  },
-  {
-    q: "Hvordan leveres de?",
-    a: "Frosne, ferdig pakket. Vi avtaler dag og sted med dere.",
-  },
-  {
-    q: "Hva koster det?",
-    a: "Pilot får introduksjonspris. Ring eller mail oss, så tar vi det konkret for deres volum.",
-  },
-  {
-    q: "Må vi ha kjøkken?",
-    a: "Nei. Airfryer bak baren er nok — ingen ventilasjon eller kokk.",
-  },
-  {
-    q: "Hvor lang binding?",
-    a: "Pilotperioden er kort, uten lang binding. Dere kan stoppe etter pilot.",
-  },
-  {
-    q: "Hvor ofte leverer dere?",
-    a: "Vi avtaler rytme per bar — typisk ukentlig eller annenhver uke.",
-  },
-  {
-    q: "Hva skjer hvis vi går tomme?",
-    a: "Si ifra tidlig. Vi prioriterer pilotbarer og sier ærlig hvis vi ikke rekker ekstra på kort varsel.",
-  },
-  {
-    q: "Hvor lang oppsigelse?",
-    a: "Avtales skriftlig før oppstart. Kort og tydelig — ingen skjulte klausuler.",
-  },
-] as const;
+function mailHref(subject: string) {
+  return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}`;
+}
 
 function ContactActions({
-  primaryLabel = "Bestill prøvesmaking",
+  lang,
   className = "",
 }: {
-  primaryLabel?: string;
+  lang: Lang;
   className?: string;
 }) {
+  const t = COPY[lang];
   const hasPhone = Boolean(SITE.phoneTel && SITE.phoneLabel);
+  const tasting = mailHref(t.mailSubjectTasting);
+  const pilot = mailHref(t.mailSubjectPilot);
 
   return (
     <div className={`flex flex-wrap items-center gap-4 ${className}`}>
@@ -140,21 +392,21 @@ function ContactActions({
           href={`tel:${SITE.phoneTel}`}
           className="inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-[color:var(--tomato)] px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--blush)] shadow-[4px_4px_0_0_var(--color-foreground)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-foreground)]"
         >
-          Ring {SITE.phoneLabel}
+          {t.call} {SITE.phoneLabel}
         </a>
       ) : (
         <a
-          href={MAIL_SMAKING}
+          href={tasting}
           className="inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-[color:var(--tomato)] px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--blush)] shadow-[4px_4px_0_0_var(--color-foreground)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-foreground)]"
         >
-          {primaryLabel}
+          {t.bookTasting}
         </a>
       )}
       <a
-        href={hasPhone ? MAIL_SMAKING : MAIL_PILOT}
+        href={hasPhone ? tasting : pilot}
         className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-foreground/75 underline-offset-4 transition hover:text-foreground hover:underline"
       >
-        {hasPhone ? "Send e-post →" : "Bli pilotkunde →"}
+        {hasPhone ? t.sendEmail : t.becomePilot}
       </a>
     </div>
   );
@@ -163,7 +415,10 @@ function ContactActions({
 function VimeoEmbed() {
   return (
     <div className="relative w-full overflow-hidden rounded-sm border-2 border-foreground bg-foreground shadow-[4px_4px_0_0_var(--color-foreground)]">
-      <div className="pointer-events-none relative w-full" style={{ paddingTop: "177.99%" }}>
+      <div
+        className="pointer-events-none relative w-full"
+        style={{ paddingTop: "177.99%" }}
+      >
         <iframe
           src={VIMEO_SRC}
           className="absolute inset-0 h-full w-full"
@@ -176,42 +431,44 @@ function VimeoEmbed() {
   );
 }
 
-export function ForBarerLanding() {
+export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
+  const t = COPY[lang];
   const hasPhone = Boolean(SITE.phoneTel && SITE.phoneLabel);
+  const tasting = mailHref(t.mailSubjectTasting);
+  const pilot = mailHref(t.mailSubjectPilot);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* HERO */}
+      <LangSwitch lang={lang} />
       <section className="relative overflow-hidden border-b-2 border-foreground">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.05fr_0.95fr] md:items-center md:gap-12 md:px-8 md:py-20">
           <div>
             <p className="mb-6 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-              For barer
+              {t.eyebrow}
             </p>
             <h1 className="font-display text-[clamp(2.35rem,6vw,4.25rem)] leading-[1.02] tracking-tight">
-              Gi gjestene varm mat på under 10 minutter.{" "}
-              <span className="text-[color:var(--tomato)]">Uten kjøkken.</span>
+              {t.heroTitleBefore}{" "}
+              <span className="text-[color:var(--tomato)]">{t.heroTitleAccent}</span>
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-foreground/80 md:text-xl">
-              Vi leverer ferdige, frosne arancini, låner ut airfryer og gir dere
-              alt dere trenger for å komme i gang.
+              {t.heroBody}
             </p>
-            <ContactActions className="mt-10" />
+            <ContactActions lang={lang} className="mt-10" />
             <p className="mt-5 text-sm text-foreground/55">
-              Book via{" "}
+              {t.bookVia}{" "}
               {hasPhone ? (
                 <>
-                  telefon eller{" "}
-                  <a href={MAIL_SMAKING} className="underline underline-offset-2">
+                  {t.phoneOr}{" "}
+                  <a href={tasting} className="underline underline-offset-2">
                     {SITE.email}
                   </a>
                 </>
               ) : (
-                <a href={MAIL_SMAKING} className="underline underline-offset-2">
+                <a href={tasting} className="underline underline-offset-2">
                   {SITE.email}
                 </a>
               )}
-              . Ingen skjema.
+              {t.noForm}
             </p>
           </div>
 
@@ -221,17 +478,16 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* HVORDAN */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
         <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-24">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Hvordan fungerer det?
+            {t.howEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            Fire steg. Nesten null ekstra arbeid.
+            {t.howTitle}
           </h2>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((s) => (
+            {t.steps.map((s) => (
               <div
                 key={s.n}
                 className="border-2 border-foreground bg-background p-6 shadow-[3px_3px_0_0_var(--color-foreground)]"
@@ -247,17 +503,16 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* INKLUDERT */}
       <section className="border-b-2 border-foreground">
         <div className="mx-auto max-w-4xl px-6 py-20 md:px-8 md:py-24">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Hva er inkludert?
+            {t.includedEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            En ferdig matløsning — ikke bare et produkt.
+            {t.includedTitle}
           </h2>
           <ul className="mt-10 grid gap-3 border-2 border-foreground bg-[color:var(--paper)] p-6 shadow-[4px_4px_0_0_var(--color-foreground)] sm:grid-cols-2 sm:p-8">
-            {INKLUDERT.map((item) => (
+            {t.included.map((item) => (
               <li key={item} className="flex items-center gap-3 text-base">
                 <span
                   aria-hidden
@@ -272,17 +527,16 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* HVORFOR */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
         <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-24">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Hvorfor fungerer det?
+            {t.whyEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            Mer omsetning. Nesten null ekstra drift.
+            {t.whyTitle}
           </h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {WHY.map((card) => (
+            {t.why.map((card) => (
               <div
                 key={card.title}
                 className="border-2 border-foreground bg-background p-8 shadow-[3px_3px_0_0_var(--color-foreground)]"
@@ -299,18 +553,17 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* PRODUKTER */}
       <section className="border-b-2 border-foreground">
         <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-24">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Produktene
+            {t.productsEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            Håndlagde arancini. Klar på 5–10 minutter.
+            {t.productsTitle}
           </h2>
 
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {PRODUCTS.map((p) => (
+            {t.products.map((p) => (
               <article
                 key={p.name}
                 className="overflow-hidden border-2 border-foreground bg-[color:var(--paper)] shadow-[3px_3px_0_0_var(--color-foreground)]"
@@ -325,12 +578,12 @@ export function ForBarerLanding() {
                   <h3 className="font-display text-xl tracking-tight">{p.name}</h3>
                   <dl className="mt-4 space-y-2 text-xs uppercase tracking-[0.12em] text-foreground/55">
                     <div>
-                      <dt className="inline">Allergener: </dt>
-                      <dd className="inline normal-case tracking-normal">{p.allergens}</dd>
+                      <dt className="inline">{t.allergensLabel} </dt>
+                      <dd className="inline normal-case tracking-normal">{t.allergens}</dd>
                     </div>
                     <div>
-                      <dt className="inline">Tilberedning: </dt>
-                      <dd className="inline normal-case tracking-normal">{p.prep}</dd>
+                      <dt className="inline">{t.prepLabel} </dt>
+                      <dd className="inline normal-case tracking-normal">{t.prep}</dd>
                     </div>
                   </dl>
                 </div>
@@ -340,17 +593,16 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* PAKKER */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
         <div className="mx-auto max-w-5xl px-6 py-20 md:px-8 md:py-24">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Pakker
+            {t.packagesEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            Start i det små. Skaler når det selger.
+            {t.packagesTitle}
           </h2>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {PACKAGES.map((pkg) => (
+            {t.packages.map((pkg) => (
               <div
                 key={pkg.name}
                 className="flex flex-col border-2 border-foreground bg-background p-7 shadow-[3px_3px_0_0_var(--color-foreground)]"
@@ -360,10 +612,10 @@ export function ForBarerLanding() {
                   {pkg.body}
                 </p>
                 <a
-                  href={MAIL_PILOT}
+                  href={pilot}
                   className="mt-6 text-[0.75rem] font-semibold uppercase tracking-[0.18em] underline-offset-4 hover:underline"
                 >
-                  Kontakt oss →
+                  {t.contactUs}
                 </a>
               </div>
             ))}
@@ -371,61 +623,43 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* AIRFRYER / PLASS */}
       <section className="border-b-2 border-foreground">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-2 md:items-center md:px-8 md:py-24">
           <img
             src={imgPaFat}
-            alt="Ferdige arancini klare til servering"
+            alt={t.spaceAlt}
             className="aspect-[4/5] w-full border-2 border-foreground object-cover shadow-[4px_4px_0_0_var(--color-foreground)]"
             loading="lazy"
           />
           <div>
             <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-              Hvor mye plass trenger det?
+              {t.spaceEyebrow}
             </p>
             <h2 className="font-display text-[clamp(1.85rem,4vw,2.75rem)] leading-[1.05] tracking-tight">
-              Airfryer bak baren. Ikke et kjøkken.
+              {t.spaceTitle}
             </h2>
             <ul className="mt-8 space-y-4 text-base leading-relaxed text-foreground/80">
-              <li>
-                <strong className="text-foreground">Plass:</strong> En vanlig
-                benke-airfryer — typisk under 40 cm bredde.
-              </li>
-              <li>
-                <strong className="text-foreground">Strøm:</strong> Vanlig
-                stikkontakt.
-              </li>
-              <li>
-                <strong className="text-foreground">Kapasitet:</strong> Flere
-                stykk samtidig. Fra kjøleskap: 5–10 minutter.
-              </li>
-              <li>
-                <strong className="text-foreground">Ventilasjon:</strong> Ikke
-                nødvendig for denne løsningen.
-              </li>
+              {t.space.map((row) => (
+                <li key={row.label}>
+                  <strong className="text-foreground">{row.label}</strong> {row.body}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </section>
 
-      {/* PILOT */}
       <section className="border-b-2 border-foreground bg-foreground text-background">
         <div className="mx-auto max-w-4xl px-6 py-20 md:px-8 md:py-28">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-background/55">
-            Pilotprogram
+            {t.pilotEyebrow}
           </p>
           <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] tracking-tight">
-            Vi søker et begrenset antall{" "}
-            <span className="text-[color:var(--golden)]">pilotbarer.</span>
+            {t.pilotTitleBefore}{" "}
+            <span className="text-[color:var(--golden)]">{t.pilotTitleAccent}</span>
           </h2>
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-            {[
-              "Introduksjonspris",
-              "Airfryer inkludert på utlån",
-              "Oppfølging underveis",
-              "Mulighet til å påvirke konseptet",
-            ].map((item) => (
+            {t.pilotPerks.map((item) => (
               <li
                 key={item}
                 className="flex items-center gap-3 border border-background/25 px-4 py-3 text-base"
@@ -443,31 +677,34 @@ export function ForBarerLanding() {
                 href={`tel:${SITE.phoneTel}`}
                 className="inline-flex items-center gap-2.5 rounded-sm border-2 border-background bg-[color:var(--tomato)] px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-background shadow-[4px_4px_0_0_var(--color-background)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-background)]"
               >
-                Ring {SITE.phoneLabel}
+                {t.call} {SITE.phoneLabel}
               </a>
             ) : null}
             <a
-              href={MAIL_PILOT}
+              href={pilot}
               className="inline-flex items-center gap-2.5 rounded-sm border-2 border-background bg-transparent px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-background transition hover:bg-background hover:text-foreground"
             >
-              Mail: bli pilotkunde
+              {t.mailPilotCta}
             </a>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
       <section className="border-b-2 border-foreground">
         <div className="mx-auto max-w-3xl px-6 py-20 md:px-8 md:py-24">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Vanlige spørsmål
+            {t.faqEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            Det barsjefer spør om først.
+            {t.faqTitle}
           </h2>
           <Accordion type="single" collapsible className="mt-10">
-            {FAQ.map((item, i) => (
-              <AccordionItem key={item.q} value={`faq-${i}`} className="border-foreground/25">
+            {t.faq.map((item, i) => (
+              <AccordionItem
+                key={item.q}
+                value={`faq-${i}`}
+                className="border-foreground/25"
+              >
                 <AccordionTrigger className="font-display text-left text-lg tracking-tight hover:no-underline">
                   {item.q}
                 </AccordionTrigger>
@@ -480,37 +717,30 @@ export function ForBarerLanding() {
         </div>
       </section>
 
-      {/* OM */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
         <div className="mx-auto max-w-3xl px-6 py-16 md:px-8 md:py-20">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
-            Om Gold of Sicily
+            {t.aboutEyebrow}
           </p>
           <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.05] tracking-tight">
-            Fra popup i Oslo til mat bak baren.
+            {t.aboutTitle}
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-foreground/80">
-            Vi startet med én ting: ekte sicilianske arancini som streetfood.
-            Etter popups med 4,5/5 i smak pakker vi samme håndverk for barer som
-            vil servere varm mat — uten å bygge kjøkken.
-          </p>
+          <p className="mt-6 text-lg leading-relaxed text-foreground/80">{t.aboutBody}</p>
         </div>
       </section>
 
-      {/* KONTAKT */}
       <section id="kontakt" className="bg-foreground text-background">
         <div className="mx-auto max-w-3xl px-6 py-20 text-center md:px-8 md:py-28">
           <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-background/55">
-            Kontakt
+            {t.contactEyebrow}
           </p>
           <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] tracking-tight">
-            Ring eller send mail.
+            {t.contactTitle}
             <br />
-            <span className="text-[color:var(--golden)]">Vi booker smaking.</span>
+            <span className="text-[color:var(--golden)]">{t.contactAccent}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-md text-base text-background/70">
-            Ingen skjema. Ingen venteliste. Si ifra hvilken bar, så avtaler vi
-            tid.
+            {t.contactBody}
           </p>
 
           <div className="mt-12 flex flex-col items-center gap-4">
@@ -519,11 +749,11 @@ export function ForBarerLanding() {
                 href={`tel:${SITE.phoneTel}`}
                 className="inline-flex min-w-[240px] items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-[color:var(--tomato)] px-8 py-4 text-[0.9rem] font-semibold uppercase tracking-[0.18em] text-background shadow-[4px_4px_0_0_var(--color-background)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-background)]"
               >
-                Ring {SITE.phoneLabel}
+                {t.call} {SITE.phoneLabel}
               </a>
             ) : null}
             <a
-              href={MAIL_SMAKING}
+              href={tasting}
               className="inline-flex min-w-[240px] items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-transparent px-8 py-4 text-[0.9rem] font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-background hover:text-foreground"
             >
               {SITE.email}
@@ -533,7 +763,7 @@ export function ForBarerLanding() {
       </section>
 
       <footer className="bg-background py-8 text-center text-xs uppercase tracking-[0.28em] text-foreground/50">
-        © {SITE.name} · For barer
+        {t.footer}
       </footer>
     </main>
   );

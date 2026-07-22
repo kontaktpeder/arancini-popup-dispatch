@@ -110,6 +110,14 @@ export const PAGE_SEO = {
     path: "/for-barer",
     noindex: true,
   },
+  "/en/for-bars": {
+    title: "For bars — hot food without a kitchen | Gold of Sicily",
+    description:
+      "Frozen arancini, air fryer on loan and setup support for bars. Hot food in under 10 minutes. Book a tasting by phone or email.",
+    path: "/en/for-bars",
+    noindex: true,
+    locale: "en_GB",
+  },
   "/en/collaborate": {
     title: "Arancini for your event — collaborate with Gold of Sicily",
     description:

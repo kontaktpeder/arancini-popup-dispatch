@@ -22,6 +22,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
 import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
 import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
+import { Route as EnForBarsRouteImport } from './routes/en.for-bars'
 import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as AdminPopupRouteImport } from './routes/admin/popup'
 import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
@@ -94,6 +95,11 @@ const EnCollaborateRoute = EnCollaborateRouteImport.update({
   path: '/collaborate',
   getParentRoute: () => EnRoute,
 } as any)
+const EnForBarsRoute = EnForBarsRouteImport.update({
+  id: '/for-bars',
+  path: '/for-bars',
+  getParentRoute: () => EnRoute,
+} as any)
 const EnAboutRoute = EnAboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin': typeof AdminIndexRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/admin/': typeof AdminIndexRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin/'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/admin/'
@@ -355,6 +367,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnCollaborateRouteImport
       parentRoute: typeof EnRoute
     }
+    '/en/for-bars': {
+      id: '/en/for-bars'
+      path: '/for-bars'
+      fullPath: '/en/for-bars'
+      preLoaderRoute: typeof EnForBarsRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/en/about': {
       id: '/en/about'
       path: '/about'
@@ -423,6 +442,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface EnRouteChildren {
   EnAboutRoute: typeof EnAboutRoute
   EnCollaborateRoute: typeof EnCollaborateRoute
+  EnForBarsRoute: typeof EnForBarsRoute
   EnNextPopupRoute: typeof EnNextPopupRoute
   EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
   EnIndexRoute: typeof EnIndexRoute
@@ -431,6 +451,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAboutRoute: EnAboutRoute,
   EnCollaborateRoute: EnCollaborateRoute,
+  EnForBarsRoute: EnForBarsRoute,
   EnNextPopupRoute: EnNextPopupRoute,
   EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
   EnIndexRoute: EnIndexRoute,

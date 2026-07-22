@@ -1,13 +1,19 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 
-type EnPath = "/en" | "/en/what-is-arancini" | "/en/next-popup" | "/en/about";
-type NoPath = "/" | "/what-is-arancini" | "/next-popup" | "/about";
+type EnPath =
+  | "/en"
+  | "/en/what-is-arancini"
+  | "/en/next-popup"
+  | "/en/about"
+  | "/en/for-bars";
+type NoPath = "/" | "/what-is-arancini" | "/next-popup" | "/about" | "/for-barer";
 
 const NO_TO_EN: Record<string, EnPath> = {
   "/": "/en",
   "/what-is-arancini": "/en/what-is-arancini",
   "/next-popup": "/en/next-popup",
   "/about": "/en/about",
+  "/for-barer": "/en/for-bars",
 };
 
 const EN_TO_NO: Record<string, NoPath> = {
@@ -16,6 +22,7 @@ const EN_TO_NO: Record<string, NoPath> = {
   "/en/what-is-arancini": "/what-is-arancini",
   "/en/next-popup": "/next-popup",
   "/en/about": "/about",
+  "/en/for-bars": "/for-barer",
 };
 
 export function LangSwitch({ lang }: { lang: "no" | "en" }) {
