@@ -14,12 +14,10 @@ import { SITE } from "@/lib/site";
 import imgMedDrikke from "@/assets/b2b-med-drikke.jpg";
 import imgSpiseklar from "@/assets/b2b-spiseklar.jpg";
 import imgPaFat from "@/assets/b2b-pa-fat.jpg";
-import imgRagu from "@/assets/menu-ragu.jpg";
-import imgMozzarella from "@/assets/menu-mozzarella.jpg";
-import imgPistachio from "@/assets/menu-pistachio.jpg";
 
+/** background=1 + title/byline/portrait off = ren looping video uten Vimeo-chrome */
 const VIMEO_SRC =
-  "https://player.vimeo.com/video/1211999129?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1";
+  "https://player.vimeo.com/video/1211999129?background=1&autoplay=1&muted=1&loop=1&autopause=0&title=0&byline=0&portrait=0&badge=0&controls=0";
 
 const MAIL_SMAKING = `mailto:${SITE.email}?subject=${encodeURIComponent("Book prøvesmaking — For barer")}`;
 const MAIL_PILOT = `mailto:${SITE.email}?subject=${encodeURIComponent("Bli pilotkunde — For barer")}`;
@@ -56,27 +54,23 @@ const WHY = [
   },
 ] as const;
 
+const PREP =
+  "Tines i kjøleskap dagen før (holder 24 t). Fra kjøleskap: 5–10 min i airfryer.";
+
 const PRODUCTS = [
   {
-    name: "Ragù",
-    desc: "Langtidskokt oksekjøtt, tomat, erter.",
+    name: "'Nduja",
     allergens: "Gluten, melk, egg",
-    prep: "Ca. 8–10 min fra frys",
-    img: imgRagu,
+    prep: PREP,
+    img: imgMedDrikke,
+    alt: "Arancini servert med drikke på bar",
   },
   {
-    name: "Mozzarella",
-    desc: "Klassisk ostefyll, sprø skorpe.",
+    name: "Trøffel med sopp",
     allergens: "Gluten, melk, egg",
-    prep: "Ca. 8–10 min fra frys",
-    img: imgMozzarella,
-  },
-  {
-    name: "Pistachio",
-    desc: "Pistasj, ricotta, myk kjerne.",
-    allergens: "Gluten, melk, egg, nøtter",
-    prep: "Ca. 8–10 min fra frys",
-    img: imgPistachio,
+    prep: PREP,
+    img: imgSpiseklar,
+    alt: "Arancini klar til å spises",
   },
 ] as const;
 
@@ -98,7 +92,7 @@ const PACKAGES = [
 const FAQ = [
   {
     q: "Hvor lenge holder de?",
-    a: "Vi sender holdbarhet og oppbevaringsguide skriftlig med første levering. Oppbevares frosne.",
+    a: "Oppbevares frosne til bruk. Tines i kjøleskap dagen før og holder da ca. 24 timer. Full holdbarhet følger skriftlig med levering.",
   },
   {
     q: "Hvordan leveres de?",
@@ -169,15 +163,13 @@ function ContactActions({
 function VimeoEmbed() {
   return (
     <div className="relative w-full overflow-hidden rounded-sm border-2 border-foreground bg-foreground shadow-[4px_4px_0_0_var(--color-foreground)]">
-      <div className="relative w-full" style={{ paddingTop: "177.99%" }}>
+      <div className="pointer-events-none relative w-full" style={{ paddingTop: "177.99%" }}>
         <iframe
           src={VIMEO_SRC}
           className="absolute inset-0 h-full w-full"
-          frameBorder={0}
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          allow="autoplay; fullscreen; encrypted-media"
           referrerPolicy="strict-origin-when-cross-origin"
-          title="Arancini cheesepull"
-          allowFullScreen
+          title="Arancini"
         />
       </div>
     </div>
@@ -314,31 +306,10 @@ export function ForBarerLanding() {
             Produktene
           </p>
           <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
-            Håndlagde arancini. Varmet fra frys.
+            Håndlagde arancini. Klar på 5–10 minutter.
           </h2>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            <img
-              src={imgMedDrikke}
-              alt="Arancini servert med drikke på bar"
-              className="aspect-[3/4] w-full border-2 border-foreground object-cover shadow-[3px_3px_0_0_var(--color-foreground)]"
-              loading="lazy"
-            />
-            <img
-              src={imgSpiseklar}
-              alt="Arancini klar til å spises"
-              className="aspect-[3/4] w-full border-2 border-foreground object-cover shadow-[3px_3px_0_0_var(--color-foreground)]"
-              loading="lazy"
-            />
-            <img
-              src={imgPaFat}
-              alt="Arancini på fat i papirkopper"
-              className="aspect-[3/4] w-full border-2 border-foreground object-cover shadow-[3px_3px_0_0_var(--color-foreground)]"
-              loading="lazy"
-            />
-          </div>
-
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {PRODUCTS.map((p) => (
               <article
                 key={p.name}
@@ -346,14 +317,13 @@ export function ForBarerLanding() {
               >
                 <img
                   src={p.img}
-                  alt={`Arancini ${p.name}`}
-                  className="aspect-square w-full object-cover"
+                  alt={p.alt}
+                  className="aspect-[3/4] w-full object-cover"
                   loading="lazy"
                 />
                 <div className="border-t-2 border-foreground p-5">
                   <h3 className="font-display text-xl tracking-tight">{p.name}</h3>
-                  <p className="mt-1 text-sm text-foreground/70">{p.desc}</p>
-                  <dl className="mt-4 space-y-1 text-xs uppercase tracking-[0.12em] text-foreground/55">
+                  <dl className="mt-4 space-y-2 text-xs uppercase tracking-[0.12em] text-foreground/55">
                     <div>
                       <dt className="inline">Allergener: </dt>
                       <dd className="inline normal-case tracking-normal">{p.allergens}</dd>
@@ -428,7 +398,7 @@ export function ForBarerLanding() {
               </li>
               <li>
                 <strong className="text-foreground">Kapasitet:</strong> Flere
-                stykk samtidig, klar på under 10 minutter fra frys.
+                stykk samtidig. Fra kjøleskap: 5–10 minutter.
               </li>
               <li>
                 <strong className="text-foreground">Ventilasjon:</strong> Ikke
