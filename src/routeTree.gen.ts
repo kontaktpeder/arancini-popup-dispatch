@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatIsAranciniRouteImport } from './routes/what-is-arancini'
 import { Route as SamarbeidRouteImport } from './routes/samarbeid'
 import { Route as NextPopupRouteImport } from './routes/next-popup'
+import { Route as ForBarerRouteImport } from './routes/for-barer'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -41,6 +42,11 @@ const SamarbeidRoute = SamarbeidRouteImport.update({
 const NextPopupRoute = NextPopupRouteImport.update({
   id: '/next-popup',
   path: '/next-popup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForBarerRoute = ForBarerRouteImport.update({
+  id: '/for-barer',
+  path: '/for-barer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnRoute = EnRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
+  '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
+  '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/en'
+    | '/for-barer'
     | '/next-popup'
     | '/samarbeid'
     | '/what-is-arancini'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/for-barer'
     | '/next-popup'
     | '/samarbeid'
     | '/what-is-arancini'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/en'
+    | '/for-barer'
     | '/next-popup'
     | '/samarbeid'
     | '/what-is-arancini'
@@ -244,6 +256,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   EnRoute: typeof EnRouteWithChildren
+  ForBarerRoute: typeof ForBarerRoute
   NextPopupRoute: typeof NextPopupRoute
   SamarbeidRoute: typeof SamarbeidRoute
   WhatIsAranciniRoute: typeof WhatIsAranciniRoute
@@ -263,6 +276,13 @@ declare module '@tanstack/react-router' {
       path: '/samarbeid'
       fullPath: '/samarbeid'
       preLoaderRoute: typeof SamarbeidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-barer': {
+      id: '/for-barer'
+      path: '/for-barer'
+      fullPath: '/for-barer'
+      preLoaderRoute: typeof ForBarerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/next-popup': {
@@ -423,6 +443,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   EnRoute: EnRouteWithChildren,
+  ForBarerRoute: ForBarerRoute,
   NextPopupRoute: NextPopupRoute,
   SamarbeidRoute: SamarbeidRoute,
   WhatIsAranciniRoute: WhatIsAranciniRoute,

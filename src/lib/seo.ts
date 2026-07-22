@@ -103,6 +103,13 @@ export const PAGE_SEO = {
       "Bryllup, firmafest, festival eller popup-samarbeid i Oslo? Ta kontakt med Gold of Sicily for sicilianske arancini til ditt arrangement.",
     path: "/samarbeid",
   },
+  "/for-barer": {
+    title: "For barer — varm mat uten kjøkken | Gold of Sicily",
+    description:
+      "Frosne arancini, airfryer på utlån og oppstartshjelp for barer. Varm mat på under 10 minutter. Book prøvesmaking på telefon eller e-post.",
+    path: "/for-barer",
+    noindex: true,
+  },
   "/en/collaborate": {
     title: "Arancini for your event — collaborate with Gold of Sicily",
     description:
