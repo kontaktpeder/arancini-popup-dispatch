@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { AllergenInformation } from "@/components/allergen-information";
 import { LangSwitch } from "@/components/lang-switch";
 import { SITE } from "@/lib/site";
 
@@ -79,10 +80,9 @@ const COPY = {
     ],
     productsEyebrow: "Produktene",
     productsTitle: "Håndlagde arancini. Klar på 5–10 minutter.",
-    allergensLabel: "Allergener:",
     prepLabel: "Tilberedning:",
     prep: "Tines i kjøleskap dagen før (holder 24 t). Fra kjøleskap: 5–10 min i airfryer.",
-    allergens: "Gluten, melk, egg",
+    allergenNote: "Allergeninformasjon følger hver leveranse — se detaljer under.",
     products: [
       {
         name: "'Nduja",
@@ -259,10 +259,9 @@ const COPY = {
     ],
     productsEyebrow: "The products",
     productsTitle: "Handmade arancini. Ready in 5–10 minutes.",
-    allergensLabel: "Allergens:",
     prepLabel: "Prep:",
     prep: "Thaw in the fridge the day before (keeps 24 h). From fridge: 5–10 min in air fryer.",
-    allergens: "Gluten, milk, egg",
+    allergenNote: "Allergen information follows each delivery — see details below.",
     products: [
       {
         name: "'Nduja",
@@ -578,14 +577,16 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
                   <h3 className="font-display text-xl tracking-tight">{p.name}</h3>
                   <dl className="mt-4 space-y-2 text-xs uppercase tracking-[0.12em] text-foreground/55">
                     <div>
-                      <dt className="inline">{t.allergensLabel} </dt>
-                      <dd className="inline normal-case tracking-normal">{t.allergens}</dd>
-                    </div>
-                    <div>
                       <dt className="inline">{t.prepLabel} </dt>
                       <dd className="inline normal-case tracking-normal">{t.prep}</dd>
                     </div>
                   </dl>
+                  <p className="mt-3 text-xs leading-relaxed text-foreground/55">
+                    {t.allergenNote}{" "}
+                    <a href="#allergener" className="underline underline-offset-2">
+                      {lang === "no" ? "Allergener" : "Allergens"}
+                    </a>
+                  </p>
                 </div>
               </article>
             ))}
@@ -689,6 +690,8 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
           </div>
         </div>
       </section>
+
+      <AllergenInformation lang={lang} />
 
       <section className="border-b-2 border-foreground">
         <div className="mx-auto max-w-3xl px-6 py-20 md:px-8 md:py-24">
