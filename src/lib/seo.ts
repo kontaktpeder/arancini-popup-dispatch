@@ -108,14 +108,12 @@ export const PAGE_SEO = {
     description:
       "Frosne arancini, airfryer på utlån og oppstartshjelp for barer. Varm mat på under 10 minutter. Book prøvesmaking på telefon eller e-post.",
     path: "/for-barer",
-    noindex: true,
   },
   "/en/for-bars": {
     title: "For bars — hot food without a kitchen | Gold of Sicily",
     description:
       "Frozen arancini, air fryer on loan and setup support for bars. Hot food in under 10 minutes. Book a tasting by phone or email.",
     path: "/en/for-bars",
-    noindex: true,
     locale: "en_GB",
   },
   "/en/collaborate": {
