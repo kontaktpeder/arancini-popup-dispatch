@@ -368,6 +368,16 @@ const COPY = {
   },
 } as const;
 
+const btnPrimary =
+  "inline-flex w-full items-center justify-center gap-2.5 rounded-sm border-2 border-foreground bg-[color:var(--tomato)] px-5 py-3.5 text-center text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--blush)] shadow-[3px_3px_0_0_var(--color-foreground)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-foreground)] sm:w-auto sm:px-6 sm:text-[0.85rem] sm:tracking-[0.16em] sm:shadow-[4px_4px_0_0_var(--color-foreground)]";
+
+const btnGhost =
+  "inline-flex w-full items-center justify-center text-center text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-foreground/75 underline-offset-4 transition hover:text-foreground hover:underline sm:w-auto sm:text-[0.8rem] sm:tracking-[0.18em]";
+
+const sectionPad = "mx-auto px-5 py-12 sm:px-6 md:px-8 md:py-20 lg:py-24";
+const cardShadow =
+  "border-2 border-foreground bg-background shadow-[2px_2px_0_0_var(--color-foreground)] sm:shadow-[3px_3px_0_0_var(--color-foreground)]";
+
 function mailHref(subject: string) {
   return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}`;
 }
@@ -385,26 +395,19 @@ function ContactActions({
   const pilot = mailHref(t.mailSubjectPilot);
 
   return (
-    <div className={`flex flex-wrap items-center gap-4 ${className}`}>
+    <div
+      className={`flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 ${className}`}
+    >
       {hasPhone ? (
-        <a
-          href={`tel:${SITE.phoneTel}`}
-          className="inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-[color:var(--tomato)] px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--blush)] shadow-[4px_4px_0_0_var(--color-foreground)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-foreground)]"
-        >
+        <a href={`tel:${SITE.phoneTel}`} className={btnPrimary}>
           {t.call} {SITE.phoneLabel}
         </a>
       ) : (
-        <a
-          href={tasting}
-          className="inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-[color:var(--tomato)] px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--blush)] shadow-[4px_4px_0_0_var(--color-foreground)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-foreground)]"
-        >
+        <a href={tasting} className={btnPrimary}>
           {t.bookTasting}
         </a>
       )}
-      <a
-        href={hasPhone ? tasting : pilot}
-        className="text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-foreground/75 underline-offset-4 transition hover:text-foreground hover:underline"
-      >
+      <a href={hasPhone ? tasting : pilot} className={btnGhost}>
         {hasPhone ? t.sendEmail : t.becomePilot}
       </a>
     </div>
@@ -413,7 +416,7 @@ function ContactActions({
 
 function VimeoEmbed() {
   return (
-    <div className="relative w-full overflow-hidden rounded-sm border-2 border-foreground bg-foreground shadow-[4px_4px_0_0_var(--color-foreground)]">
+    <div className="relative mx-auto w-full max-w-[220px] overflow-hidden rounded-sm border-2 border-foreground bg-foreground shadow-[3px_3px_0_0_var(--color-foreground)] sm:max-w-[280px] md:max-w-[360px] md:shadow-[4px_4px_0_0_var(--color-foreground)]">
       <div
         className="pointer-events-none relative w-full"
         style={{ paddingTop: "177.99%" }}
@@ -439,21 +442,23 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <LangSwitch lang={lang} />
+
+      {/* HERO — text + CTA first, compact video */}
       <section className="relative overflow-hidden border-b-2 border-foreground">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-[1.05fr_0.95fr] md:items-center md:gap-12 md:px-8 md:py-20">
-          <div>
-            <p className="mb-6 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-5 py-10 sm:gap-10 sm:px-6 sm:py-14 md:grid-cols-[1.1fr_0.9fr] md:gap-12 md:px-8 md:py-20">
+          <div className="min-w-0">
+            <p className="mb-4 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-6 sm:text-[0.7rem] sm:tracking-[0.28em]">
               {t.eyebrow}
             </p>
-            <h1 className="font-display text-[clamp(2.35rem,6vw,4.25rem)] leading-[1.02] tracking-tight">
+            <h1 className="font-display text-[clamp(2rem,8.5vw,4.25rem)] leading-[1.05] tracking-tight">
               {t.heroTitleBefore}{" "}
               <span className="text-[color:var(--tomato)]">{t.heroTitleAccent}</span>
             </h1>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-foreground/80 md:text-xl">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:mt-7 sm:text-lg md:text-xl">
               {t.heroBody}
             </p>
-            <ContactActions lang={lang} className="mt-10" />
-            <p className="mt-5 text-sm text-foreground/55">
+            <ContactActions lang={lang} className="mt-8 sm:mt-10" />
+            <p className="mt-4 text-sm leading-relaxed text-foreground/55 sm:mt-5">
               {t.bookVia}{" "}
               {hasPhone ? (
                 <>
@@ -471,51 +476,56 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
             </p>
           </div>
 
-          <div className="mx-auto w-full max-w-[320px] md:max-w-[360px]">
+          <div className="mx-auto w-full justify-self-center md:justify-self-end">
             <VimeoEmbed />
           </div>
         </div>
       </section>
 
+      {/* HOW */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-24">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-6xl`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.howEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.65rem,5.5vw,3rem)] leading-[1.08] tracking-tight">
             {t.howTitle}
           </h2>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-4">
             {t.steps.map((s) => (
-              <div
-                key={s.n}
-                className="border-2 border-foreground bg-background p-6 shadow-[3px_3px_0_0_var(--color-foreground)]"
-              >
-                <div className="font-display text-4xl text-[color:var(--tomato)]/80">
+              <div key={s.n} className={`${cardShadow} p-4 sm:p-6`}>
+                <div className="font-display text-2xl text-[color:var(--tomato)]/80 sm:text-4xl">
                   {s.n}
                 </div>
-                <h3 className="mt-4 font-display text-xl tracking-tight">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/70">{s.body}</p>
+                <h3 className="mt-3 font-display text-base tracking-tight sm:mt-4 sm:text-xl">
+                  {s.title}
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-foreground/70 sm:mt-2 sm:text-sm">
+                  {s.body}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* INCLUDED */}
       <section className="border-b-2 border-foreground">
-        <div className="mx-auto max-w-4xl px-6 py-20 md:px-8 md:py-24">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-4xl`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.includedEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.65rem,5.5vw,3rem)] leading-[1.08] tracking-tight">
             {t.includedTitle}
           </h2>
-          <ul className="mt-10 grid gap-3 border-2 border-foreground bg-[color:var(--paper)] p-6 shadow-[4px_4px_0_0_var(--color-foreground)] sm:grid-cols-2 sm:p-8">
+          <ul
+            className={`${cardShadow} mt-8 grid gap-2.5 bg-[color:var(--paper)] p-4 sm:mt-10 sm:grid-cols-2 sm:gap-3 sm:p-6 md:p-8 sm:shadow-[4px_4px_0_0_var(--color-foreground)]`}
+          >
             {t.included.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-base">
+              <li key={item} className="flex items-center gap-3 text-sm sm:text-base">
                 <span
                   aria-hidden
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[color:var(--tomato)] text-[0.7rem] text-[color:var(--blush)]"
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[color:var(--tomato)] text-[0.65rem] text-[color:var(--blush)] sm:h-6 sm:w-6 sm:text-[0.7rem]"
                 >
                   ✓
                 </span>
@@ -526,22 +536,22 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
+      {/* WHY */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-24">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-6xl`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.whyEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.65rem,5.5vw,3rem)] leading-[1.08] tracking-tight">
             {t.whyTitle}
           </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-3 sm:mt-12 sm:gap-6 md:grid-cols-3">
             {t.why.map((card) => (
-              <div
-                key={card.title}
-                className="border-2 border-foreground bg-background p-8 shadow-[3px_3px_0_0_var(--color-foreground)]"
-              >
-                <h3 className="font-display text-2xl tracking-tight">{card.title}</h3>
-                <ul className="mt-5 space-y-2 text-base text-foreground/80">
+              <div key={card.title} className={`${cardShadow} p-5 sm:p-8`}>
+                <h3 className="font-display text-xl tracking-tight sm:text-2xl">
+                  {card.title}
+                </h3>
+                <ul className="mt-4 space-y-1.5 text-sm text-foreground/80 sm:mt-5 sm:space-y-2 sm:text-base">
                   {card.lines.map((line) => (
                     <li key={line}>{line}</li>
                   ))}
@@ -552,30 +562,33 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
+      {/* PRODUCTS */}
       <section className="border-b-2 border-foreground">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-24">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-6xl`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.productsEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.65rem,5.5vw,3rem)] leading-[1.08] tracking-tight">
             {t.productsTitle}
           </h2>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-6 md:grid-cols-2">
             {t.products.map((p) => (
               <article
                 key={p.name}
-                className="overflow-hidden border-2 border-foreground bg-[color:var(--paper)] shadow-[3px_3px_0_0_var(--color-foreground)]"
+                className="overflow-hidden border-2 border-foreground bg-[color:var(--paper)] shadow-[2px_2px_0_0_var(--color-foreground)] sm:shadow-[3px_3px_0_0_var(--color-foreground)]"
               >
                 <img
                   src={p.img}
                   alt={p.alt}
-                  className="aspect-[3/4] w-full object-cover"
+                  className="aspect-[4/5] w-full object-cover sm:aspect-[3/4]"
                   loading="lazy"
                 />
-                <div className="border-t-2 border-foreground p-5">
-                  <h3 className="font-display text-xl tracking-tight">{p.name}</h3>
-                  <dl className="mt-4 space-y-2 text-xs uppercase tracking-[0.12em] text-foreground/55">
+                <div className="border-t-2 border-foreground p-4 sm:p-5">
+                  <h3 className="font-display text-lg tracking-tight sm:text-xl">
+                    {p.name}
+                  </h3>
+                  <dl className="mt-3 space-y-2 text-xs uppercase tracking-[0.12em] text-foreground/55 sm:mt-4">
                     <div>
                       <dt className="inline">{t.prepLabel} </dt>
                       <dd className="inline normal-case tracking-normal">{t.prep}</dd>
@@ -594,27 +607,30 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
+      {/* PACKAGES */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
-        <div className="mx-auto max-w-5xl px-6 py-20 md:px-8 md:py-24">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-5xl`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.packagesEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.65rem,5.5vw,3rem)] leading-[1.08] tracking-tight">
             {t.packagesTitle}
           </h2>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 grid gap-3 sm:mt-12 sm:gap-5 md:grid-cols-3">
             {t.packages.map((pkg) => (
               <div
                 key={pkg.name}
-                className="flex flex-col border-2 border-foreground bg-background p-7 shadow-[3px_3px_0_0_var(--color-foreground)]"
+                className={`flex flex-col ${cardShadow} p-5 sm:p-7`}
               >
-                <h3 className="font-display text-2xl tracking-tight">{pkg.name}</h3>
-                <p className="mt-3 flex-1 text-base leading-relaxed text-foreground/75">
+                <h3 className="font-display text-xl tracking-tight sm:text-2xl">
+                  {pkg.name}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-foreground/75 sm:text-base">
                   {pkg.body}
                 </p>
                 <a
                   href={pilot}
-                  className="mt-6 text-[0.75rem] font-semibold uppercase tracking-[0.18em] underline-offset-4 hover:underline"
+                  className="mt-5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] underline-offset-4 hover:underline sm:mt-6 sm:text-[0.75rem] sm:tracking-[0.18em]"
                 >
                   {t.contactUs}
                 </a>
@@ -624,22 +640,17 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
+      {/* SPACE — text first on mobile, shorter image */}
       <section className="border-b-2 border-foreground">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-2 md:items-center md:px-8 md:py-24">
-          <img
-            src={imgPaFat}
-            alt={t.spaceAlt}
-            className="aspect-[4/5] w-full border-2 border-foreground object-cover shadow-[4px_4px_0_0_var(--color-foreground)]"
-            loading="lazy"
-          />
-          <div>
-            <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} grid max-w-6xl gap-8 md:grid-cols-2 md:items-center md:gap-10`}>
+          <div className="order-1 md:order-2">
+            <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
               {t.spaceEyebrow}
             </p>
-            <h2 className="font-display text-[clamp(1.85rem,4vw,2.75rem)] leading-[1.05] tracking-tight">
+            <h2 className="font-display text-[clamp(1.65rem,5.5vw,2.75rem)] leading-[1.08] tracking-tight">
               {t.spaceTitle}
             </h2>
-            <ul className="mt-8 space-y-4 text-base leading-relaxed text-foreground/80">
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-foreground/80 sm:mt-8 sm:space-y-4 sm:text-base">
               {t.space.map((row) => (
                 <li key={row.label}>
                   <strong className="text-foreground">{row.label}</strong> {row.body}
@@ -647,23 +658,30 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
               ))}
             </ul>
           </div>
+          <img
+            src={imgPaFat}
+            alt={t.spaceAlt}
+            className="order-2 aspect-[5/4] w-full border-2 border-foreground object-cover shadow-[2px_2px_0_0_var(--color-foreground)] sm:shadow-[4px_4px_0_0_var(--color-foreground)] md:order-1 md:aspect-[4/5]"
+            loading="lazy"
+          />
         </div>
       </section>
 
+      {/* PILOT */}
       <section className="border-b-2 border-foreground bg-foreground text-background">
-        <div className="mx-auto max-w-4xl px-6 py-20 md:px-8 md:py-28">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-background/55">
+        <div className={`${sectionPad} max-w-4xl md:py-28`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-background/55 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.pilotEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.75rem,6vw,3.5rem)] leading-[1.08] tracking-tight">
             {t.pilotTitleBefore}{" "}
             <span className="text-[color:var(--golden)]">{t.pilotTitleAccent}</span>
           </h2>
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
+          <ul className="mt-8 grid gap-2.5 sm:mt-10 sm:grid-cols-2 sm:gap-3">
             {t.pilotPerks.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3 border border-background/25 px-4 py-3 text-base"
+                className="flex items-center gap-3 border border-background/25 px-3 py-2.5 text-sm sm:px-4 sm:py-3 sm:text-base"
               >
                 <span aria-hidden className="text-[color:var(--golden)]">
                   ✓
@@ -672,18 +690,18 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
               </li>
             ))}
           </ul>
-          <div className="mt-12 flex flex-wrap gap-4">
+          <div className="mt-8 flex w-full flex-col gap-3 sm:mt-12 sm:w-auto sm:flex-row sm:flex-wrap sm:gap-4">
             {hasPhone ? (
               <a
                 href={`tel:${SITE.phoneTel}`}
-                className="inline-flex items-center gap-2.5 rounded-sm border-2 border-background bg-[color:var(--tomato)] px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-background shadow-[4px_4px_0_0_var(--color-background)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-background)]"
+                className="inline-flex w-full items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-[color:var(--tomato)] px-6 py-3.5 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-background shadow-[3px_3px_0_0_var(--color-background)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-background)] sm:w-auto sm:text-[0.85rem] sm:tracking-[0.16em] sm:shadow-[4px_4px_0_0_var(--color-background)]"
               >
                 {t.call} {SITE.phoneLabel}
               </a>
             ) : null}
             <a
               href={pilot}
-              className="inline-flex items-center gap-2.5 rounded-sm border-2 border-background bg-transparent px-6 py-3.5 text-[0.85rem] font-semibold uppercase tracking-[0.16em] text-background transition hover:bg-background hover:text-foreground"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-transparent px-6 py-3.5 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-background transition hover:bg-background hover:text-foreground sm:w-auto sm:text-[0.85rem] sm:tracking-[0.16em]"
             >
               {t.mailPilotCta}
             </a>
@@ -693,25 +711,26 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
 
       <AllergenInformation lang={lang} />
 
+      {/* FAQ */}
       <section className="border-b-2 border-foreground">
-        <div className="mx-auto max-w-3xl px-6 py-20 md:px-8 md:py-24">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-3xl`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.faqEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.85rem,4vw,3rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.65rem,5.5vw,3rem)] leading-[1.08] tracking-tight">
             {t.faqTitle}
           </h2>
-          <Accordion type="single" collapsible className="mt-10">
+          <Accordion type="single" collapsible className="mt-8 sm:mt-10">
             {t.faq.map((item, i) => (
               <AccordionItem
                 key={item.q}
                 value={`faq-${i}`}
                 className="border-foreground/25"
               >
-                <AccordionTrigger className="font-display text-left text-lg tracking-tight hover:no-underline">
+                <AccordionTrigger className="py-3.5 text-left font-display text-base tracking-tight hover:no-underline sm:py-4 sm:text-lg">
                   {item.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-base leading-relaxed text-foreground/75">
+                <AccordionContent className="text-sm leading-relaxed text-foreground/75 sm:text-base">
                   {item.a}
                 </AccordionContent>
               </AccordionItem>
@@ -720,44 +739,48 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
+      {/* ABOUT */}
       <section className="border-b-2 border-foreground bg-[color:var(--paper)]">
-        <div className="mx-auto max-w-3xl px-6 py-16 md:px-8 md:py-20">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-foreground/60">
+        <div className={`${sectionPad} max-w-3xl md:py-20`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-foreground/60 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.aboutEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.55rem,5vw,2.5rem)] leading-[1.08] tracking-tight">
             {t.aboutTitle}
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-foreground/80">{t.aboutBody}</p>
+          <p className="mt-5 text-base leading-relaxed text-foreground/80 sm:mt-6 sm:text-lg">
+            {t.aboutBody}
+          </p>
         </div>
       </section>
 
+      {/* CONTACT */}
       <section id="kontakt" className="bg-foreground text-background">
-        <div className="mx-auto max-w-3xl px-6 py-20 text-center md:px-8 md:py-28">
-          <p className="mb-4 text-[0.7rem] uppercase tracking-[0.28em] text-background/55">
+        <div className={`${sectionPad} max-w-3xl text-center md:py-28`}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-background/55 sm:mb-4 sm:text-[0.7rem] sm:tracking-[0.28em]">
             {t.contactEyebrow}
           </p>
-          <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] leading-[1.05] tracking-tight">
+          <h2 className="font-display text-[clamp(1.75rem,6vw,3.5rem)] leading-[1.08] tracking-tight">
             {t.contactTitle}
             <br />
             <span className="text-[color:var(--golden)]">{t.contactAccent}</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-md text-base text-background/70">
+          <p className="mx-auto mt-5 max-w-md text-sm text-background/70 sm:mt-6 sm:text-base">
             {t.contactBody}
           </p>
 
-          <div className="mt-12 flex flex-col items-center gap-4">
+          <div className="mx-auto mt-8 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-12 sm:max-w-none sm:items-center sm:gap-4">
             {hasPhone ? (
               <a
                 href={`tel:${SITE.phoneTel}`}
-                className="inline-flex min-w-[240px] items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-[color:var(--tomato)] px-8 py-4 text-[0.9rem] font-semibold uppercase tracking-[0.18em] text-background shadow-[4px_4px_0_0_var(--color-background)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-background)]"
+                className="inline-flex w-full items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-[color:var(--tomato)] px-6 py-3.5 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-background shadow-[3px_3px_0_0_var(--color-background)] transition hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0_0_var(--color-background)] sm:min-w-[240px] sm:px-8 sm:py-4 sm:text-[0.9rem] sm:tracking-[0.18em] sm:shadow-[4px_4px_0_0_var(--color-background)]"
               >
                 {t.call} {SITE.phoneLabel}
               </a>
             ) : null}
             <a
               href={tasting}
-              className="inline-flex min-w-[240px] items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-transparent px-8 py-4 text-[0.9rem] font-semibold uppercase tracking-[0.18em] text-background transition hover:bg-background hover:text-foreground"
+              className="inline-flex w-full items-center justify-center gap-2.5 rounded-sm border-2 border-background bg-transparent px-6 py-3.5 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-background transition hover:bg-background hover:text-foreground sm:min-w-[240px] sm:px-8 sm:py-4 sm:text-[0.9rem] sm:tracking-[0.18em]"
             >
               {SITE.email}
             </a>
@@ -765,7 +788,7 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
-      <footer className="bg-background py-8 text-center text-xs uppercase tracking-[0.28em] text-foreground/50">
+      <footer className="bg-background px-5 py-8 text-center text-[0.65rem] uppercase tracking-[0.24em] text-foreground/50 sm:text-xs sm:tracking-[0.28em]">
         {t.footer}
       </footer>
     </main>

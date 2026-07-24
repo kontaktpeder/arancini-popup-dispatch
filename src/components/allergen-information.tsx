@@ -21,8 +21,8 @@ export function AllergenInformation({ lang = "no" }: { lang?: Lang }) {
       aria-labelledby="allergen-info-heading"
       className="border-b-2 border-foreground bg-[color:var(--paper)]"
     >
-      <div className="mx-auto max-w-3xl px-6 py-16 md:px-8 md:py-20">
-        <div className="border border-foreground/20 bg-background/80 px-5 py-5 md:px-6 md:py-6">
+      <div className="mx-auto max-w-3xl px-5 py-12 sm:px-6 md:px-8 md:py-20">
+        <div className="border border-foreground/20 bg-background/80 px-4 py-4 sm:px-5 sm:py-5 md:px-6 md:py-6">
           <div className="flex items-start gap-3">
             <Info
               aria-hidden
