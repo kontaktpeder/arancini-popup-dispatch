@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,9 @@ const COPY = {
     submitting: "Sender …",
     success: "Takk for henvendelsen. Vi tar kontakt så snart vi kan.",
     error: "Noe gikk galt. Prøv igjen.",
+    barsHint: "Driver du bar? Varm mat uten kjøkken.",
+    barsCta: "For barer",
+    barsTo: "/for-barer" as const,
     eventLabels: {
       bryllup: "Bryllup",
       firmaevent: "Firmaevent",
@@ -59,6 +63,9 @@ const COPY = {
     submitting: "Sending …",
     success: "Thanks for reaching out. We'll get back to you as soon as we can.",
     error: "Something went wrong. Try again.",
+    barsHint: "Run a bar? Hot food without a kitchen.",
+    barsCta: "For bars",
+    barsTo: "/en/for-bars" as const,
     eventLabels: {
       bryllup: "Wedding",
       firmaevent: "Company event",
@@ -204,6 +211,16 @@ export function CollaborationInquiry({ lang }: { lang: Lang }) {
             </Button>
           </form>
         )}
+
+        <p className="mt-10 text-center text-sm text-foreground/55">
+          {t.barsHint}{" "}
+          <Link
+            to={t.barsTo}
+            className="font-medium text-foreground/75 underline-offset-4 transition hover:text-foreground hover:underline"
+          >
+            {t.barsCta} <span aria-hidden>→</span>
+          </Link>
+        </p>
       </div>
     </section>
   );

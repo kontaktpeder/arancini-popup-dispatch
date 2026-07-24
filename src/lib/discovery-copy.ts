@@ -34,6 +34,8 @@ export type DiscoveryCopy = {
   footer: {
     tagline: string;
     rights: string;
+    barsLabel: string;
+    barsTo: "/for-barer" | "/en/for-bars";
   };
 };
 
@@ -76,6 +78,8 @@ export const DISCOVERY_NO: DiscoveryCopy = {
   footer: {
     tagline: "Oslo · Palermo",
     rights: "© Gold of Sicily",
+    barsLabel: "For barer",
+    barsTo: "/for-barer",
   },
 };
 
@@ -118,5 +122,7 @@ export const DISCOVERY_EN: DiscoveryCopy = {
   footer: {
     tagline: "Oslo · Palermo",
     rights: "© Gold of Sicily",
+    barsLabel: "For bars",
+    barsTo: "/en/for-bars",
   },
 };
