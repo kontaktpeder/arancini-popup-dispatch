@@ -5,6 +5,7 @@ export type DiscoveryRoute =
   | "/for-barer"
   | "/en/what-is-arancini"
   | "/en/next-popup"
+  | "/en/for-bars"
   | "/en/about";
 
 export type EditorialCard = {
@@ -99,14 +100,14 @@ export const DISCOVERY_EN: DiscoveryCopy = {
         to: "/en/what-is-arancini",
       },
       {
-        title: "Next popup",
-        description: "One night. Limited batch.",
-        cta: "See date",
-        to: "/en/next-popup",
+        title: "For bars",
+        description: "Hot food after the kitchen closes — or without a full kitchen.",
+        cta: "See the solution",
+        to: "/en/for-bars",
       },
       {
         title: "About Gold of Sicily",
-        description: "Popup street food inspired by Palermo.",
+        description: "The story behind Gold of Sicily and Sicilian arancini made in Oslo.",
         cta: "Our story",
         to: "/en/about",
       },
@@ -116,7 +117,7 @@ export const DISCOVERY_EN: DiscoveryCopy = {
     label: "Discover",
     links: [
       { label: "What is arancini?", to: "/en/what-is-arancini" },
-      { label: "Next popup", to: "/en/next-popup" },
+      { label: "For bars", to: "/en/for-bars" },
       { label: "About", to: "/en/about" },
     ],
   },

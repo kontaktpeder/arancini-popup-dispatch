@@ -125,9 +125,9 @@ export const PAGE_SEO = {
     locale: "en_GB",
   },
   "/en": {
-    title: "Gold of Sicily — Sicilian arancini in Oslo",
+    title: "Sicilian arancini, made in Oslo | Gold of Sicily",
     description:
-      "Handmade Sicilian arancini in Oslo. Crispy outside, soft inside. Popup street food and limited batches.",
+      "Gold of Sicily makes frozen Sicilian arancini for bars that want to serve hot food after the kitchen closes or without a full kitchen.",
     path: "/en",
     noindex: true,
     locale: "en_GB",
