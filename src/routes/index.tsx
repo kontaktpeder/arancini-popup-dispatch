@@ -28,16 +28,16 @@ const NEWSLETTER_COPY_NO = {
 function Index() {
   return (
     <main className="min-h-screen bg-background">
-      <h1 className="sr-only">Siciliansk arancini fra Sicilia til Oslo</h1>
+      <h1 className="sr-only">Siciliansk arancini, produsert i Oslo</h1>
       <LangSwitch lang="no" />
       <SiteHeader tagline={DISCOVERY_NO.heroIntro.body} />
 
       <HomeHero
         copy={{
           altArancini: "Arancini på krøllet papir",
-          title: "Siciliansk arancini fra Sicilia til Oslo",
+          title: "Siciliansk arancini, produsert i Oslo",
           subtitle: "Gold of Sicily",
-          body: "Vi produserer frossen arancini for barer som vil tilby varm mat når kjøkkenet er stengt — eller som ikke har fullt kjøkken.",
+          body: "Inspirert av tradisjonene fra Sicilia. Vi produserer frossen arancini for barer som vil tilby varm mat når kjøkkenet er stengt — eller som ikke har fullt kjøkken.",
           proof: "4,5/5 i smak",
           ctaLabel: "Få produktnyheter og vite hvor arancini blir tilgjengelig",
           scrollLabel: "For barer",

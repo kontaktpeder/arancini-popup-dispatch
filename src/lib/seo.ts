@@ -74,7 +74,7 @@ export const LOCAL_BUSINESS_JSON_LD = {
 
 export const PAGE_SEO = {
   "/": {
-    title: "Siciliansk arancini fra Sicilia til Oslo | Gold of Sicily",
+    title: "Siciliansk arancini, produsert i Oslo | Gold of Sicily",
     description:
       "Gold of Sicily produserer frossen siciliansk arancini for barer som vil tilby varm mat når kjøkkenet er stengt eller ikke har fullt kjøkken.",
     path: "/",

@@ -62,7 +62,7 @@ export const DISCOVERY_NO: DiscoveryCopy = {
       },
       {
         title: "Om Gold of Sicily",
-        description: "Historien bak siciliansk arancini fra Sicilia til Oslo.",
+        description: "Historien bak Gold of Sicily og siciliansk arancini produsert i Oslo.",
         cta: "Vår historie",
         to: "/about",
       },
