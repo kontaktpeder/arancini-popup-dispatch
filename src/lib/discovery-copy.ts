@@ -2,6 +2,7 @@ export type DiscoveryRoute =
   | "/what-is-arancini"
   | "/next-popup"
   | "/about"
+  | "/for-barer"
   | "/en/what-is-arancini"
   | "/en/next-popup"
   | "/en/about";
@@ -54,14 +55,14 @@ export const DISCOVERY_NO: DiscoveryCopy = {
         to: "/what-is-arancini",
       },
       {
-        title: "Neste popup",
-        description: "Én kveld. Begrenset batch.",
-        cta: "Se dato",
-        to: "/next-popup",
+        title: "For barer",
+        description: "Varm mat når kjøkkenet er stengt — eller uten fullt kjøkken.",
+        cta: "Se løsningen",
+        to: "/for-barer",
       },
       {
         title: "Om Gold of Sicily",
-        description: "Popup streetfood inspirert av Palermo.",
+        description: "Historien bak siciliansk arancini fra Sicilia til Oslo.",
         cta: "Vår historie",
         to: "/about",
       },
@@ -71,7 +72,7 @@ export const DISCOVERY_NO: DiscoveryCopy = {
     label: "Oppdag",
     links: [
       { label: "Hva er arancini", to: "/what-is-arancini" },
-      { label: "Neste popup", to: "/next-popup" },
+      { label: "For barer", to: "/for-barer" },
       { label: "Om oss", to: "/about" },
     ],
   },

@@ -5,7 +5,7 @@ export const SITE_URL = SITE.domain;
 export const DEFAULT_TITLE = "Arancini Oslo — Gold of Sicily";
 
 export const DEFAULT_DESCRIPTION =
-  "Sicilianske arancini i Oslo: sprø risballer med varmt fyll, laget i små batcher av Gold of Sicily. Meld deg på listen for neste popup.";
+  "Gold of Sicily produserer frossen siciliansk arancini for barer som vil tilby varm mat når kjøkkenet er stengt eller ikke har fullt kjøkken.";
 
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 export const THEME_COLOR = "#f2ebe8";
@@ -74,9 +74,9 @@ export const LOCAL_BUSINESS_JSON_LD = {
 
 export const PAGE_SEO = {
   "/": {
-    title: "Arancini Oslo — siciliansk streetfood | Gold of Sicily",
+    title: "Siciliansk arancini fra Sicilia til Oslo | Gold of Sicily",
     description:
-      "Gold of Sicily lager sicilianske arancini i Oslo: sprø risballer med ragu, ost, trøffel og sopp. Første popup fikk 4,5/5 i smak.",
+      "Gold of Sicily produserer frossen siciliansk arancini for barer som vil tilby varm mat når kjøkkenet er stengt eller ikke har fullt kjøkken.",
     path: "/",
   } satisfies PageSeo,
   "/next-popup": {

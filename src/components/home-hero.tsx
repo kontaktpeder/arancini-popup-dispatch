@@ -11,6 +11,7 @@ type Copy = {
   proof: string;
   ctaLabel: string;
   scrollLabel: string;
+  primaryCtaHref?: string;
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
 };
@@ -77,13 +78,13 @@ export function HomeHero({
           ) : null}
 
           <div className="mt-10 flex flex-wrap items-center gap-3 md:gap-4">
-            <a
-              href="#next-popup"
+            <Link
+              to={copy.primaryCtaHref ?? "/next-popup"}
               className="group inline-flex items-center gap-2.5 rounded-sm border-2 border-foreground bg-background px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-foreground shadow-[3px_3px_0_0_var(--color-foreground)] transition hover:bg-foreground hover:text-background hover:shadow-[1px_1px_0_0_var(--color-foreground)] hover:translate-x-[2px] hover:translate-y-[2px]"
             >
               <span>{copy.scrollLabel}</span>
-              <span aria-hidden className="inline-block animate-bounce text-sm">↓</span>
-            </a>
+              <span aria-hidden className="text-sm">→</span>
+            </Link>
             {copy.secondaryCtaLabel && copy.secondaryCtaHref ? (
               <Link
                 to={copy.secondaryCtaHref}
