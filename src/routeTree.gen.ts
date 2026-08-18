@@ -11,24 +11,32 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatIsAranciniRouteImport } from './routes/what-is-arancini'
 import { Route as SamarbeidRouteImport } from './routes/samarbeid'
+import { Route as PilotRouteImport } from './routes/pilot'
 import { Route as NextPopupRouteImport } from './routes/next-popup'
 import { Route as ForBarerRouteImport } from './routes/for-barer'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PilotIndexRouteImport } from './routes/pilot.index'
 import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as PilotLeverandorRouteImport } from './routes/pilot.leverandor'
 import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
 import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
-import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
 import { Route as EnForBarsRouteImport } from './routes/en.for-bars'
+import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
 import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as AdminPopupRouteImport } from './routes/admin/popup'
 import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
 import { Route as AdminInquiriesRouteImport } from './routes/admin/inquiries'
 import { Route as AdminAccountingRouteImport } from './routes/admin/accounting'
 import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
+import { Route as ApiPublicV1ModuleWidgetsRouteImport } from './routes/api/public/v1/module.widgets'
+import { Route as ApiPublicV1ModuleOrganizationRouteImport } from './routes/api/public/v1/module.organization'
+import { Route as ApiPublicV1ModuleInfoRouteImport } from './routes/api/public/v1/module.info'
+import { Route as ApiPublicV1ModuleHealthRouteImport } from './routes/api/public/v1/module.health'
+import { Route as ApiPublicV1ModuleOrganizationOrgIdRouteImport } from './routes/api/public/v1/module.organization.$orgId'
 
 const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
   id: '/what-is-arancini',
@@ -38,6 +46,11 @@ const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
 const SamarbeidRoute = SamarbeidRouteImport.update({
   id: '/samarbeid',
   path: '/samarbeid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PilotRoute = PilotRouteImport.update({
+  id: '/pilot',
+  path: '/pilot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NextPopupRoute = NextPopupRouteImport.update({
@@ -70,6 +83,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PilotIndexRoute = PilotIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PilotRoute,
+} as any)
 const EnIndexRoute = EnIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,6 +97,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const PilotLeverandorRoute = PilotLeverandorRouteImport.update({
+  id: '/leverandor',
+  path: '/leverandor',
+  getParentRoute: () => PilotRoute,
 } as any)
 const EnWhatIsAranciniRoute = EnWhatIsAranciniRouteImport.update({
   id: '/what-is-arancini',
@@ -90,14 +113,14 @@ const EnNextPopupRoute = EnNextPopupRouteImport.update({
   path: '/next-popup',
   getParentRoute: () => EnRoute,
 } as any)
-const EnCollaborateRoute = EnCollaborateRouteImport.update({
-  id: '/collaborate',
-  path: '/collaborate',
-  getParentRoute: () => EnRoute,
-} as any)
 const EnForBarsRoute = EnForBarsRouteImport.update({
   id: '/for-bars',
   path: '/for-bars',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnCollaborateRoute = EnCollaborateRouteImport.update({
+  id: '/collaborate',
+  path: '/collaborate',
   getParentRoute: () => EnRoute,
 } as any)
 const EnAboutRoute = EnAboutRouteImport.update({
@@ -130,6 +153,34 @@ const AdminSlugRoute = AdminSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiPublicV1ModuleWidgetsRoute =
+  ApiPublicV1ModuleWidgetsRouteImport.update({
+    id: '/api/public/v1/module/widgets',
+    path: '/api/public/v1/module/widgets',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicV1ModuleOrganizationRoute =
+  ApiPublicV1ModuleOrganizationRouteImport.update({
+    id: '/api/public/v1/module/organization',
+    path: '/api/public/v1/module/organization',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicV1ModuleInfoRoute = ApiPublicV1ModuleInfoRouteImport.update({
+  id: '/api/public/v1/module/info',
+  path: '/api/public/v1/module/info',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1ModuleHealthRoute = ApiPublicV1ModuleHealthRouteImport.update({
+  id: '/api/public/v1/module/health',
+  path: '/api/public/v1/module/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1ModuleOrganizationOrgIdRoute =
+  ApiPublicV1ModuleOrganizationOrgIdRouteImport.update({
+    id: '/$orgId',
+    path: '/$orgId',
+    getParentRoute: () => ApiPublicV1ModuleOrganizationRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -138,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/en': typeof EnRouteWithChildren
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
+  '/pilot': typeof PilotRouteWithChildren
   '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
@@ -150,8 +202,15 @@ export interface FileRoutesByFullPath {
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
+  '/pilot/leverandor': typeof PilotLeverandorRoute
   '/admin/': typeof AdminIndexRoute
   '/en/': typeof EnIndexRoute
+  '/pilot/': typeof PilotIndexRoute
+  '/api/public/v1/module/health': typeof ApiPublicV1ModuleHealthRoute
+  '/api/public/v1/module/info': typeof ApiPublicV1ModuleInfoRoute
+  '/api/public/v1/module/organization': typeof ApiPublicV1ModuleOrganizationRouteWithChildren
+  '/api/public/v1/module/widgets': typeof ApiPublicV1ModuleWidgetsRoute
+  '/api/public/v1/module/organization/$orgId': typeof ApiPublicV1ModuleOrganizationOrgIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -170,8 +229,15 @@ export interface FileRoutesByTo {
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
+  '/pilot/leverandor': typeof PilotLeverandorRoute
   '/admin': typeof AdminIndexRoute
   '/en': typeof EnIndexRoute
+  '/pilot': typeof PilotIndexRoute
+  '/api/public/v1/module/health': typeof ApiPublicV1ModuleHealthRoute
+  '/api/public/v1/module/info': typeof ApiPublicV1ModuleInfoRoute
+  '/api/public/v1/module/organization': typeof ApiPublicV1ModuleOrganizationRouteWithChildren
+  '/api/public/v1/module/widgets': typeof ApiPublicV1ModuleWidgetsRoute
+  '/api/public/v1/module/organization/$orgId': typeof ApiPublicV1ModuleOrganizationOrgIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -181,6 +247,7 @@ export interface FileRoutesById {
   '/en': typeof EnRouteWithChildren
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
+  '/pilot': typeof PilotRouteWithChildren
   '/samarbeid': typeof SamarbeidRoute
   '/what-is-arancini': typeof WhatIsAranciniRoute
   '/admin/$slug': typeof AdminSlugRoute
@@ -193,8 +260,15 @@ export interface FileRoutesById {
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
+  '/pilot/leverandor': typeof PilotLeverandorRoute
   '/admin/': typeof AdminIndexRoute
   '/en/': typeof EnIndexRoute
+  '/pilot/': typeof PilotIndexRoute
+  '/api/public/v1/module/health': typeof ApiPublicV1ModuleHealthRoute
+  '/api/public/v1/module/info': typeof ApiPublicV1ModuleInfoRoute
+  '/api/public/v1/module/organization': typeof ApiPublicV1ModuleOrganizationRouteWithChildren
+  '/api/public/v1/module/widgets': typeof ApiPublicV1ModuleWidgetsRoute
+  '/api/public/v1/module/organization/$orgId': typeof ApiPublicV1ModuleOrganizationOrgIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -205,6 +279,7 @@ export interface FileRouteTypes {
     | '/en'
     | '/for-barer'
     | '/next-popup'
+    | '/pilot'
     | '/samarbeid'
     | '/what-is-arancini'
     | '/admin/$slug'
@@ -217,8 +292,15 @@ export interface FileRouteTypes {
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
+    | '/pilot/leverandor'
     | '/admin/'
     | '/en/'
+    | '/pilot/'
+    | '/api/public/v1/module/health'
+    | '/api/public/v1/module/info'
+    | '/api/public/v1/module/organization'
+    | '/api/public/v1/module/widgets'
+    | '/api/public/v1/module/organization/$orgId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -237,8 +319,15 @@ export interface FileRouteTypes {
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
+    | '/pilot/leverandor'
     | '/admin'
     | '/en'
+    | '/pilot'
+    | '/api/public/v1/module/health'
+    | '/api/public/v1/module/info'
+    | '/api/public/v1/module/organization'
+    | '/api/public/v1/module/widgets'
+    | '/api/public/v1/module/organization/$orgId'
   id:
     | '__root__'
     | '/'
@@ -247,6 +336,7 @@ export interface FileRouteTypes {
     | '/en'
     | '/for-barer'
     | '/next-popup'
+    | '/pilot'
     | '/samarbeid'
     | '/what-is-arancini'
     | '/admin/$slug'
@@ -259,8 +349,15 @@ export interface FileRouteTypes {
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
+    | '/pilot/leverandor'
     | '/admin/'
     | '/en/'
+    | '/pilot/'
+    | '/api/public/v1/module/health'
+    | '/api/public/v1/module/info'
+    | '/api/public/v1/module/organization'
+    | '/api/public/v1/module/widgets'
+    | '/api/public/v1/module/organization/$orgId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -270,8 +367,13 @@ export interface RootRouteChildren {
   EnRoute: typeof EnRouteWithChildren
   ForBarerRoute: typeof ForBarerRoute
   NextPopupRoute: typeof NextPopupRoute
+  PilotRoute: typeof PilotRouteWithChildren
   SamarbeidRoute: typeof SamarbeidRoute
   WhatIsAranciniRoute: typeof WhatIsAranciniRoute
+  ApiPublicV1ModuleHealthRoute: typeof ApiPublicV1ModuleHealthRoute
+  ApiPublicV1ModuleInfoRoute: typeof ApiPublicV1ModuleInfoRoute
+  ApiPublicV1ModuleOrganizationRoute: typeof ApiPublicV1ModuleOrganizationRouteWithChildren
+  ApiPublicV1ModuleWidgetsRoute: typeof ApiPublicV1ModuleWidgetsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -290,11 +392,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SamarbeidRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/for-barer': {
-      id: '/for-barer'
-      path: '/for-barer'
-      fullPath: '/for-barer'
-      preLoaderRoute: typeof ForBarerRouteImport
+    '/pilot': {
+      id: '/pilot'
+      path: '/pilot'
+      fullPath: '/pilot'
+      preLoaderRoute: typeof PilotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/next-popup': {
@@ -302,6 +404,13 @@ declare module '@tanstack/react-router' {
       path: '/next-popup'
       fullPath: '/next-popup'
       preLoaderRoute: typeof NextPopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-barer': {
+      id: '/for-barer'
+      path: '/for-barer'
+      fullPath: '/for-barer'
+      preLoaderRoute: typeof ForBarerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en': {
@@ -332,6 +441,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pilot/': {
+      id: '/pilot/'
+      path: '/'
+      fullPath: '/pilot/'
+      preLoaderRoute: typeof PilotIndexRouteImport
+      parentRoute: typeof PilotRoute
+    }
     '/en/': {
       id: '/en/'
       path: '/'
@@ -345,6 +461,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/pilot/leverandor': {
+      id: '/pilot/leverandor'
+      path: '/leverandor'
+      fullPath: '/pilot/leverandor'
+      preLoaderRoute: typeof PilotLeverandorRouteImport
+      parentRoute: typeof PilotRoute
     }
     '/en/what-is-arancini': {
       id: '/en/what-is-arancini'
@@ -360,18 +483,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnNextPopupRouteImport
       parentRoute: typeof EnRoute
     }
-    '/en/collaborate': {
-      id: '/en/collaborate'
-      path: '/collaborate'
-      fullPath: '/en/collaborate'
-      preLoaderRoute: typeof EnCollaborateRouteImport
-      parentRoute: typeof EnRoute
-    }
     '/en/for-bars': {
       id: '/en/for-bars'
       path: '/for-bars'
       fullPath: '/en/for-bars'
       preLoaderRoute: typeof EnForBarsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/collaborate': {
+      id: '/en/collaborate'
+      path: '/collaborate'
+      fullPath: '/en/collaborate'
+      preLoaderRoute: typeof EnCollaborateRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/about': {
@@ -416,6 +539,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSlugRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/api/public/v1/module/widgets': {
+      id: '/api/public/v1/module/widgets'
+      path: '/api/public/v1/module/widgets'
+      fullPath: '/api/public/v1/module/widgets'
+      preLoaderRoute: typeof ApiPublicV1ModuleWidgetsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/module/organization': {
+      id: '/api/public/v1/module/organization'
+      path: '/api/public/v1/module/organization'
+      fullPath: '/api/public/v1/module/organization'
+      preLoaderRoute: typeof ApiPublicV1ModuleOrganizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/module/info': {
+      id: '/api/public/v1/module/info'
+      path: '/api/public/v1/module/info'
+      fullPath: '/api/public/v1/module/info'
+      preLoaderRoute: typeof ApiPublicV1ModuleInfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/module/health': {
+      id: '/api/public/v1/module/health'
+      path: '/api/public/v1/module/health'
+      fullPath: '/api/public/v1/module/health'
+      preLoaderRoute: typeof ApiPublicV1ModuleHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/module/organization/$orgId': {
+      id: '/api/public/v1/module/organization/$orgId'
+      path: '/$orgId'
+      fullPath: '/api/public/v1/module/organization/$orgId'
+      preLoaderRoute: typeof ApiPublicV1ModuleOrganizationOrgIdRouteImport
+      parentRoute: typeof ApiPublicV1ModuleOrganizationRoute
+    }
   }
 }
 
@@ -459,6 +617,33 @@ const EnRouteChildren: EnRouteChildren = {
 
 const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
+interface PilotRouteChildren {
+  PilotLeverandorRoute: typeof PilotLeverandorRoute
+  PilotIndexRoute: typeof PilotIndexRoute
+}
+
+const PilotRouteChildren: PilotRouteChildren = {
+  PilotLeverandorRoute: PilotLeverandorRoute,
+  PilotIndexRoute: PilotIndexRoute,
+}
+
+const PilotRouteWithChildren = PilotRoute._addFileChildren(PilotRouteChildren)
+
+interface ApiPublicV1ModuleOrganizationRouteChildren {
+  ApiPublicV1ModuleOrganizationOrgIdRoute: typeof ApiPublicV1ModuleOrganizationOrgIdRoute
+}
+
+const ApiPublicV1ModuleOrganizationRouteChildren: ApiPublicV1ModuleOrganizationRouteChildren =
+  {
+    ApiPublicV1ModuleOrganizationOrgIdRoute:
+      ApiPublicV1ModuleOrganizationOrgIdRoute,
+  }
+
+const ApiPublicV1ModuleOrganizationRouteWithChildren =
+  ApiPublicV1ModuleOrganizationRoute._addFileChildren(
+    ApiPublicV1ModuleOrganizationRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -466,9 +651,25 @@ const rootRouteChildren: RootRouteChildren = {
   EnRoute: EnRouteWithChildren,
   ForBarerRoute: ForBarerRoute,
   NextPopupRoute: NextPopupRoute,
+  PilotRoute: PilotRouteWithChildren,
   SamarbeidRoute: SamarbeidRoute,
   WhatIsAranciniRoute: WhatIsAranciniRoute,
+  ApiPublicV1ModuleHealthRoute: ApiPublicV1ModuleHealthRoute,
+  ApiPublicV1ModuleInfoRoute: ApiPublicV1ModuleInfoRoute,
+  ApiPublicV1ModuleOrganizationRoute:
+    ApiPublicV1ModuleOrganizationRouteWithChildren,
+  ApiPublicV1ModuleWidgetsRoute: ApiPublicV1ModuleWidgetsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

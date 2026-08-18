@@ -117,6 +117,7 @@ export function recordDayStatus(
     comment: string;
   },
 ): PilotState {
+  const date = input.date ?? todayOslo();
   const existing = state.dayStatuses.find((d) => d.date === date);
   const entry = {
     id: existing?.id ?? uid(),
