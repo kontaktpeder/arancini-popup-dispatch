@@ -14,6 +14,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -194,4 +196,86 @@
 
 html, body {
   overflow-x: hidden;
+}
+
+/* Pilot Core — Work / Dagen Vår shell on Gold of Sicily tokens */
+[data-app="pilot"] {
+  --radius: 1rem;
+  font-weight: 500;
+}
+
+[data-app="pilot"] h1,
+[data-app="pilot"] h2,
+[data-app="pilot"] h3 {
+  font-weight: 400;
+}
+
+html.pilot-lock {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.pilot-lock body {
+  height: var(--app-height, 100dvh);
+  max-height: var(--app-height, 100dvh);
+  overflow: hidden;
+  overscroll-behavior: none;
+  position: fixed;
+  top: var(--app-top, 0px);
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+html.pilot-lock body::before {
+  display: none;
+}
+
+html.pilot-lock #root,
+html.pilot-lock #app {
+  height: 100%;
+  overflow: hidden;
+}
+
+.scroll-touch {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+@utility surface-card {
+  background-color: var(--color-card);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+}
+
+@utility tap-target {
+  min-height: 3.25rem;
+  border-radius: var(--radius-xl);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  padding: 0 1.25rem;
+  transition: transform 120ms ease, background-color 120ms ease, opacity 120ms ease;
+}
+.tap-target:active {
+  transform: scale(0.98);
+}
+
+@keyframes work-card-soft-land {
+  from {
+    opacity: 0.4;
+    transform: translate3d(0, 36px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.work-card-soft-land {
+  animation: work-card-soft-land 520ms cubic-bezier(0.32, 0.72, 0, 1) both;
 }
