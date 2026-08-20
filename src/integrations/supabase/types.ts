@@ -38,6 +38,21 @@ export type Database = {
         }
         Relationships: []
       }
+      site_admins: {
+        Row: {
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       collaboration_inquiries: {
         Row: {
           created_at: string

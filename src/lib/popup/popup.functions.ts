@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSiteAdmin } from "@/integrations/supabase/require-site-admin";
 import { POPUP_DEFAULTS } from "./defaults";
 import type { SitePopupSettings } from "./types";
 
@@ -42,7 +42,7 @@ export const getPopupSettings = createServerFn({ method: "GET" }).handler(
 );
 
 export const savePopupSettings = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((input: unknown) => popupSchema.parse(input))
   .handler(async ({ data }) => {
     const { data: existing } = await supabaseAdmin
