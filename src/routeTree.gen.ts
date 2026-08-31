@@ -9,68 +9,40 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WhatIsAranciniRouteImport } from './routes/what-is-arancini'
-import { Route as SamarbeidRouteImport } from './routes/samarbeid'
-import { Route as PilotRouteImport } from './routes/pilot'
-import { Route as NextPopupRouteImport } from './routes/next-popup'
-import { Route as ForBarerRouteImport } from './routes/for-barer'
-import { Route as EnRouteImport } from './routes/en'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PilotIndexRouteImport } from './routes/pilot.index'
-import { Route as EnIndexRouteImport } from './routes/en.index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as EnRouteImport } from './routes/en'
+import { Route as FinnOssRouteImport } from './routes/finn-oss'
+import { Route as ForBarerRouteImport } from './routes/for-barer'
+import { Route as NextPopupRouteImport } from './routes/next-popup'
+import { Route as PilotRouteImport } from './routes/pilot'
+import { Route as SamarbeidRouteImport } from './routes/samarbeid'
+import { Route as WhatIsAranciniRouteImport } from './routes/what-is-arancini'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as PilotLeverandorRouteImport } from './routes/pilot.leverandor'
-import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
-import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
-import { Route as EnForBarsRouteImport } from './routes/en.for-bars'
-import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
-import { Route as EnAboutRouteImport } from './routes/en.about'
-import { Route as AdminPopupRouteImport } from './routes/admin/popup'
-import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
-import { Route as AdminInquiriesRouteImport } from './routes/admin/inquiries'
-import { Route as AdminAccountingRouteImport } from './routes/admin/accounting'
 import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
-import { Route as ApiPublicV1ModuleWidgetsRouteImport } from './routes/api/public/v1/module.widgets'
-import { Route as ApiPublicV1ModuleOrganizationRouteImport } from './routes/api/public/v1/module.organization'
-import { Route as ApiPublicV1ModuleInfoRouteImport } from './routes/api/public/v1/module.info'
+import { Route as AdminAccountingRouteImport } from './routes/admin/accounting'
+import { Route as AdminInquiriesRouteImport } from './routes/admin/inquiries'
+import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
+import { Route as AdminPopupRouteImport } from './routes/admin/popup'
+import { Route as EnIndexRouteImport } from './routes/en.index'
+import { Route as EnAboutRouteImport } from './routes/en.about'
+import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
+import { Route as EnFindUsRouteImport } from './routes/en.find-us'
+import { Route as EnForBarsRouteImport } from './routes/en.for-bars'
+import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
+import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
+import { Route as PilotIndexRouteImport } from './routes/pilot.index'
+import { Route as PilotLeverandorRouteImport } from './routes/pilot.leverandor'
 import { Route as ApiPublicV1ModuleHealthRouteImport } from './routes/api/public/v1/module.health'
+import { Route as ApiPublicV1ModuleInfoRouteImport } from './routes/api/public/v1/module.info'
+import { Route as ApiPublicV1ModuleOrganizationRouteImport } from './routes/api/public/v1/module.organization'
+import { Route as ApiPublicV1ModuleWidgetsRouteImport } from './routes/api/public/v1/module.widgets'
 import { Route as ApiPublicV1ModuleOrganizationOrgIdRouteImport } from './routes/api/public/v1/module.organization.$orgId'
 
-const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
-  id: '/what-is-arancini',
-  path: '/what-is-arancini',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SamarbeidRoute = SamarbeidRouteImport.update({
-  id: '/samarbeid',
-  path: '/samarbeid',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PilotRoute = PilotRouteImport.update({
-  id: '/pilot',
-  path: '/pilot',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NextPopupRoute = NextPopupRouteImport.update({
-  id: '/next-popup',
-  path: '/next-popup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ForBarerRoute = ForBarerRouteImport.update({
-  id: '/for-barer',
-  path: '/for-barer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EnRoute = EnRouteImport.update({
-  id: '/en',
-  path: '/en',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -78,74 +50,49 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PilotIndexRoute = PilotIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => PilotRoute,
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const EnIndexRoute = EnIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => EnRoute,
+const FinnOssRoute = FinnOssRouteImport.update({
+  id: '/finn-oss',
+  path: '/finn-oss',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForBarerRoute = ForBarerRouteImport.update({
+  id: '/for-barer',
+  path: '/for-barer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NextPopupRoute = NextPopupRouteImport.update({
+  id: '/next-popup',
+  path: '/next-popup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PilotRoute = PilotRouteImport.update({
+  id: '/pilot',
+  path: '/pilot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SamarbeidRoute = SamarbeidRouteImport.update({
+  id: '/samarbeid',
+  path: '/samarbeid',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhatIsAranciniRoute = WhatIsAranciniRouteImport.update({
+  id: '/what-is-arancini',
+  path: '/what-is-arancini',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const PilotLeverandorRoute = PilotLeverandorRouteImport.update({
-  id: '/leverandor',
-  path: '/leverandor',
-  getParentRoute: () => PilotRoute,
-} as any)
-const EnWhatIsAranciniRoute = EnWhatIsAranciniRouteImport.update({
-  id: '/what-is-arancini',
-  path: '/what-is-arancini',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnNextPopupRoute = EnNextPopupRouteImport.update({
-  id: '/next-popup',
-  path: '/next-popup',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnForBarsRoute = EnForBarsRouteImport.update({
-  id: '/for-bars',
-  path: '/for-bars',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnCollaborateRoute = EnCollaborateRouteImport.update({
-  id: '/collaborate',
-  path: '/collaborate',
-  getParentRoute: () => EnRoute,
-} as any)
-const EnAboutRoute = EnAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => EnRoute,
-} as any)
-const AdminPopupRoute = AdminPopupRouteImport.update({
-  id: '/popup',
-  path: '/popup',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
-  id: '/newsletter',
-  path: '/newsletter',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminInquiriesRoute = AdminInquiriesRouteImport.update({
-  id: '/inquiries',
-  path: '/inquiries',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminAccountingRoute = AdminAccountingRouteImport.update({
-  id: '/accounting',
-  path: '/accounting',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSlugRoute = AdminSlugRouteImport.update({
@@ -153,28 +100,93 @@ const AdminSlugRoute = AdminSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => AdminRoute,
 } as any)
-const ApiPublicV1ModuleWidgetsRoute =
-  ApiPublicV1ModuleWidgetsRouteImport.update({
-    id: '/api/public/v1/module/widgets',
-    path: '/api/public/v1/module/widgets',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicV1ModuleOrganizationRoute =
-  ApiPublicV1ModuleOrganizationRouteImport.update({
-    id: '/api/public/v1/module/organization',
-    path: '/api/public/v1/module/organization',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicV1ModuleInfoRoute = ApiPublicV1ModuleInfoRouteImport.update({
-  id: '/api/public/v1/module/info',
-  path: '/api/public/v1/module/info',
-  getParentRoute: () => rootRouteImport,
+const AdminAccountingRoute = AdminAccountingRouteImport.update({
+  id: '/accounting',
+  path: '/accounting',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminInquiriesRoute = AdminInquiriesRouteImport.update({
+  id: '/inquiries',
+  path: '/inquiries',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNewsletterRoute = AdminNewsletterRouteImport.update({
+  id: '/newsletter',
+  path: '/newsletter',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPopupRoute = AdminPopupRouteImport.update({
+  id: '/popup',
+  path: '/popup',
+  getParentRoute: () => AdminRoute,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnCollaborateRoute = EnCollaborateRouteImport.update({
+  id: '/collaborate',
+  path: '/collaborate',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnFindUsRoute = EnFindUsRouteImport.update({
+  id: '/find-us',
+  path: '/find-us',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnForBarsRoute = EnForBarsRouteImport.update({
+  id: '/for-bars',
+  path: '/for-bars',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnNextPopupRoute = EnNextPopupRouteImport.update({
+  id: '/next-popup',
+  path: '/next-popup',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnWhatIsAranciniRoute = EnWhatIsAranciniRouteImport.update({
+  id: '/what-is-arancini',
+  path: '/what-is-arancini',
+  getParentRoute: () => EnRoute,
+} as any)
+const PilotIndexRoute = PilotIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PilotRoute,
+} as any)
+const PilotLeverandorRoute = PilotLeverandorRouteImport.update({
+  id: '/leverandor',
+  path: '/leverandor',
+  getParentRoute: () => PilotRoute,
 } as any)
 const ApiPublicV1ModuleHealthRoute = ApiPublicV1ModuleHealthRouteImport.update({
   id: '/api/public/v1/module/health',
   path: '/api/public/v1/module/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicV1ModuleInfoRoute = ApiPublicV1ModuleInfoRouteImport.update({
+  id: '/api/public/v1/module/info',
+  path: '/api/public/v1/module/info',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicV1ModuleOrganizationRoute =
+  ApiPublicV1ModuleOrganizationRouteImport.update({
+    id: '/api/public/v1/module/organization',
+    path: '/api/public/v1/module/organization',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicV1ModuleWidgetsRoute =
+  ApiPublicV1ModuleWidgetsRouteImport.update({
+    id: '/api/public/v1/module/widgets',
+    path: '/api/public/v1/module/widgets',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicV1ModuleOrganizationOrgIdRoute =
   ApiPublicV1ModuleOrganizationOrgIdRouteImport.update({
     id: '/$orgId',
@@ -187,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
+  '/finn-oss': typeof FinnOssRoute
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/pilot': typeof PilotRouteWithChildren
@@ -199,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/find-us': typeof EnFindUsRoute
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
@@ -215,6 +229,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/finn-oss': typeof FinnOssRoute
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/samarbeid': typeof SamarbeidRoute
@@ -226,6 +241,7 @@ export interface FileRoutesByTo {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/find-us': typeof EnFindUsRoute
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
@@ -245,6 +261,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
+  '/finn-oss': typeof FinnOssRoute
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/pilot': typeof PilotRouteWithChildren
@@ -257,6 +274,7 @@ export interface FileRoutesById {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/find-us': typeof EnFindUsRoute
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
@@ -277,6 +295,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/en'
+    | '/finn-oss'
     | '/for-barer'
     | '/next-popup'
     | '/pilot'
@@ -289,6 +308,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/find-us'
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
@@ -305,6 +325,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/finn-oss'
     | '/for-barer'
     | '/next-popup'
     | '/samarbeid'
@@ -316,6 +337,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/find-us'
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
@@ -334,6 +356,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/en'
+    | '/finn-oss'
     | '/for-barer'
     | '/next-popup'
     | '/pilot'
@@ -346,6 +369,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/find-us'
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
@@ -365,6 +389,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   EnRoute: typeof EnRouteWithChildren
+  FinnOssRoute: typeof FinnOssRoute
   ForBarerRoute: typeof ForBarerRoute
   NextPopupRoute: typeof NextPopupRoute
   PilotRoute: typeof PilotRouteWithChildren
@@ -378,53 +403,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/what-is-arancini': {
-      id: '/what-is-arancini'
-      path: '/what-is-arancini'
-      fullPath: '/what-is-arancini'
-      preLoaderRoute: typeof WhatIsAranciniRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/samarbeid': {
-      id: '/samarbeid'
-      path: '/samarbeid'
-      fullPath: '/samarbeid'
-      preLoaderRoute: typeof SamarbeidRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pilot': {
-      id: '/pilot'
-      path: '/pilot'
-      fullPath: '/pilot'
-      preLoaderRoute: typeof PilotRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/next-popup': {
-      id: '/next-popup'
-      path: '/next-popup'
-      fullPath: '/next-popup'
-      preLoaderRoute: typeof NextPopupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/for-barer': {
-      id: '/for-barer'
-      path: '/for-barer'
-      fullPath: '/for-barer'
-      preLoaderRoute: typeof ForBarerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/en': {
-      id: '/en'
-      path: '/en'
-      fullPath: '/en'
-      preLoaderRoute: typeof EnRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -434,102 +417,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pilot/': {
-      id: '/pilot/'
-      path: '/'
-      fullPath: '/pilot/'
-      preLoaderRoute: typeof PilotIndexRouteImport
-      parentRoute: typeof PilotRoute
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/en/': {
-      id: '/en/'
-      path: '/'
-      fullPath: '/en/'
-      preLoaderRoute: typeof EnIndexRouteImport
-      parentRoute: typeof EnRoute
+    '/finn-oss': {
+      id: '/finn-oss'
+      path: '/finn-oss'
+      fullPath: '/finn-oss'
+      preLoaderRoute: typeof FinnOssRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-barer': {
+      id: '/for-barer'
+      path: '/for-barer'
+      fullPath: '/for-barer'
+      preLoaderRoute: typeof ForBarerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/next-popup': {
+      id: '/next-popup'
+      path: '/next-popup'
+      fullPath: '/next-popup'
+      preLoaderRoute: typeof NextPopupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pilot': {
+      id: '/pilot'
+      path: '/pilot'
+      fullPath: '/pilot'
+      preLoaderRoute: typeof PilotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/samarbeid': {
+      id: '/samarbeid'
+      path: '/samarbeid'
+      fullPath: '/samarbeid'
+      preLoaderRoute: typeof SamarbeidRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/what-is-arancini': {
+      id: '/what-is-arancini'
+      path: '/what-is-arancini'
+      fullPath: '/what-is-arancini'
+      preLoaderRoute: typeof WhatIsAranciniRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/pilot/leverandor': {
-      id: '/pilot/leverandor'
-      path: '/leverandor'
-      fullPath: '/pilot/leverandor'
-      preLoaderRoute: typeof PilotLeverandorRouteImport
-      parentRoute: typeof PilotRoute
-    }
-    '/en/what-is-arancini': {
-      id: '/en/what-is-arancini'
-      path: '/what-is-arancini'
-      fullPath: '/en/what-is-arancini'
-      preLoaderRoute: typeof EnWhatIsAranciniRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/next-popup': {
-      id: '/en/next-popup'
-      path: '/next-popup'
-      fullPath: '/en/next-popup'
-      preLoaderRoute: typeof EnNextPopupRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/for-bars': {
-      id: '/en/for-bars'
-      path: '/for-bars'
-      fullPath: '/en/for-bars'
-      preLoaderRoute: typeof EnForBarsRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/collaborate': {
-      id: '/en/collaborate'
-      path: '/collaborate'
-      fullPath: '/en/collaborate'
-      preLoaderRoute: typeof EnCollaborateRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/en/about': {
-      id: '/en/about'
-      path: '/about'
-      fullPath: '/en/about'
-      preLoaderRoute: typeof EnAboutRouteImport
-      parentRoute: typeof EnRoute
-    }
-    '/admin/popup': {
-      id: '/admin/popup'
-      path: '/popup'
-      fullPath: '/admin/popup'
-      preLoaderRoute: typeof AdminPopupRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/newsletter': {
-      id: '/admin/newsletter'
-      path: '/newsletter'
-      fullPath: '/admin/newsletter'
-      preLoaderRoute: typeof AdminNewsletterRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/inquiries': {
-      id: '/admin/inquiries'
-      path: '/inquiries'
-      fullPath: '/admin/inquiries'
-      preLoaderRoute: typeof AdminInquiriesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/accounting': {
-      id: '/admin/accounting'
-      path: '/accounting'
-      fullPath: '/admin/accounting'
-      preLoaderRoute: typeof AdminAccountingRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/$slug': {
@@ -539,18 +487,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSlugRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/api/public/v1/module/widgets': {
-      id: '/api/public/v1/module/widgets'
-      path: '/api/public/v1/module/widgets'
-      fullPath: '/api/public/v1/module/widgets'
-      preLoaderRoute: typeof ApiPublicV1ModuleWidgetsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/accounting': {
+      id: '/admin/accounting'
+      path: '/accounting'
+      fullPath: '/admin/accounting'
+      preLoaderRoute: typeof AdminAccountingRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/api/public/v1/module/organization': {
-      id: '/api/public/v1/module/organization'
-      path: '/api/public/v1/module/organization'
-      fullPath: '/api/public/v1/module/organization'
-      preLoaderRoute: typeof ApiPublicV1ModuleOrganizationRouteImport
+    '/admin/inquiries': {
+      id: '/admin/inquiries'
+      path: '/inquiries'
+      fullPath: '/admin/inquiries'
+      preLoaderRoute: typeof AdminInquiriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/newsletter': {
+      id: '/admin/newsletter'
+      path: '/newsletter'
+      fullPath: '/admin/newsletter'
+      preLoaderRoute: typeof AdminNewsletterRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/popup': {
+      id: '/admin/popup'
+      path: '/popup'
+      fullPath: '/admin/popup'
+      preLoaderRoute: typeof AdminPopupRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/collaborate': {
+      id: '/en/collaborate'
+      path: '/collaborate'
+      fullPath: '/en/collaborate'
+      preLoaderRoute: typeof EnCollaborateRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/find-us': {
+      id: '/en/find-us'
+      path: '/find-us'
+      fullPath: '/en/find-us'
+      preLoaderRoute: typeof EnFindUsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/for-bars': {
+      id: '/en/for-bars'
+      path: '/for-bars'
+      fullPath: '/en/for-bars'
+      preLoaderRoute: typeof EnForBarsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/next-popup': {
+      id: '/en/next-popup'
+      path: '/next-popup'
+      fullPath: '/en/next-popup'
+      preLoaderRoute: typeof EnNextPopupRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/what-is-arancini': {
+      id: '/en/what-is-arancini'
+      path: '/what-is-arancini'
+      fullPath: '/en/what-is-arancini'
+      preLoaderRoute: typeof EnWhatIsAranciniRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/pilot/': {
+      id: '/pilot/'
+      path: '/'
+      fullPath: '/pilot/'
+      preLoaderRoute: typeof PilotIndexRouteImport
+      parentRoute: typeof PilotRoute
+    }
+    '/pilot/leverandor': {
+      id: '/pilot/leverandor'
+      path: '/leverandor'
+      fullPath: '/pilot/leverandor'
+      preLoaderRoute: typeof PilotLeverandorRouteImport
+      parentRoute: typeof PilotRoute
+    }
+    '/api/public/v1/module/health': {
+      id: '/api/public/v1/module/health'
+      path: '/api/public/v1/module/health'
+      fullPath: '/api/public/v1/module/health'
+      preLoaderRoute: typeof ApiPublicV1ModuleHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/v1/module/info': {
@@ -560,11 +592,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicV1ModuleInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/v1/module/health': {
-      id: '/api/public/v1/module/health'
-      path: '/api/public/v1/module/health'
-      fullPath: '/api/public/v1/module/health'
-      preLoaderRoute: typeof ApiPublicV1ModuleHealthRouteImport
+    '/api/public/v1/module/organization': {
+      id: '/api/public/v1/module/organization'
+      path: '/api/public/v1/module/organization'
+      fullPath: '/api/public/v1/module/organization'
+      preLoaderRoute: typeof ApiPublicV1ModuleOrganizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/v1/module/widgets': {
+      id: '/api/public/v1/module/widgets'
+      path: '/api/public/v1/module/widgets'
+      fullPath: '/api/public/v1/module/widgets'
+      preLoaderRoute: typeof ApiPublicV1ModuleWidgetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/v1/module/organization/$orgId': {
@@ -600,6 +639,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface EnRouteChildren {
   EnAboutRoute: typeof EnAboutRoute
   EnCollaborateRoute: typeof EnCollaborateRoute
+  EnFindUsRoute: typeof EnFindUsRoute
   EnForBarsRoute: typeof EnForBarsRoute
   EnNextPopupRoute: typeof EnNextPopupRoute
   EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
@@ -609,6 +649,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAboutRoute: EnAboutRoute,
   EnCollaborateRoute: EnCollaborateRoute,
+  EnFindUsRoute: EnFindUsRoute,
   EnForBarsRoute: EnForBarsRoute,
   EnNextPopupRoute: EnNextPopupRoute,
   EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
@@ -649,6 +690,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   EnRoute: EnRouteWithChildren,
+  FinnOssRoute: FinnOssRoute,
   ForBarerRoute: ForBarerRoute,
   NextPopupRoute: NextPopupRoute,
   PilotRoute: PilotRouteWithChildren,
@@ -663,13 +705,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

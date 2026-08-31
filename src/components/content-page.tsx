@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import { LangSwitch } from "@/components/lang-switch";
+import { BrandFooter } from "@/components/brand-footer";
+import { BrandNav } from "@/components/brand-nav";
 
 type ContentPageProps = {
   lang?: "no" | "en";
@@ -10,19 +10,13 @@ type ContentPageProps = {
 
 export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPageProps) {
   return (
-    <main className="min-h-screen bg-background">
-      <LangSwitch lang={lang} />
-
-      <article className="mx-auto max-w-2xl px-6 pb-16 pt-20 md:pt-28">
-        <Link
-          to={lang === "en" ? "/en" : "/"}
-          className="text-[0.7rem] uppercase tracking-[0.28em] text-muted-foreground transition hover:text-foreground"
-        >
-          ← Gold of Sicily
-        </Link>
-
+    <div className="min-h-screen bg-[color:var(--cream)]">
+      <BrandNav lang={lang} />
+      <article className="mx-auto max-w-2xl px-6 pb-20 pt-12 md:pt-16">
         {eyebrow ? (
-          <p className="eyebrow mt-10">{eyebrow}</p>
+          <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-foreground/50">
+            {eyebrow}
+          </p>
         ) : null}
 
         <h1 className="mt-4 font-display text-[clamp(2.25rem,6vw,3.75rem)] leading-[1.05] tracking-tight">
@@ -33,8 +27,7 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
           {children}
         </div>
       </article>
-
-    </main>
+      <BrandFooter lang={lang} />
+    </div>
   );
 }
-

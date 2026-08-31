@@ -1,8 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ContentPage } from "@/components/content-page";
+import { createFileRoute } from "@tanstack/react-router";
+import { AboutView } from "@/components/about-view";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
-import { SITE } from "@/lib/site";
-import { CMS_DEFAULTS_EN } from "@/lib/cms/defaults-en";
 
 export const Route = createFileRoute("/en/about")({
   head: () => buildPageHead(PAGE_SEO["/en/about"]),
@@ -10,38 +8,5 @@ export const Route = createFileRoute("/en/about")({
 });
 
 function AboutEn() {
-  const c = CMS_DEFAULTS_EN.about;
-  return (
-    <ContentPage lang="en" eyebrow={c.eyebrow} title={c.title}>
-      <p>{c.intro_1}</p>
-      <p>{c.intro_2}</p>
-
-      <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-        {c.section_1_heading}
-      </h2>
-      <p>{c.section_1_body}</p>
-
-      <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-        {c.section_2_heading}
-      </h2>
-      <p>{c.section_2_body}</p>
-
-      {c.proof_heading && c.proof_body ? (
-        <>
-          <h2 className="font-display text-2xl tracking-tight md:text-3xl">
-            {c.proof_heading}
-          </h2>
-          <p>{c.proof_body}</p>
-        </>
-      ) : null}
-
-      <p>
-        <Link to="/en/next-popup">{c.cta_popup_label}</Link>
-        {" · "}
-        <a href={SITE.instagram} target="_blank" rel="noreferrer">
-          {c.cta_instagram_label}
-        </a>
-      </p>
-    </ContentPage>
-  );
+  return <AboutView lang="en" />;
 }
