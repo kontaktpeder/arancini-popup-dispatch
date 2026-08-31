@@ -1,26 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ContentPage } from "@/components/content-page";
-import { buildPageHead } from "@/lib/seo";
-import { getCmsPage } from "@/lib/cms/cms.functions";
+import { buildPageHead, PAGE_SEO } from "@/lib/seo";
+import { CMS_DEFAULTS } from "@/lib/cms/defaults";
 import { BRAND } from "@/lib/brand-copy";
-import type { WhatIsAranciniContent } from "@/lib/cms/types";
 import drawBite from "@/assets/brand/draw-arancini-bite.webp";
 
 export const Route = createFileRoute("/what-is-arancini")({
-  loader: () => getCmsPage({ data: "what-is-arancini" }),
-  head: ({ loaderData }) => {
-    const c = loaderData as WhatIsAranciniContent | undefined;
-    return buildPageHead({
-      title: c?.seo_title,
-      description: c?.seo_description,
-      path: "/what-is-arancini",
-    });
-  },
+  head: () => buildPageHead(PAGE_SEO["/what-is-arancini"]),
   component: WhatIsAranciniPage,
 });
 
 function WhatIsAranciniPage() {
-  const c = Route.useLoaderData() as WhatIsAranciniContent;
+  const c = CMS_DEFAULTS["what-is-arancini"];
   const osloBody = /søker|search for/i.test(c.section_1_body)
     ? BRAND.no.aranciniPage.seoGuard
     : c.section_1_body;
