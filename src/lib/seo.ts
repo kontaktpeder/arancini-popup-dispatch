@@ -2,13 +2,13 @@ import { SITE } from "./site";
 
 export const SITE_URL = SITE.domain;
 
-export const DEFAULT_TITLE = "Arancini Oslo — Gold of Sicily";
+export const DEFAULT_TITLE = "Gold of Sicily — Stay a little longer";
 
 export const DEFAULT_DESCRIPTION =
-  "Gold of Sicily produserer frossen siciliansk arancini for barer som vil tilby varm mat når kjøkkenet er stengt eller ikke har fullt kjøkken.";
+  "Siciliansk street food, laget i Oslo. For lange bord, kalde øl og kvelder som varer litt lenger enn planlagt.";
 
 export const OG_IMAGE = `${SITE_URL}/og-image.jpg`;
-export const THEME_COLOR = "#f2ebe8";
+export const THEME_COLOR = "#F3EBDD";
 
 export type PageLocale = "nb_NO" | "en_GB";
 
@@ -74,9 +74,9 @@ export const LOCAL_BUSINESS_JSON_LD = {
 
 export const PAGE_SEO = {
   "/": {
-    title: "Siciliansk arancini, produsert i Oslo | Gold of Sicily",
+    title: "Gold of Sicily — Stay a little longer",
     description:
-      "Gold of Sicily produserer frossen siciliansk arancini for barer som vil tilby varm mat når kjøkkenet er stengt eller ikke har fullt kjøkken.",
+      "Siciliansk street food, laget i Oslo. For lange bord, kalde øl og kvelder som varer litt lenger enn planlagt.",
     path: "/",
   } satisfies PageSeo,
   "/next-popup": {
@@ -92,10 +92,15 @@ export const PAGE_SEO = {
     path: "/what-is-arancini",
   },
   "/about": {
-    title: "Om Gold of Sicily",
-    description:
-      "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og signalene fra første popup i Sigurds gate 7.",
+    title: "Om Gold of Sicily — A little more Italy. Right here.",
+    description: "Gold of Sicily startet med arancini. Sicilia er utgangspunktet. Norge er hjemme.",
     path: "/about",
+  },
+  "/finn-oss": {
+    title: "Finn Gold of Sicily — hvor vi serveres",
+    description:
+      "Gold of Sicily serveres på utvalgte steder i Oslo. Samme produkt, samme uttrykk, samme standard.",
+    path: "/finn-oss",
   },
   "/samarbeid": {
     title: "Arancini til ditt event — samarbeid med Gold of Sicily",
@@ -104,15 +109,15 @@ export const PAGE_SEO = {
     path: "/samarbeid",
   },
   "/for-barer": {
-    title: "For barer — varm mat uten kjøkken | Gold of Sicily",
+    title: "For serveringssteder — Gold of Sicily på menyen",
     description:
-      "Frosne arancini, airfryer på utlån og oppstartshjelp for barer. Varm mat på under 10 minutter. Book prøvesmaking på telefon eller e-post.",
+      "Et ferdig siciliansk streetfood-konsept for barer, hoteller og serveringssteder. Produkt, tilberedning, menyer og serveringsmateriell.",
     path: "/for-barer",
   },
   "/en/for-bars": {
-    title: "For bars — hot food without a kitchen | Gold of Sicily",
+    title: "For venues — Put Gold of Sicily on your menu",
     description:
-      "Frozen arancini, air fryer on loan and setup support for bars. Hot food in under 10 minutes. Book a tasting by phone or email.",
+      "A complete Sicilian street food concept for bars, hotels and venues. Product, prep, menus and serve materials.",
     path: "/en/for-bars",
     locale: "en_GB",
   },
@@ -125,9 +130,9 @@ export const PAGE_SEO = {
     locale: "en_GB",
   },
   "/en": {
-    title: "Sicilian arancini, made in Oslo | Gold of Sicily",
+    title: "Gold of Sicily — Stay a little longer",
     description:
-      "Gold of Sicily makes frozen Sicilian arancini for bars that want to serve hot food after the kitchen closes or without a full kitchen.",
+      "Sicilian street food, made in Oslo. For long tables, cold beers and evenings that last a little longer than planned.",
     path: "/en",
     noindex: true,
     locale: "en_GB",
@@ -149,10 +154,18 @@ export const PAGE_SEO = {
     locale: "en_GB",
   },
   "/en/about": {
-    title: "About Gold of Sicily",
+    title: "About Gold of Sicily — A little more Italy. Right here.",
     description:
-      "Popup street food from Sicily to Oslo. Why Gold of Sicily started, small batches, and signals from our first popup at Sigurds gate 7.",
+      "Gold of Sicily started with arancini. Sicily is the starting point. Norway is home.",
     path: "/en/about",
+    noindex: true,
+    locale: "en_GB",
+  },
+  "/en/find-us": {
+    title: "Find Gold of Sicily — where we are served",
+    description:
+      "Gold of Sicily is served at selected venues in Oslo. Same product, same look, same standard.",
+    path: "/en/find-us",
     noindex: true,
     locale: "en_GB",
   },

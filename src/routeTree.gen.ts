@@ -14,6 +14,7 @@ import { Route as SamarbeidRouteImport } from './routes/samarbeid'
 import { Route as PilotRouteImport } from './routes/pilot'
 import { Route as NextPopupRouteImport } from './routes/next-popup'
 import { Route as ForBarerRouteImport } from './routes/for-barer'
+import { Route as FinnOssRouteImport } from './routes/finn-oss'
 import { Route as EnRouteImport } from './routes/en'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
@@ -25,6 +26,7 @@ import { Route as PilotLeverandorRouteImport } from './routes/pilot.leverandor'
 import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
 import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
 import { Route as EnForBarsRouteImport } from './routes/en.for-bars'
+import { Route as EnFindUsRouteImport } from './routes/en.find-us'
 import { Route as EnCollaborateRouteImport } from './routes/en.collaborate'
 import { Route as EnAboutRouteImport } from './routes/en.about'
 import { Route as AdminPopupRouteImport } from './routes/admin/popup'
@@ -61,6 +63,11 @@ const NextPopupRoute = NextPopupRouteImport.update({
 const ForBarerRoute = ForBarerRouteImport.update({
   id: '/for-barer',
   path: '/for-barer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinnOssRoute = FinnOssRouteImport.update({
+  id: '/finn-oss',
+  path: '/finn-oss',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnRoute = EnRouteImport.update({
@@ -116,6 +123,11 @@ const EnNextPopupRoute = EnNextPopupRouteImport.update({
 const EnForBarsRoute = EnForBarsRouteImport.update({
   id: '/for-bars',
   path: '/for-bars',
+  getParentRoute: () => EnRoute,
+} as any)
+const EnFindUsRoute = EnFindUsRouteImport.update({
+  id: '/find-us',
+  path: '/find-us',
   getParentRoute: () => EnRoute,
 } as any)
 const EnCollaborateRoute = EnCollaborateRouteImport.update({
@@ -187,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
+  '/finn-oss': typeof FinnOssRoute
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/pilot': typeof PilotRouteWithChildren
@@ -199,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/find-us': typeof EnFindUsRoute
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
@@ -215,6 +229,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/finn-oss': typeof FinnOssRoute
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/samarbeid': typeof SamarbeidRoute
@@ -226,6 +241,7 @@ export interface FileRoutesByTo {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/find-us': typeof EnFindUsRoute
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
@@ -245,6 +261,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
   '/en': typeof EnRouteWithChildren
+  '/finn-oss': typeof FinnOssRoute
   '/for-barer': typeof ForBarerRoute
   '/next-popup': typeof NextPopupRoute
   '/pilot': typeof PilotRouteWithChildren
@@ -257,6 +274,7 @@ export interface FileRoutesById {
   '/admin/popup': typeof AdminPopupRoute
   '/en/about': typeof EnAboutRoute
   '/en/collaborate': typeof EnCollaborateRoute
+  '/en/find-us': typeof EnFindUsRoute
   '/en/for-bars': typeof EnForBarsRoute
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
@@ -277,6 +295,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/en'
+    | '/finn-oss'
     | '/for-barer'
     | '/next-popup'
     | '/pilot'
@@ -289,6 +308,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/find-us'
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
@@ -305,6 +325,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/finn-oss'
     | '/for-barer'
     | '/next-popup'
     | '/samarbeid'
@@ -316,6 +337,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/find-us'
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
@@ -334,6 +356,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/en'
+    | '/finn-oss'
     | '/for-barer'
     | '/next-popup'
     | '/pilot'
@@ -346,6 +369,7 @@ export interface FileRouteTypes {
     | '/admin/popup'
     | '/en/about'
     | '/en/collaborate'
+    | '/en/find-us'
     | '/en/for-bars'
     | '/en/next-popup'
     | '/en/what-is-arancini'
@@ -365,6 +389,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
   EnRoute: typeof EnRouteWithChildren
+  FinnOssRoute: typeof FinnOssRoute
   ForBarerRoute: typeof ForBarerRoute
   NextPopupRoute: typeof NextPopupRoute
   PilotRoute: typeof PilotRouteWithChildren
@@ -411,6 +436,13 @@ declare module '@tanstack/react-router' {
       path: '/for-barer'
       fullPath: '/for-barer'
       preLoaderRoute: typeof ForBarerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finn-oss': {
+      id: '/finn-oss'
+      path: '/finn-oss'
+      fullPath: '/finn-oss'
+      preLoaderRoute: typeof FinnOssRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en': {
@@ -488,6 +520,13 @@ declare module '@tanstack/react-router' {
       path: '/for-bars'
       fullPath: '/en/for-bars'
       preLoaderRoute: typeof EnForBarsRouteImport
+      parentRoute: typeof EnRoute
+    }
+    '/en/find-us': {
+      id: '/en/find-us'
+      path: '/find-us'
+      fullPath: '/en/find-us'
+      preLoaderRoute: typeof EnFindUsRouteImport
       parentRoute: typeof EnRoute
     }
     '/en/collaborate': {
@@ -600,6 +639,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface EnRouteChildren {
   EnAboutRoute: typeof EnAboutRoute
   EnCollaborateRoute: typeof EnCollaborateRoute
+  EnFindUsRoute: typeof EnFindUsRoute
   EnForBarsRoute: typeof EnForBarsRoute
   EnNextPopupRoute: typeof EnNextPopupRoute
   EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
@@ -609,6 +649,7 @@ interface EnRouteChildren {
 const EnRouteChildren: EnRouteChildren = {
   EnAboutRoute: EnAboutRoute,
   EnCollaborateRoute: EnCollaborateRoute,
+  EnFindUsRoute: EnFindUsRoute,
   EnForBarsRoute: EnForBarsRoute,
   EnNextPopupRoute: EnNextPopupRoute,
   EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
@@ -649,6 +690,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
   EnRoute: EnRouteWithChildren,
+  FinnOssRoute: FinnOssRoute,
   ForBarerRoute: ForBarerRoute,
   NextPopupRoute: NextPopupRoute,
   PilotRoute: PilotRouteWithChildren,

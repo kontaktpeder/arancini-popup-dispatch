@@ -10,7 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { AllergenInformation } from "@/components/allergen-information";
-import { LangSwitch } from "@/components/lang-switch";
+import { BrandNav } from "@/components/brand-nav";
 import { PreferredSourcesBadge } from "@/components/preferred-sources-badge";
 import { SITE } from "@/lib/site";
 
@@ -26,11 +26,17 @@ const VIMEO_SRC =
 
 const COPY = {
   no: {
-    eyebrow: "For barer",
-    heroTitleBefore: "Gi gjestene varm mat på under 10 minutter.",
-    heroTitleAccent: "Uten kjøkken.",
+    eyebrow: "For serveringssteder",
+    heroTitleBefore: "PUT GOLD OF SICILY",
+    heroTitleAccent: "ON YOUR MENU.",
     heroBody:
-      "Vi leverer ferdige, frosne arancini, låner ut airfryer og gir dere alt dere trenger for å komme i gang.",
+      "Et ferdig siciliansk streetfood-konsept for barer, hoteller og serveringssteder. Produkt, tilberedning, menyer, serveringsmateriell og markedsføring. Vi gjør det enkelt å komme i gang.",
+    stats: [
+      { value: "5–10 min", label: "Tilberedning" },
+      { value: "Ingen kokk", label: "Nødvendig" },
+      { value: "Lav investering", label: "Utstyr kan inkluderes" },
+      { value: "Høy verdi", label: "per servering" },
+    ],
     bookVia: "Book via",
     phoneOr: "telefon eller",
     noForm: ". Ingen skjema.",
@@ -38,8 +44,8 @@ const COPY = {
     sendEmail: "Send e-post →",
     bookTasting: "Bestill prøvesmaking",
     becomePilot: "Bli pilotkunde →",
-    mailSubjectTasting: "Book prøvesmaking — For barer",
-    mailSubjectPilot: "Bli pilotkunde — For barer",
+    mailSubjectTasting: "Book prøvesmaking — For serveringssteder",
+    mailSubjectPilot: "Bli pilotkunde — For serveringssteder",
     howEyebrow: "Hvordan fungerer det?",
     howTitle: "Fire steg. Nesten null ekstra arbeid.",
     steps: [
@@ -49,7 +55,7 @@ const COPY = {
       { n: "04", title: "Dere selger og tjener penger.", body: "Mat + ekstra drikkeomsetning." },
     ],
     includedEyebrow: "Hva er inkludert?",
-    includedTitle: "En ferdig matløsning — ikke bare et produkt.",
+    includedTitle: "Et ferdig Gold of Sicily-konsept.",
     included: [
       "Airfryer på utlån",
       "Opplæring",
@@ -133,7 +139,7 @@ const COPY = {
     ],
     pilotEyebrow: "Pilotprogram",
     pilotTitleBefore: "Vi søker et begrenset antall",
-    pilotTitleAccent: "pilotbarer.",
+    pilotTitleAccent: "pilotsteder.",
     pilotPerks: [
       "Introduksjonspris",
       "Airfryer inkludert på utlån",
@@ -142,7 +148,7 @@ const COPY = {
     ],
     mailPilotCta: "Mail: bli pilotkunde",
     faqEyebrow: "Vanlige spørsmål",
-    faqTitle: "Det barsjefer spør om først.",
+    faqTitle: "Det steder spør om først.",
     faq: [
       {
         q: "Hvor lenge holder de?",
@@ -170,7 +176,7 @@ const COPY = {
       },
       {
         q: "Hva skjer hvis vi går tomme?",
-        a: "Si ifra tidlig. Vi prioriterer pilotbarer og sier ærlig hvis vi ikke rekker ekstra på kort varsel.",
+        a: "Si ifra tidlig. Vi prioriterer pilotsteder og sier ærlig hvis vi ikke rekker ekstra på kort varsel.",
       },
       {
         q: "Hvor lang oppsigelse?",
@@ -178,22 +184,28 @@ const COPY = {
       },
     ],
     aboutEyebrow: "Om Gold of Sicily",
-    aboutTitle: "Fra popup i Oslo til mat bak baren.",
+    aboutTitle: "Et ferdig siciliansk streetfood-konsept.",
     aboutBody:
-      "Vi startet med én ting: ekte sicilianske arancini som streetfood. Etter popups med 4,5/5 i smak pakker vi samme håndverk for barer som vil servere varm mat — uten å bygge kjøkken.",
+      "Vi startet med arancini. Nå pakker vi samme håndverk som et komplett Gold of Sicily-konsept — produkt, tilberedning, menyer og uttrykk — for steder som vil servere mer enn en eske mat.",
     contactEyebrow: "Kontakt",
     contactTitle: "Ring eller send mail.",
     contactAccent: "Vi booker smaking.",
     contactBody:
-      "Ingen skjema. Ingen venteliste. Si ifra hvilken bar, så avtaler vi tid.",
-    footer: `© ${SITE.name} · For barer`,
+      "Ingen skjema. Ingen venteliste. Si ifra hvilket sted, så avtaler vi tid.",
+    footer: `© ${SITE.name} · For serveringssteder`,
   },
   en: {
-    eyebrow: "For bars",
-    heroTitleBefore: "Serve guests hot food in under 10 minutes.",
-    heroTitleAccent: "No kitchen needed.",
+    eyebrow: "For venues",
+    heroTitleBefore: "PUT GOLD OF SICILY",
+    heroTitleAccent: "ON YOUR MENU.",
     heroBody:
-      "We deliver ready-made frozen arancini, lend you an air fryer, and give you everything you need to get started.",
+      "A complete Sicilian street food concept for bars, hotels and venues. Product, prep, menus, serve materials and marketing. We make it simple to get started.",
+    stats: [
+      { value: "5–10 min", label: "Prep time" },
+      { value: "No chef", label: "Required" },
+      { value: "Low investment", label: "Equipment can be included" },
+      { value: "High value", label: "per serving" },
+    ],
     bookVia: "Book via",
     phoneOr: "phone or",
     noForm: ". No form.",
@@ -201,8 +213,8 @@ const COPY = {
     sendEmail: "Send email →",
     bookTasting: "Book a tasting",
     becomePilot: "Become a pilot →",
-    mailSubjectTasting: "Book a tasting — For bars",
-    mailSubjectPilot: "Become a pilot customer — For bars",
+    mailSubjectTasting: "Book a tasting — For venues",
+    mailSubjectPilot: "Become a pilot customer — For venues",
     howEyebrow: "How does it work?",
     howTitle: "Four steps. Almost no extra work.",
     steps: [
@@ -228,7 +240,7 @@ const COPY = {
       },
     ],
     includedEyebrow: "What's included?",
-    includedTitle: "A complete food solution — not just a product.",
+    includedTitle: "A complete Gold of Sicily concept.",
     included: [
       "Air fryer on loan",
       "Staff training",
@@ -312,7 +324,7 @@ const COPY = {
     ],
     pilotEyebrow: "Pilot programme",
     pilotTitleBefore: "We're looking for a limited number of",
-    pilotTitleAccent: "pilot bars.",
+    pilotTitleAccent: "pilot venues.",
     pilotPerks: [
       "Introductory pricing",
       "Air fryer included on loan",
@@ -321,7 +333,7 @@ const COPY = {
     ],
     mailPilotCta: "Email: become a pilot",
     faqEyebrow: "FAQ",
-    faqTitle: "What bar managers ask first.",
+    faqTitle: "What venues ask first.",
     faq: [
       {
         q: "How long do they keep?",
@@ -349,7 +361,7 @@ const COPY = {
       },
       {
         q: "What if we sell out?",
-        a: "Tell us early. We prioritise pilot bars and are honest if we can't do extras on short notice.",
+        a: "Tell us early. We prioritise pilot venues and are honest if we can't do extras on short notice.",
       },
       {
         q: "What's the notice period?",
@@ -357,15 +369,15 @@ const COPY = {
       },
     ],
     aboutEyebrow: "About Gold of Sicily",
-    aboutTitle: "From pop-ups in Oslo to food behind the bar.",
+    aboutTitle: "A complete Sicilian street food concept.",
     aboutBody:
-      "We started with one thing: real Sicilian arancini as street food. After pop-ups scoring 4.5/5 on taste, we package the same craft for bars that want to serve hot food — without building a kitchen.",
+      "We started with arancini. Now we package the same craft as a complete Gold of Sicily concept — product, prep, menus and look — for venues that want to serve more than a box of food.",
     contactEyebrow: "Contact",
     contactTitle: "Call or email.",
     contactAccent: "We'll book a tasting.",
     contactBody:
-      "No form. No waitlist. Tell us which bar, and we'll find a time.",
-    footer: `© ${SITE.name} · For bars`,
+      "No form. No waitlist. Tell us which venue, and we'll find a time.",
+    footer: `© ${SITE.name} · For venues`,
   },
 } as const;
 
@@ -442,9 +454,9 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <LangSwitch lang={lang} />
+      <BrandNav lang={lang} />
 
-      {/* HERO — text + CTA first, compact video */}
+      {/* HERO — brand first, then the rational case */}
       <section className="relative overflow-hidden border-b-2 border-foreground">
         <div className="mx-auto grid max-w-6xl items-center gap-8 px-5 py-10 sm:gap-10 sm:px-6 sm:py-14 md:grid-cols-[1.1fr_0.9fr] md:gap-12 md:px-8 md:py-20">
           <div className="min-w-0">
@@ -452,12 +464,22 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
               {t.eyebrow}
             </p>
             <h1 className="font-display text-[clamp(2rem,8.5vw,4.25rem)] leading-[1.05] tracking-tight">
-              {t.heroTitleBefore}{" "}
-              <span className="text-[color:var(--tomato)]">{t.heroTitleAccent}</span>
+              <span className="block">{t.heroTitleBefore}</span>
+              <span className="block text-[color:var(--tomato)]">{t.heroTitleAccent}</span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/80 sm:mt-7 sm:text-lg md:text-xl">
               {t.heroBody}
             </p>
+            <dl className="mt-8 grid grid-cols-2 gap-4 sm:mt-10 sm:gap-6">
+              {t.stats.map((stat) => (
+                <div key={stat.value}>
+                  <dt className="font-display text-xl tracking-tight sm:text-2xl">{stat.value}</dt>
+                  <dd className="mt-1 text-[0.65rem] uppercase tracking-[0.16em] text-foreground/55">
+                    {stat.label}
+                  </dd>
+                </div>
+              ))}
+            </dl>
             <ContactActions lang={lang} className="mt-8 sm:mt-10" />
             <p className="mt-4 text-sm leading-relaxed text-foreground/55 sm:mt-5">
               {t.bookVia}{" "}

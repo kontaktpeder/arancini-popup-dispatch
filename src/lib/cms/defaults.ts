@@ -15,35 +15,34 @@ export const CMS_DEFAULTS: CmsContentMap = {
       " — liten appelsin — fordi de klassiske, runde variantene kan ligne en appelsin. I øst-Sicilia er de ofte spisse; i Oslo møter du begge tradisjoner gjennom håndverk, ikke fabrikk.",
     section_1_heading: "Arancini i Oslo",
     section_1_body:
-      "Folk søker «arancini oslo», «sicilianske risballer» og «hva er arancini» fordi de har smakt det et sted — eller nesten. Gold of Sicily er et popup-konsept: små batcher, tydelig meny per kveld, og kvalitet før volum.",
+      "I Oslo møter du arancini som siciliansk street food: sprø skorpe, varm ris og fyll som skal spises med hendene. Gold of Sicily lager dem med samme håndverk, servert på barer og steder rundt i byen.",
     section_2_heading: "Slik lager vi dem",
     section_2_body:
-      "Ris som får tid, fyll med ragu, ost eller sesong, panering som tåler varme uten å bli fett — og servering mens de fortsatt har tyngde og saft inni. Det er gatekjøkken, ikke corporate restaurant-SEO.",
+      "Ris som får tid, fyll med ragu, ost eller sesong, panering som tåler varme uten å bli fett — og servering mens de fortsatt har tyngde og saft inni.",
     section_3_heading: "Kan man lage arancini hjemme?",
     section_3_body:
       "Ja, arancini kan lages hjemme med risotto, fyll, panering og fritering. Det vanskelige er balansen: sprø skorpe, saftig ris og fyll som fortsatt er varmt når den serveres. Det er akkurat dette vi tester og forbedrer i små batcher.",
-    cta_label: "Vil du smake vår versjon? Meld deg på neste batch →",
+    cta_label: "Finn Gold of Sicily →",
   },
   about: {
     seo_title: "Om Gold of Sicily",
     seo_description:
-      "Popup streetfood fra Sicilia til Oslo. Hvorfor Gold of Sicily startet, små batcher, og signalene fra første popup i Sigurds gate 7.",
+      "Gold of Sicily startet med arancini. Sicilia er utgangspunktet. Norge er hjemme.",
     eyebrow: "Om oss",
-    title: "Sicilia, i små batcher",
+    title: "A little more Italy. Right here.",
     intro_1:
-      "Gold of Sicily startet med et enkelt spørsmål: hvorfor finnes ikke ekte sicilianske arancini som streetfood i Oslo? Etter første popup i Sigurds gate 7 fikk vi et tydelig signal: 4,5/5 i smak, 28 av 34 ville kjøpt igjen, og trøffel og sopp ble første publikumsfavoritt.",
+      "Gold of Sicily startet med arancini. Men målet har aldri bare vært å introdusere enda en italiensk rett.",
     intro_2:
-      "Vi er popup og streetfood: Dennis og teamet baker batcher når det er en dato og et sted, ikke hver dag året rundt. Det betyr at du får det som er ferskt den kvelden — og når batchen er tom, er den tom.",
-    section_1_heading: "Sicilia, ikke corporate",
+      "Vi vil ta med oss noe av måten italienerne møtes, spiser og bruker tiden sin på. Lange bord. God mat. Espresso. Kalde øl. Litt mer stil. Litt mindre hastverk.",
+    section_1_heading: "Sicilia er utgangspunktet. Norge er hjemme.",
     section_1_body:
-      "Inspirasjonen kommer fra Palermo — lyden av friture, papir, folk som spiser stående. Vi vil ikke skrive «we are passionate about food». Vi vil servere arancini som føles ekte, fysisk og litt rå på kantene — som mote møter gatekjøkken.",
-    section_2_heading: "Små batcher",
+      "Den begynte da Denis kom til Norge og lurte på hvorfor pizza og pasta var selvsagt — mens arancini nesten ikke fantes. Første kveld i Oslo bekreftet det vi håpet: folk vil sitte med dette.",
+    section_2_heading: "Et ferdig konsept",
     section_2_body:
-      "Mindre batch betyr bedre kontroll på ris, fyll og sprøhet. Det er også hvorfor dette manglet: det skalerer ikke som en kjede, men det smaker bedre.",
-    proof_heading: "Signaler fra batch 001",
-    proof_body:
-      "34 smakere ga oss en snitt på 4,5/5. 28 sa de ville kjøpt igjen. Trøffel og sopp ble klar favoritt, foran ragu og 'nduja. Det er signalet vi bygger neste batch på.",
-    cta_popup_label: "Neste batch →",
+      "Nå lager vi Gold of Sicily som et ferdig konsept for steder som vil servere den følelsen, ikke bare en eske mat. Samme produkt, samme uttrykk, samme standard.",
+    proof_heading: "Første smaking",
+    proof_body: "4,5/5. Det er signalet vi bygger videre på.",
+    cta_popup_label: "Finn oss →",
     cta_instagram_label: "Instagram",
   },
   "next-popup": {

@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CollaborationInquiry } from "@/components/collaboration-inquiry";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { BrandFooter } from "@/components/brand-footer";
+import { BrandNav } from "@/components/brand-nav";
 import { buildPageHead, PAGE_SEO } from "@/lib/seo";
-import { DISCOVERY_NO } from "@/lib/discovery-copy";
 
 export const Route = createFileRoute("/samarbeid")({
   head: () => buildPageHead(PAGE_SEO["/samarbeid"]),
@@ -13,11 +12,11 @@ export const Route = createFileRoute("/samarbeid")({
 function SamarbeidPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
-      <SiteHeader />
+      <BrandNav lang="no" />
       <main className="flex-1">
         <CollaborationInquiry lang="no" />
       </main>
-      <SiteFooter copy={DISCOVERY_NO.footer} />
+      <BrandFooter lang="no" />
     </div>
   );
 }

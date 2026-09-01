@@ -56,7 +56,7 @@ export const DISCOVERY_NO: DiscoveryCopy = {
         to: "/what-is-arancini",
       },
       {
-        title: "For barer",
+        title: "For serveringssteder",
         description: "Varm mat når kjøkkenet er stengt — eller uten fullt kjøkken.",
         cta: "Se løsningen",
         to: "/for-barer",
@@ -73,14 +73,14 @@ export const DISCOVERY_NO: DiscoveryCopy = {
     label: "Oppdag",
     links: [
       { label: "Hva er arancini", to: "/what-is-arancini" },
-      { label: "For barer", to: "/for-barer" },
+      { label: "For serveringssteder", to: "/for-barer" },
       { label: "Om oss", to: "/about" },
     ],
   },
   footer: {
     tagline: "Oslo · Palermo",
     rights: "© Gold of Sicily",
-    barsLabel: "For barer",
+    barsLabel: "For serveringssteder",
     barsTo: "/for-barer",
   },
 };
@@ -100,7 +100,7 @@ export const DISCOVERY_EN: DiscoveryCopy = {
         to: "/en/what-is-arancini",
       },
       {
-        title: "For bars",
+        title: "For venues",
         description: "Hot food after the kitchen closes — or without a full kitchen.",
         cta: "See the solution",
         to: "/en/for-bars",
@@ -117,14 +117,14 @@ export const DISCOVERY_EN: DiscoveryCopy = {
     label: "Discover",
     links: [
       { label: "What is arancini?", to: "/en/what-is-arancini" },
-      { label: "For bars", to: "/en/for-bars" },
+      { label: "For venues", to: "/en/for-bars" },
       { label: "About", to: "/en/about" },
     ],
   },
   footer: {
     tagline: "Oslo · Palermo",
     rights: "© Gold of Sicily",
-    barsLabel: "For bars",
+    barsLabel: "For venues",
     barsTo: "/en/for-bars",
   },
 };

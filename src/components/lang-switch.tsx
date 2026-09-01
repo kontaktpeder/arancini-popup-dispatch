@@ -5,8 +5,17 @@ type EnPath =
   | "/en/what-is-arancini"
   | "/en/next-popup"
   | "/en/about"
-  | "/en/for-bars";
-type NoPath = "/" | "/what-is-arancini" | "/next-popup" | "/about" | "/for-barer";
+  | "/en/for-bars"
+  | "/en/find-us"
+  | "/en/collaborate";
+type NoPath =
+  | "/"
+  | "/what-is-arancini"
+  | "/next-popup"
+  | "/about"
+  | "/for-barer"
+  | "/finn-oss"
+  | "/samarbeid";
 
 const NO_TO_EN: Record<string, EnPath> = {
   "/": "/en",
@@ -14,6 +23,8 @@ const NO_TO_EN: Record<string, EnPath> = {
   "/next-popup": "/en/next-popup",
   "/about": "/en/about",
   "/for-barer": "/en/for-bars",
+  "/finn-oss": "/en/find-us",
+  "/samarbeid": "/en/collaborate",
 };
 
 const EN_TO_NO: Record<string, NoPath> = {
@@ -23,12 +34,17 @@ const EN_TO_NO: Record<string, NoPath> = {
   "/en/next-popup": "/next-popup",
   "/en/about": "/about",
   "/en/for-bars": "/for-barer",
+  "/en/find-us": "/finn-oss",
+  "/en/collaborate": "/samarbeid",
 };
+
+export function counterpartPath(lang: "no" | "en", pathname: string): EnPath | NoPath {
+  return lang === "no" ? (NO_TO_EN[pathname] ?? "/en") : (EN_TO_NO[pathname] ?? "/");
+}
 
 export function LangSwitch({ lang }: { lang: "no" | "en" }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const to: EnPath | NoPath =
-    lang === "no" ? (NO_TO_EN[pathname] ?? "/en") : (EN_TO_NO[pathname] ?? "/");
+  const to = counterpartPath(lang, pathname);
   const label = lang === "no" ? "EN" : "NO";
   return (
     <Link
