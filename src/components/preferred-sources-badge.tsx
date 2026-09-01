@@ -62,7 +62,8 @@ function FallbackButton({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     const queue = (window.PREFERRED_SOURCE =
-      window.PREFERRED_SOURCE || ([] as PreferredSourceQueue));
+      window.PREFERRED_SOURCE ||
+      ([] as unknown as PreferredSourceQueue));
     queue.push((client) => {
       client.init({ theme: "light", lang: lang === "en" ? "en" : "no" });
       clientRef.current = client;
