@@ -3,7 +3,7 @@ import { BrandFooter } from "@/components/brand-footer";
 import { BrandNav } from "@/components/brand-nav";
 import { BRAND, type BrandLang } from "@/lib/brand-copy";
 import { SITE } from "@/lib/site";
-import drawLemonGold from "@/assets/brand/draw-lemon-gold.webp";
+
 
 export function AboutView({ lang }: { lang: BrandLang }) {
   const t = BRAND[lang];
@@ -11,14 +11,8 @@ export function AboutView({ lang }: { lang: BrandLang }) {
   return (
     <div className="min-h-screen bg-[color:var(--cream)] font-display">
       <BrandNav lang={lang} />
-      <article className="relative overflow-hidden">
-        <img
-          src={drawLemonGold}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute -right-20 top-10 w-[min(50vw,20rem)] opacity-80"
-        />
-        <div className="relative mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
+    <article className="relative overflow-hidden">
+      <div className="relative mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
           <p className="eyebrow">{t.about.eyebrow}</p>
           <h1 className="mt-4 font-display text-[clamp(2.6rem,8vw,5.2rem)] leading-[0.95] tracking-tight">
             {t.about.title.map((line) => (

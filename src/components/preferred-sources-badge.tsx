@@ -12,11 +12,13 @@ type PreferredSourceClient = {
   addPreferredSource: () => void;
 };
 
+type PreferredSourceQueue = Array<(client: PreferredSourceClient) => void> & {
+  push: (fn: (client: PreferredSourceClient) => void) => number;
+};
+
 declare global {
   interface Window {
-    PREFERRED_SOURCE?: Array<(client: PreferredSourceClient) => void> & {
-      push: (fn: (client: PreferredSourceClient) => void) => number;
-    };
+    PREFERRED_SOURCE?: PreferredSourceQueue;
   }
 }
 
@@ -59,7 +61,9 @@ function FallbackButton({ lang }: { lang: Lang }) {
   const copy = COPY[lang];
 
   useEffect(() => {
-    const queue = (window.PREFERRED_SOURCE = window.PREFERRED_SOURCE || []);
+    const queue = (window.PREFERRED_SOURCE =
+      window.PREFERRED_SOURCE ||
+      ([] as unknown as PreferredSourceQueue));
     queue.push((client) => {
       client.init({ theme: "light", lang: lang === "en" ? "en" : "no" });
       clientRef.current = client;
