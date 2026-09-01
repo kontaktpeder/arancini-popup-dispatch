@@ -7,18 +7,15 @@ export function BrandFooter({ lang }: { lang: BrandLang }) {
   const t = BRAND[lang];
 
   return (
-    <footer className="relative overflow-hidden bg-[color:var(--sea)] text-[#F3EBDD]">
+    <footer className="relative overflow-hidden bg-[color:var(--sea)] font-display text-[#F3EBDD]">
       <img
         src={drawLemon}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute -right-16 -bottom-20 w-[min(55vw,22rem)] rotate-12 opacity-90"
+        className="pointer-events-none absolute -bottom-16 right-2 w-[min(48vw,18rem)] rotate-12 opacity-90 md:-bottom-20 md:right-8"
       />
       <div className="relative mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <Link
-          to={t.paths.home}
-          className="font-sans text-[0.72rem] font-medium uppercase tracking-[0.32em]"
-        >
+        <Link to={t.paths.home} className="text-xl italic tracking-tight">
           Gold of Sicily
         </Link>
         <p className="mt-8 font-display text-4xl tracking-tight md:text-6xl">{t.footer.places}</p>
@@ -27,7 +24,7 @@ export function BrandFooter({ lang }: { lang: BrandLang }) {
           href={SITE.instagram}
           target="_blank"
           rel="noreferrer"
-          className="mt-10 inline-block text-[0.72rem] uppercase tracking-[0.22em] underline-offset-4 hover:underline"
+          className="mt-10 inline-block text-xl italic underline-offset-4 hover:underline"
         >
           {t.footer.handle}
         </a>

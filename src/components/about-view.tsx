@@ -9,7 +9,7 @@ export function AboutView({ lang }: { lang: BrandLang }) {
   const t = BRAND[lang];
 
   return (
-    <div className="min-h-screen bg-[color:var(--cream)]">
+    <div className="min-h-screen bg-[color:var(--cream)] font-display">
       <BrandNav lang={lang} />
       <article className="relative overflow-hidden">
         <img
@@ -19,9 +19,7 @@ export function AboutView({ lang }: { lang: BrandLang }) {
           className="pointer-events-none absolute -right-20 top-10 w-[min(50vw,20rem)] opacity-80"
         />
         <div className="relative mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24">
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-foreground/50">
-            {t.about.eyebrow}
-          </p>
+          <p className="eyebrow">{t.about.eyebrow}</p>
           <h1 className="mt-4 font-display text-[clamp(2.6rem,8vw,5.2rem)] leading-[0.95] tracking-tight">
             {t.about.title.map((line) => (
               <span key={line} className="block">
@@ -44,11 +42,9 @@ export function AboutView({ lang }: { lang: BrandLang }) {
               <p key={p}>{p}</p>
             ))}
           </div>
-          <p className="mt-8 text-[0.72rem] uppercase tracking-[0.2em] text-foreground/50">
-            {t.about.proof}
-          </p>
+          <p className="mt-8 text-lg italic text-foreground/60">{t.about.proof}</p>
 
-          <p className="mt-14 flex flex-wrap gap-x-6 gap-y-3 text-[0.72rem] font-medium uppercase tracking-[0.2em]">
+          <p className="mt-14 flex flex-wrap gap-x-6 gap-y-3 text-lg italic">
             <Link to={t.paths.find} className="underline-offset-4 hover:underline">
               {t.about.ctaFind} →
             </Link>
