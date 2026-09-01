@@ -28,17 +28,14 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
 
   return (
     <header
-      className={`z-[90] has-[details[open]]:fixed has-[details[open]]:inset-x-0 has-[details[open]]:top-0 has-[details[open]]:bg-[color:var(--cream)] has-[details[open]]:text-foreground ${
+      className={`z-[90] font-display has-[details[open]]:fixed has-[details[open]]:inset-x-0 has-[details[open]]:top-0 has-[details[open]]:bg-[color:var(--cream)] has-[details[open]]:text-foreground ${
         overlay
           ? "absolute inset-x-0 top-0 text-[#F3EBDD]"
           : "sticky top-0 bg-[color:var(--cream)] text-foreground"
       }`}
     >
       <div className="relative z-[80] mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8 md:py-5">
-        <Link
-          to={t.paths.home}
-          className="font-sans text-[0.68rem] font-medium uppercase tracking-[0.28em] text-current"
-        >
+        <Link to={t.paths.home} className="text-lg italic tracking-tight text-current md:text-xl">
           Gold of Sicily
         </Link>
 
@@ -47,7 +44,7 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
             <Link
               key={item.to}
               to={item.to}
-              className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-current transition hover:opacity-70"
+              className="text-[1.05rem] italic tracking-tight text-current transition hover:text-[color:var(--sea)]"
             >
               {item.label}
             </Link>
@@ -57,21 +54,21 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
-            className="text-current transition hover:opacity-70"
+            className="text-current transition hover:text-[color:var(--sea)]"
           >
             <Instagram className="h-4 w-4" />
           </a>
           <Link
             to={switchHref}
             aria-label={switchLabel}
-            className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-current opacity-70 transition hover:opacity-100"
+            className="text-[1.05rem] italic tracking-tight text-current opacity-70 transition hover:opacity-100"
           >
             {switchTo}
           </Link>
         </nav>
 
         <details className="lg:hidden">
-          <summary className="relative z-[80] cursor-pointer list-none text-[0.65rem] font-medium uppercase tracking-[0.22em] text-current [&::-webkit-details-marker]:hidden">
+          <summary className="relative z-[80] cursor-pointer list-none text-lg italic tracking-tight text-current [&::-webkit-details-marker]:hidden">
             <span className="details-closed">{t.nav.menu}</span>
             <span className="details-open">{t.nav.close}</span>
           </summary>
@@ -81,7 +78,7 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="font-display text-3xl tracking-tight text-foreground"
+                  className="font-display text-3xl italic tracking-tight text-foreground"
                 >
                   {item.label}
                 </Link>
@@ -99,7 +96,7 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
                 <Link
                   to={switchHref}
                   aria-label={switchLabel}
-                  className="text-[0.7rem] uppercase tracking-[0.2em] text-foreground/70"
+                  className="text-xl italic text-foreground/70"
                 >
                   {switchTo}
                 </Link>

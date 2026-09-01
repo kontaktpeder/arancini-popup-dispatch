@@ -13,16 +13,14 @@ export function FindGoldGrid({ lang, compact = false }: { lang: BrandLang; compa
           className="border border-foreground/15 bg-[color:var(--paper)] px-6 py-7"
         >
           <p className="font-display text-2xl tracking-tight">{venue.name}</p>
-          <p className="mt-2 text-[0.7rem] uppercase tracking-[0.2em] text-foreground/55">
-            {venue.city}
-          </p>
+          <p className="mt-2 text-lg italic text-foreground/60">{venue.city}</p>
         </li>
       ))}
       {compact ? (
         <li className="flex items-end border border-dashed border-foreground/20 px-6 py-7">
           <Link
             to={t.paths.find}
-            className="text-[0.72rem] font-medium uppercase tracking-[0.2em] underline-offset-4 hover:underline"
+            className="text-lg italic underline-offset-4 hover:underline"
           >
             {t.find.more} →
           </Link>

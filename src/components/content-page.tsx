@@ -10,14 +10,10 @@ type ContentPageProps = {
 
 export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPageProps) {
   return (
-    <div className="min-h-screen bg-[color:var(--cream)]">
+    <div className="min-h-screen bg-[color:var(--cream)] font-display">
       <BrandNav lang={lang} />
       <article className="mx-auto max-w-2xl px-6 pb-20 pt-12 md:pt-16">
-        {eyebrow ? (
-          <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-foreground/50">
-            {eyebrow}
-          </p>
-        ) : null}
+        {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
 
         <h1 className="mt-4 font-display text-[clamp(2.25rem,6vw,3.75rem)] leading-[1.05] tracking-tight">
           {title}

@@ -13,12 +13,10 @@ export const Route = createFileRoute("/finn-oss")({
 function FinnOssPage() {
   const t = BRAND.no;
   return (
-    <div className="min-h-screen bg-[color:var(--cream)]">
+    <div className="min-h-screen bg-[color:var(--cream)] font-display">
       <BrandNav lang="no" />
       <main className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-foreground/50">
-          {t.find.title}
-        </p>
+        <p className="eyebrow">{t.find.title}</p>
         <h1 className="mt-3 font-display text-[clamp(2.6rem,7vw,5rem)] leading-[0.95] tracking-tight">
           {t.find.body}
         </h1>
