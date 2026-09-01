@@ -1,7 +1,6 @@
 import { SITE } from "./site";
 
-export const PREFERRED_SOURCES_SCRIPT =
-  "https://news.google.com/swg/js/v1/publisher.js";
+export const PREFERRED_SOURCES_SCRIPT = "https://news.google.com/swg/js/v1/publisher.js";
 
 export const PREFERRED_SOURCES_SCRIPT_ID = "google-preferred-sources-lib";
 

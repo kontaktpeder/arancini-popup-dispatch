@@ -22,9 +22,7 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
           ← Gold of Sicily
         </Link>
 
-        {eyebrow ? (
-          <p className="eyebrow mt-10">{eyebrow}</p>
-        ) : null}
+        {eyebrow ? <p className="eyebrow mt-10">{eyebrow}</p> : null}
 
         <h1 className="mt-4 font-display text-[clamp(2.25rem,6vw,3.75rem)] leading-[1.05] tracking-tight">
           {title}
@@ -38,8 +36,6 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
           <PreferredSourcesBadge lang={lang} />
         </div>
       </article>
-
     </main>
   );
 }
-

@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  ensurePreferredSourcesScript,
-  preferredSourcesDeeplink,
-} from "@/lib/preferred-sources";
+import { ensurePreferredSourcesScript, preferredSourcesDeeplink } from "@/lib/preferred-sources";
 
 type Lang = "no" | "en";
 
@@ -104,9 +101,7 @@ export function PreferredSourcesBadge({ lang = "no" }: { lang?: Lang }) {
 
   return (
     <div className="flex flex-col items-center gap-2 normal-case tracking-normal">
-      <p className="text-[0.62rem] uppercase tracking-[0.28em] text-foreground/55">
-        {copy.label}
-      </p>
+      <p className="text-[0.62rem] uppercase tracking-[0.28em] text-foreground/55">{copy.label}</p>
       {useFallback ? (
         <FallbackButton lang={lang} />
       ) : (
