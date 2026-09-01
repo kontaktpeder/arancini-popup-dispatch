@@ -30,15 +30,15 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
 
   return (
     <header
-      className={`z-50 ${
-        tone === "overlay" && !open
-          ? "absolute inset-x-0 top-0"
+      className={`z-[90] ${
+        open
+          ? "fixed inset-x-0 top-0 bg-[color:var(--cream)]"
           : tone === "overlay"
-            ? "absolute inset-x-0 top-0 bg-[color:var(--cream)]"
-            : "sticky top-0 bg-[color:var(--cream)]/95 backdrop-blur-sm"
+            ? "absolute inset-x-0 top-0"
+            : "sticky top-0 bg-[color:var(--cream)]"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8 md:py-5">
+      <div className="relative z-[80] mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8 md:py-5">
         <Link
           to={t.paths.home}
           className={`font-sans text-[0.68rem] font-medium uppercase tracking-[0.28em] ${text}`}
@@ -86,7 +86,7 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
       </div>
 
       {open ? (
-        <div className="border-t border-foreground/10 bg-[color:var(--cream)] px-5 py-8 lg:hidden">
+        <div className="fixed inset-0 z-[70] overflow-y-auto bg-[color:var(--cream)] px-5 pb-12 pt-24 lg:hidden">
           <nav className="flex flex-col gap-5">
             {links.map((item) => (
               <Link
