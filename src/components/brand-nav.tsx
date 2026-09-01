@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { counterpartPath } from "@/components/lang-switch";
@@ -11,11 +10,8 @@ type Props = {
 };
 
 export function BrandNav({ lang, tone = "solid" }: Props) {
-  const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const t = BRAND[lang];
-  const overlay = tone === "overlay" && !open;
-  const text = overlay ? "text-[#F3EBDD]" : "text-foreground";
 
   const links = [
     { label: t.nav.arancini, to: t.paths.arancini },
@@ -28,20 +24,20 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
   const switchHref = counterpartPath(lang, pathname);
   const switchLabel = lang === "no" ? "Switch to English" : "Bytt til norsk";
 
+  const overlay = tone === "overlay";
+
   return (
     <header
-      className={`z-[90] ${
-        open
-          ? "fixed inset-x-0 top-0 bg-[color:var(--cream)]"
-          : tone === "overlay"
-            ? "absolute inset-x-0 top-0"
-            : "sticky top-0 bg-[color:var(--cream)]"
+      className={`z-[90] has-[details[open]]:fixed has-[details[open]]:inset-x-0 has-[details[open]]:top-0 has-[details[open]]:bg-[color:var(--cream)] has-[details[open]]:text-foreground ${
+        overlay
+          ? "absolute inset-x-0 top-0 text-[#F3EBDD]"
+          : "sticky top-0 bg-[color:var(--cream)] text-foreground"
       }`}
     >
       <div className="relative z-[80] mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-8 md:py-5">
         <Link
           to={t.paths.home}
-          className={`font-sans text-[0.68rem] font-medium uppercase tracking-[0.28em] ${text}`}
+          className="font-sans text-[0.68rem] font-medium uppercase tracking-[0.28em] text-current"
         >
           Gold of Sicily
         </Link>
@@ -51,7 +47,7 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
             <Link
               key={item.to}
               to={item.to}
-              className={`text-[0.68rem] font-medium uppercase tracking-[0.2em] transition hover:opacity-70 ${text}`}
+              className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-current transition hover:opacity-70"
             >
               {item.label}
             </Link>
@@ -61,65 +57,57 @@ export function BrandNav({ lang, tone = "solid" }: Props) {
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
-            className={`transition hover:opacity-70 ${text}`}
+            className="text-current transition hover:opacity-70"
           >
             <Instagram className="h-4 w-4" />
           </a>
           <Link
             to={switchHref}
             aria-label={switchLabel}
-            className={`text-[0.62rem] font-medium uppercase tracking-[0.18em] opacity-70 transition hover:opacity-100 ${text}`}
+            className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-current opacity-70 transition hover:opacity-100"
           >
             {switchTo}
           </Link>
         </nav>
 
-        <button
-          type="button"
-          className={`inline-flex items-center gap-2 text-[0.65rem] font-medium uppercase tracking-[0.22em] lg:hidden ${text}`}
-          aria-expanded={open}
-          aria-label={open ? t.nav.close : t.nav.menu}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? t.nav.close : t.nav.menu}
-        </button>
+        <details className="lg:hidden">
+          <summary className="relative z-[80] cursor-pointer list-none text-[0.65rem] font-medium uppercase tracking-[0.22em] text-current [&::-webkit-details-marker]:hidden">
+            <span className="details-closed">{t.nav.menu}</span>
+            <span className="details-open">{t.nav.close}</span>
+          </summary>
+          <div className="fixed inset-0 z-[70] overflow-y-auto bg-[color:var(--cream)] px-5 pb-12 pt-24 text-foreground">
+            <nav className="flex flex-col gap-5">
+              {links.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="font-display text-3xl tracking-tight text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="mt-4 flex items-center gap-5">
+                <a
+                  href={SITE.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                  className="text-foreground"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <Link
+                  to={switchHref}
+                  aria-label={switchLabel}
+                  className="text-[0.7rem] uppercase tracking-[0.2em] text-foreground/70"
+                >
+                  {switchTo}
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </details>
       </div>
-
-      {open ? (
-        <div className="fixed inset-0 z-[70] overflow-y-auto bg-[color:var(--cream)] px-5 pb-12 pt-24 lg:hidden">
-          <nav className="flex flex-col gap-5">
-            {links.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="font-display text-3xl tracking-tight text-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="mt-4 flex items-center gap-5">
-              <a
-                href={SITE.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                className="text-foreground"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <Link
-                to={switchHref}
-                aria-label={switchLabel}
-                className="text-[0.7rem] uppercase tracking-[0.2em] text-foreground/70"
-                onClick={() => setOpen(false)}
-              >
-                {switchTo}
-              </Link>
-            </div>
-          </nav>
-        </div>
-      ) : null}
 
       {tone === "solid" ? <div className="border-b border-foreground/15" /> : null}
     </header>
