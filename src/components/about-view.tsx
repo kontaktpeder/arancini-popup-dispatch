@@ -3,7 +3,7 @@ import { BrandFooter } from "@/components/brand-footer";
 import { BrandNav } from "@/components/brand-nav";
 import { BRAND, type BrandLang } from "@/lib/brand-copy";
 import { SITE } from "@/lib/site";
-import drawLemonGold from "@/assets/brand/draw-lemon-gold.webp";
+
 
 export function AboutView({ lang }: { lang: BrandLang }) {
   const t = BRAND[lang];
