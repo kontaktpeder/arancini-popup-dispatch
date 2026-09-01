@@ -17,7 +17,7 @@ function CollaborateEn() {
       <main className="flex-1">
         <CollaborationInquiry lang="en" />
       </main>
-      <SiteFooter copy={DISCOVERY_EN.footer} />
+      <SiteFooter copy={DISCOVERY_EN.footer} lang="en" />
     </div>
   );
 }

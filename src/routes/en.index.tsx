@@ -67,7 +67,7 @@ function IndexEn() {
 
       <EditorialCards copy={DISCOVERY_EN.editorial} />
 
-      <SiteFooter copy={DISCOVERY_EN.footer} />
+      <SiteFooter copy={DISCOVERY_EN.footer} lang="en" />
     </main>
   );
 }
