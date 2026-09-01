@@ -12,11 +12,13 @@ type PreferredSourceClient = {
   addPreferredSource: () => void;
 };
 
+type PreferredSourceQueue = Array<(client: PreferredSourceClient) => void> & {
+  push: (fn: (client: PreferredSourceClient) => void) => number;
+};
+
 declare global {
   interface Window {
-    PREFERRED_SOURCE?: Array<(client: PreferredSourceClient) => void> & {
-      push: (fn: (client: PreferredSourceClient) => void) => number;
-    };
+    PREFERRED_SOURCE?: PreferredSourceQueue;
   }
 }
 
