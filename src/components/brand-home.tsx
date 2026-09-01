@@ -35,7 +35,7 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
           <p className="text-[0.68rem] font-medium uppercase tracking-[0.32em] text-[#F3EBDD]/80">
             {t.hero.brand}
           </p>
-          <h1 className="mt-5 font-display text-[clamp(3rem,12vw,7.5rem)] leading-[0.92] tracking-tight">
+          <h1 className="mt-5 font-display text-[clamp(3rem,12vw,7.5rem)] leading-[0.92] tracking-tight text-[#F3EBDD]">
             <span className="block">{t.hero.line1}</span>
             <span className="block">{t.hero.line2}</span>
           </h1>
@@ -104,7 +104,7 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
             className="aspect-[3/4] w-full object-cover object-center md:aspect-[4/5] lg:max-h-[82vh]"
           />
           <div>
-            <h2 className="font-display text-[clamp(2.4rem,6vw,4.4rem)] leading-[0.95] tracking-tight">
+            <h2 className="font-display text-[clamp(2.4rem,6vw,4.4rem)] leading-[0.95] tracking-tight text-[#F3EBDD]">
               {t.world.title.map((line) => (
                 <span key={line} className="block">
                   {line}
@@ -138,7 +138,7 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
           className="pointer-events-none absolute -right-24 -top-10 w-[min(80vw,32rem)] rotate-[-8deg] md:-right-16 md:w-[min(50vw,36rem)]"
         />
         <div className="relative mx-auto max-w-4xl px-5 py-28 md:px-12 md:py-40">
-          <h2 className="font-display text-[clamp(3rem,12vw,7rem)] leading-[0.9] tracking-tight">
+          <h2 className="font-display text-[clamp(3rem,12vw,7rem)] leading-[0.9] tracking-tight text-[#F3EBDD]">
             {t.tutto.title}
           </h2>
           <p className="mt-8 max-w-sm whitespace-pre-line text-lg leading-relaxed text-[#F3EBDD]/85 md:text-xl">
@@ -158,7 +158,7 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
           <p className="text-[0.68rem] font-medium uppercase tracking-[0.28em] text-[#F3EBDD]/70">
             {t.same.eyebrow}
           </p>
-          <h2 className="mt-3 font-display text-[clamp(2.6rem,8vw,5.5rem)] leading-[0.95] tracking-tight">
+          <h2 className="mt-3 font-display text-[clamp(2.6rem,8vw,5.5rem)] leading-[0.95] tracking-tight text-[#F3EBDD]">
             {t.same.title}
           </h2>
           <p className="mt-6 max-w-md text-base leading-relaxed text-[#F3EBDD]/85 md:text-lg">
