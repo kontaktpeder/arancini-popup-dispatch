@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSiteAdmin } from "@/integrations/supabase/require-site-admin";
 import { CMS_DEFAULTS } from "./defaults";
 import { CMS_SCHEMAS, SLUGS } from "./schemas";
 import type { CmsContentMap, CmsSlug } from "./types";
@@ -34,7 +34,7 @@ export const getCmsPage = createServerFn({ method: "GET" })
   });
 
 export const saveCmsPage = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((input: { slug: CmsSlug; content: unknown }) => ({
     slug: slugSchema.parse(input.slug),
     content: input.content,

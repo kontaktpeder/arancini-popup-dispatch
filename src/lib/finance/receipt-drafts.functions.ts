@@ -1,7 +1,7 @@
 /** @deprecated Bruk Finance Core API via src/lib/finance-core/ */
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSiteAdmin } from "@/integrations/supabase/require-site-admin";
 
 const AnalyzeInput = z.object({ draftId: z.string().uuid() });
 
@@ -34,7 +34,7 @@ Rules:
 - field_notes are short Norwegian explanations of where the value came from.`;
 
 export const analyzeReceiptDraft = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => AnalyzeInput.parse(d))
   .handler(async ({ data, context }) => {
     const { supabase } = context;

@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSiteAdmin } from "@/integrations/supabase/require-site-admin";
 import { financeCore, FinanceCoreError } from "./client.server";
 import { mapPopupSettlementToInvoiceInput } from "./invoice.mappers";
 import type { FinanceCoreInvoice, PopupFcInvoiceRef } from "./types";
@@ -53,7 +53,7 @@ async function loadLocalRef(
 }
 
 export const createPopupInvoice = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => CreatePopupInvoiceSchema.parse(d))
   .handler(async ({ data, context }): Promise<CreatePopupInvoiceResult> => {
     const { supabase } = context;
@@ -88,7 +88,7 @@ export const createPopupInvoice = createServerFn({ method: "POST" })
   });
 
 export const sendPopupInvoice = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ invoiceId: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }): Promise<SendPopupInvoiceResult> => {
     const { supabase } = context;
@@ -112,7 +112,7 @@ export const sendPopupInvoice = createServerFn({ method: "POST" })
   });
 
 export const fetchPopupInvoice = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ invoiceId: z.string().uuid() }).parse(d))
   .handler(async ({ data }): Promise<{ invoice: FinanceCoreInvoice }> => {
     const invoice = await financeCore.getInvoice(data.invoiceId);
@@ -120,7 +120,7 @@ export const fetchPopupInvoice = createServerFn({ method: "GET" })
   });
 
 export const fetchPopupInvoicePdf = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) =>
     z
       .object({

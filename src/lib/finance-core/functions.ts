@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireSiteAdmin } from "@/integrations/supabase/require-site-admin";
 import { financeCore, FinanceCoreError } from "./client.server";
 import { scanReceiptWithFallback } from "./scan-receipt-ai.server";
 import { mapManualEntry, mapTestEntry } from "./mappers";
@@ -30,7 +30,7 @@ function logFcError(label: string, e: unknown) {
 }
 
 export const getAccountingStatus = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .handler(async (): Promise<AccountingStatus> => {
     const year = new Date().getFullYear();
     const [entriesResult, summaryResult] = await Promise.allSettled([
@@ -59,7 +59,7 @@ export const getAccountingStatus = createServerFn({ method: "GET" })
   });
 
 export const sendTestIncome = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .handler(async () => {
     try {
       const entry = await financeCore.createEntry(mapTestEntry());
@@ -83,7 +83,7 @@ const ManualSchema = z.object({
 });
 
 export const sendManualEntry = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => ManualSchema.parse(d))
   .handler(async ({ data }) => {
     const entry = await financeCore.createEntry(mapManualEntry(data));
@@ -91,7 +91,7 @@ export const sendManualEntry = createServerFn({ method: "POST" })
   });
 
 export const uploadAttachment = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => {
     if (!(d instanceof FormData)) throw new Error("Expected FormData");
     return d;
@@ -124,7 +124,7 @@ const PatchSchema = z.object({
 });
 
 export const patchEntry = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => PatchSchema.parse(d))
   .handler(async ({ data }) => {
     try {
@@ -140,7 +140,7 @@ export const patchEntry = createServerFn({ method: "POST" })
 
 /* ── New: GET single entry ────────────────────────────────── */
 export const fetchEntry = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ id: z.string().min(1) }).parse(d))
   .handler(async ({ data }) => {
     const entry = await financeCore.getEntry(data.id);
@@ -149,7 +149,7 @@ export const fetchEntry = createServerFn({ method: "GET" })
 
 /* ── New: list attachments for an entry (degrades gracefully) ── */
 export const listEntryAttachments = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ entryId: z.string().min(1) }).parse(d))
   .handler(async ({ data }) => {
     try {
@@ -165,7 +165,7 @@ export const listEntryAttachments = createServerFn({ method: "GET" })
 
 /* ── New: category report ─────────────────────────────────── */
 export const fetchCategoryReport = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ year: z.number().int().optional() }).parse(d))
   .handler(async ({ data }) => {
     const rows = await financeCore.getCategoryReport(data.year);
@@ -174,7 +174,7 @@ export const fetchCategoryReport = createServerFn({ method: "GET" })
 
 /* ── New: AI scan receipt ─────────────────────────────────── */
 export const scanReceipt = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => {
     if (!(d instanceof FormData)) throw new Error("Expected FormData");
     return d;
@@ -191,7 +191,7 @@ export const scanReceipt = createServerFn({ method: "POST" })
 
 /* ── New: DELETE entry ────────────────────────────────────── */
 export const deleteEntry = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ id: z.string().min(1) }).parse(d))
   .handler(async ({ data }) => {
     await financeCore.deleteEntry(data.id);
@@ -200,7 +200,7 @@ export const deleteEntry = createServerFn({ method: "POST" })
 
 /* ── New: DELETE attachment ───────────────────────────────── */
 export const deleteAttachment = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
+  .middleware([requireSiteAdmin])
   .inputValidator((d: unknown) => z.object({ id: z.string().min(1) }).parse(d))
   .handler(async ({ data }) => {
     await financeCore.deleteAttachment(data.id);

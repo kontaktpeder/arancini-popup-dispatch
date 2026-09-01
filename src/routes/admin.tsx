@@ -151,7 +151,10 @@ function LoginForm() {
           {loading ? "Logger inn…" : "Logg inn"}
         </Button>
         <p className="text-xs text-muted-foreground">
-          Admin-bruker opprettes i Lovable Cloud → Users.
+          Kun site-admins har tilgang. Opprett bruker i Lovable Cloud → Users,
+          og legg dem i <code className="text-[0.7rem]">site_admins</code> eller
+          sett <code className="text-[0.7rem]">app_metadata.role = admin</code>
+          (eller <code className="text-[0.7rem]">ADMIN_EMAILS</code>).
         </p>
       </form>
     </div>
