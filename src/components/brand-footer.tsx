@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { PreferredSourcesBadge } from "@/components/preferred-sources-badge";
 import { BRAND, type BrandLang } from "@/lib/brand-copy";
 import { SITE } from "@/lib/site";
 import drawLemon from "@/assets/brand/draw-lemon.webp";
@@ -32,9 +31,6 @@ export function BrandFooter({ lang }: { lang: BrandLang }) {
         >
           {t.footer.handle}
         </a>
-        <div className="mt-10 [&_p]:text-[#F3EBDD]/70 [&_a]:text-[#F3EBDD]">
-          <PreferredSourcesBadge lang={lang} />
-        </div>
       </div>
     </footer>
   );

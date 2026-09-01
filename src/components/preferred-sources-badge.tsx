@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { ensurePreferredSourcesScript, preferredSourcesDeeplink } from "@/lib/preferred-sources";
+import {
+  PREFERRED_SOURCES_ENABLED,
+  ensurePreferredSourcesScript,
+  preferredSourcesDeeplink,
+} from "@/lib/preferred-sources";
 
 type Lang = "no" | "en";
 
@@ -83,6 +87,11 @@ function FallbackButton({ lang }: { lang: Lang }) {
 }
 
 export function PreferredSourcesBadge({ lang = "no" }: { lang?: Lang }) {
+  if (!PREFERRED_SOURCES_ENABLED) return null;
+  return <PreferredSourcesBadgeLive lang={lang} />;
+}
+
+function PreferredSourcesBadgeLive({ lang }: { lang: Lang }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const [useFallback, setUseFallback] = useState(false);
   const copy = COPY[lang];

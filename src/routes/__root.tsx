@@ -11,7 +11,6 @@ import {
 
 import appCss from "../styles.css?url";
 import { buildPageHead, LOCAL_BUSINESS_JSON_LD } from "@/lib/seo";
-import { PREFERRED_SOURCES_SCRIPT, PREFERRED_SOURCES_SCRIPT_ID } from "@/lib/preferred-sources";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -48,7 +47,6 @@ function NotFoundComponent() {
     </div>
   );
 }
-
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
@@ -110,11 +108,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         {
           type: "application/ld+json",
           children: JSON.stringify(LOCAL_BUSINESS_JSON_LD),
-        },
-        {
-          id: PREFERRED_SOURCES_SCRIPT_ID,
-          src: PREFERRED_SOURCES_SCRIPT,
-          async: true,
         },
       ],
     };

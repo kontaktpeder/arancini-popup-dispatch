@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/accordion";
 import { AllergenInformation } from "@/components/allergen-information";
 import { BrandNav } from "@/components/brand-nav";
-import { PreferredSourcesBadge } from "@/components/preferred-sources-badge";
 import { SITE } from "@/lib/site";
 
 import imgMedDrikke from "@/assets/b2b-med-drikke.jpg";
@@ -811,8 +810,7 @@ export function ForBarerLanding({ lang = "no" }: { lang?: Lang }) {
         </div>
       </section>
 
-      <footer className="flex flex-col items-center gap-4 bg-background px-5 py-8 text-center text-[0.65rem] uppercase tracking-[0.24em] text-foreground/50 sm:text-xs sm:tracking-[0.28em]">
-        <PreferredSourcesBadge lang={lang} />
+      <footer className="bg-background px-5 py-8 text-center text-[0.65rem] uppercase tracking-[0.24em] text-foreground/50 sm:text-xs sm:tracking-[0.28em]">
         {t.footer}
       </footer>
     </main>

@@ -1,6 +1,5 @@
 import { BrandFooter } from "@/components/brand-footer";
 import { BrandNav } from "@/components/brand-nav";
-import { PreferredSourcesBadge } from "@/components/preferred-sources-badge";
 
 type ContentPageProps = {
   lang?: "no" | "en";
@@ -26,10 +25,6 @@ export function ContentPage({ lang = "no", eyebrow, title, children }: ContentPa
 
         <div className="prose-gos mt-10 flex flex-col gap-6 text-base leading-relaxed text-foreground/85 md:text-lg">
           {children}
-        </div>
-
-        <div className="mt-12 border-t border-foreground/10 pt-8">
-          <PreferredSourcesBadge lang={lang} />
         </div>
       </article>
       <BrandFooter lang={lang} />
