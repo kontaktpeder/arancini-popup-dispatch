@@ -22,6 +22,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PilotIndexRouteImport } from './routes/pilot.index'
 import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as StederSlugRouteImport } from './routes/steder.$slug'
 import { Route as PilotLeverandorRouteImport } from './routes/pilot.leverandor'
 import { Route as EnWhatIsAranciniRouteImport } from './routes/en.what-is-arancini'
 import { Route as EnNextPopupRouteImport } from './routes/en.next-popup'
@@ -34,6 +35,7 @@ import { Route as AdminNewsletterRouteImport } from './routes/admin/newsletter'
 import { Route as AdminInquiriesRouteImport } from './routes/admin/inquiries'
 import { Route as AdminAccountingRouteImport } from './routes/admin/accounting'
 import { Route as AdminSlugRouteImport } from './routes/admin/$slug'
+import { Route as EnVenuesSlugRouteImport } from './routes/en.venues.$slug'
 import { Route as ApiPublicV1ModuleWidgetsRouteImport } from './routes/api/public/v1/module.widgets'
 import { Route as ApiPublicV1ModuleOrganizationRouteImport } from './routes/api/public/v1/module.organization'
 import { Route as ApiPublicV1ModuleInfoRouteImport } from './routes/api/public/v1/module.info'
@@ -105,6 +107,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const StederSlugRoute = StederSlugRouteImport.update({
+  id: '/steder/$slug',
+  path: '/steder/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PilotLeverandorRoute = PilotLeverandorRouteImport.update({
   id: '/leverandor',
   path: '/leverandor',
@@ -165,6 +172,11 @@ const AdminSlugRoute = AdminSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => AdminRoute,
 } as any)
+const EnVenuesSlugRoute = EnVenuesSlugRouteImport.update({
+  id: '/venues/$slug',
+  path: '/venues/$slug',
+  getParentRoute: () => EnRoute,
+} as any)
 const ApiPublicV1ModuleWidgetsRoute =
   ApiPublicV1ModuleWidgetsRouteImport.update({
     id: '/api/public/v1/module/widgets',
@@ -217,9 +229,11 @@ export interface FileRoutesByFullPath {
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/pilot/leverandor': typeof PilotLeverandorRoute
+  '/steder/$slug': typeof StederSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/en/': typeof EnIndexRoute
   '/pilot/': typeof PilotIndexRoute
+  '/en/venues/$slug': typeof EnVenuesSlugRoute
   '/api/public/v1/module/health': typeof ApiPublicV1ModuleHealthRoute
   '/api/public/v1/module/info': typeof ApiPublicV1ModuleInfoRoute
   '/api/public/v1/module/organization': typeof ApiPublicV1ModuleOrganizationRouteWithChildren
@@ -246,9 +260,11 @@ export interface FileRoutesByTo {
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/pilot/leverandor': typeof PilotLeverandorRoute
+  '/steder/$slug': typeof StederSlugRoute
   '/admin': typeof AdminIndexRoute
   '/en': typeof EnIndexRoute
   '/pilot': typeof PilotIndexRoute
+  '/en/venues/$slug': typeof EnVenuesSlugRoute
   '/api/public/v1/module/health': typeof ApiPublicV1ModuleHealthRoute
   '/api/public/v1/module/info': typeof ApiPublicV1ModuleInfoRoute
   '/api/public/v1/module/organization': typeof ApiPublicV1ModuleOrganizationRouteWithChildren
@@ -279,9 +295,11 @@ export interface FileRoutesById {
   '/en/next-popup': typeof EnNextPopupRoute
   '/en/what-is-arancini': typeof EnWhatIsAranciniRoute
   '/pilot/leverandor': typeof PilotLeverandorRoute
+  '/steder/$slug': typeof StederSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/en/': typeof EnIndexRoute
   '/pilot/': typeof PilotIndexRoute
+  '/en/venues/$slug': typeof EnVenuesSlugRoute
   '/api/public/v1/module/health': typeof ApiPublicV1ModuleHealthRoute
   '/api/public/v1/module/info': typeof ApiPublicV1ModuleInfoRoute
   '/api/public/v1/module/organization': typeof ApiPublicV1ModuleOrganizationRouteWithChildren
@@ -313,9 +331,11 @@ export interface FileRouteTypes {
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/pilot/leverandor'
+    | '/steder/$slug'
     | '/admin/'
     | '/en/'
     | '/pilot/'
+    | '/en/venues/$slug'
     | '/api/public/v1/module/health'
     | '/api/public/v1/module/info'
     | '/api/public/v1/module/organization'
@@ -342,9 +362,11 @@ export interface FileRouteTypes {
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/pilot/leverandor'
+    | '/steder/$slug'
     | '/admin'
     | '/en'
     | '/pilot'
+    | '/en/venues/$slug'
     | '/api/public/v1/module/health'
     | '/api/public/v1/module/info'
     | '/api/public/v1/module/organization'
@@ -374,9 +396,11 @@ export interface FileRouteTypes {
     | '/en/next-popup'
     | '/en/what-is-arancini'
     | '/pilot/leverandor'
+    | '/steder/$slug'
     | '/admin/'
     | '/en/'
     | '/pilot/'
+    | '/en/venues/$slug'
     | '/api/public/v1/module/health'
     | '/api/public/v1/module/info'
     | '/api/public/v1/module/organization'
@@ -395,6 +419,7 @@ export interface RootRouteChildren {
   PilotRoute: typeof PilotRouteWithChildren
   SamarbeidRoute: typeof SamarbeidRoute
   WhatIsAranciniRoute: typeof WhatIsAranciniRoute
+  StederSlugRoute: typeof StederSlugRoute
   ApiPublicV1ModuleHealthRoute: typeof ApiPublicV1ModuleHealthRoute
   ApiPublicV1ModuleInfoRoute: typeof ApiPublicV1ModuleInfoRoute
   ApiPublicV1ModuleOrganizationRoute: typeof ApiPublicV1ModuleOrganizationRouteWithChildren
@@ -494,6 +519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/steder/$slug': {
+      id: '/steder/$slug'
+      path: '/steder/$slug'
+      fullPath: '/steder/$slug'
+      preLoaderRoute: typeof StederSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pilot/leverandor': {
       id: '/pilot/leverandor'
       path: '/leverandor'
@@ -578,6 +610,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSlugRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/en/venues/$slug': {
+      id: '/en/venues/$slug'
+      path: '/venues/$slug'
+      fullPath: '/en/venues/$slug'
+      preLoaderRoute: typeof EnVenuesSlugRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/api/public/v1/module/widgets': {
       id: '/api/public/v1/module/widgets'
       path: '/api/public/v1/module/widgets'
@@ -644,6 +683,7 @@ interface EnRouteChildren {
   EnNextPopupRoute: typeof EnNextPopupRoute
   EnWhatIsAranciniRoute: typeof EnWhatIsAranciniRoute
   EnIndexRoute: typeof EnIndexRoute
+  EnVenuesSlugRoute: typeof EnVenuesSlugRoute
 }
 
 const EnRouteChildren: EnRouteChildren = {
@@ -654,6 +694,7 @@ const EnRouteChildren: EnRouteChildren = {
   EnNextPopupRoute: EnNextPopupRoute,
   EnWhatIsAranciniRoute: EnWhatIsAranciniRoute,
   EnIndexRoute: EnIndexRoute,
+  EnVenuesSlugRoute: EnVenuesSlugRoute,
 }
 
 const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
@@ -696,6 +737,7 @@ const rootRouteChildren: RootRouteChildren = {
   PilotRoute: PilotRouteWithChildren,
   SamarbeidRoute: SamarbeidRoute,
   WhatIsAranciniRoute: WhatIsAranciniRoute,
+  StederSlugRoute: StederSlugRoute,
   ApiPublicV1ModuleHealthRoute: ApiPublicV1ModuleHealthRoute,
   ApiPublicV1ModuleInfoRoute: ApiPublicV1ModuleInfoRoute,
   ApiPublicV1ModuleOrganizationRoute:

@@ -3,6 +3,7 @@ import { BrandFooter } from "@/components/brand-footer";
 import { BrandNav } from "@/components/brand-nav";
 import { FindGoldGrid } from "@/components/find-gold-grid";
 import { BRAND, type BrandLang } from "@/lib/brand-copy";
+import type { PublicVenue } from "@/lib/portal-venues";
 import photoHero from "@/assets/brand/photo-hero-bar.jpg";
 import photoGold from "@/assets/brand/photo-the-gold.jpg";
 import photoHands from "@/assets/brand/photo-hands.jpg";
@@ -10,7 +11,7 @@ import drawBite from "@/assets/brand/draw-arancini-bite.webp";
 import drawEspresso from "@/assets/brand/draw-espresso.webp";
 import drawVespa from "@/assets/brand/draw-vespa.webp";
 
-export function BrandHome({ lang }: { lang: BrandLang }) {
+export function BrandHome({ lang, venues }: { lang: BrandLang; venues: PublicVenue[] }) {
   const t = BRAND[lang];
 
   return (
@@ -57,7 +58,10 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
             </p>
             <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
               {t.gold.flavors.map((flavor) => (
-                <li key={flavor} className="font-display text-2xl italic tracking-tight md:text-3xl">
+                <li
+                  key={flavor}
+                  className="font-display text-2xl italic tracking-tight md:text-3xl"
+                >
                   {flavor}
                 </li>
               ))}
@@ -153,12 +157,7 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
               {t.same.body}
             </p>
           </div>
-          <img
-            src={drawVespa}
-            alt=""
-            aria-hidden
-            className="mx-auto w-full max-w-lg"
-          />
+          <img src={drawVespa} alt="" aria-hidden className="mx-auto w-full max-w-lg" />
         </div>
       </section>
 
@@ -169,7 +168,7 @@ export function BrandHome({ lang }: { lang: BrandLang }) {
             {t.find.body}
           </h2>
           <div className="mt-12">
-            <FindGoldGrid lang={lang} compact />
+            <FindGoldGrid lang={lang} compact venues={venues} />
           </div>
         </div>
       </section>
